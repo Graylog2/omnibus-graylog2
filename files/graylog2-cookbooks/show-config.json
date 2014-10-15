@@ -1,0 +1,3 @@
+{
+  "run_list": [ "recipe[graylog2::show_config]" ]
+}

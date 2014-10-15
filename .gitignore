@@ -1,0 +1,14 @@
+.DS_Store
+*.gem
+.bundle
+.kitchen/
+.kitchen.local.yml
+vendor/bundle
+pkg/*
+.vagrant
+bin/*
+files/**/cache/
+vendor/cookbooks
+packer/output-virtualbox-iso/
+packer/packer_cache/
+packer/packerrc.sh

@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Perform necessary graylog2 removal steps
+# after package is uninstalled.
+#
+
+rm -f /usr/bin/graylog2-ctl
+rm -rf /etc/graylog2
+rm -rf /var/opt/graylog2
+rm -rf /opt/graylog2
+
+echo "Graylog2 has been uninstalled!"
+
+exit 0

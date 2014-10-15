@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Perform necessary graylog2 setup steps
+# after package is installed.
+#
+
+PROGNAME=$(basename $0)
+
+function error_exit
+{
+  echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
+  exit 1
+}
+
+ln -sf /opt/graylog2/embedded/bin/graylog2-ctl /usr/bin || error_exit "Cannot link graylog2-ctl in /usr/bin"
+
+echo "Thank you for installing graylog2!"
+echo "The next step in the install process is to run:"
+echo
+echo -e "\033[1msudo graylog2-ctl reconfigure\033[0m"
+
+exit 0

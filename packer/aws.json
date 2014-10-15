@@ -1,0 +1,19 @@
+{
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "us-east-1",
+    "source_ami": "ami-aaff23c2",
+    "instance_type": "m3.large",
+    "ssh_username": "ubuntu",
+    "ami_name": "graylog2-0.90.0-{{timestamp}}",
+    "tags": {
+      "OS_Version": "Ubuntu",
+      "Release": "Latest"
+    }
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "script": "scripts/install.sh",
+    "execute_command": "echo 'ubuntu' | {{.Vars}} sudo -E -S bash '{{.Path}}'"
+  }]
+}

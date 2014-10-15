@@ -1,0 +1,30 @@
+#!/bin/sh
+exec 2>&1
+
+umask 077
+ulimit -n 64000
+ulimit -l unlimited
+
+export ES_HOME=<%= @options[:install_directory] %>/elasticsearch
+export ES_CLASSPATH=$ES_CLASSPATH:$ES_HOME/lib/*:$ES_HOME/lib/sigar/*
+export ES_JAVA_OPTS="
+  -server
+  -Djava.net.preferIPv4Stack=true
+  -Des.config=<%= @options[:install_directory] %>/conf/elasticsearch.yml
+  -Dcom.sun.management.jmxremote.ssl=false
+  -Dcom.sun.management.jmxremote.authenticate=false
+  -Dcom.sun.management.jmxremote.port=3333
+  -Xms128m
+  -Xmx<%= @options[:max_memory] %>
+  -Xss256k
+  -XX:+UseParNewGC
+  -XX:+UseConcMarkSweepGC
+  -XX:+CMSParallelRemarkEnabled
+  -XX:SurvivorRatio=8
+  -XX:MaxTenuringThreshold=1
+  -XX:CMSInitiatingOccupancyFraction=75
+  -XX:+UseCMSInitiatingOccupancyOnly
+  -XX:+HeapDumpOnOutOfMemoryError"
+export JAVA_HOME=<%= @options[:install_directory] %>/embedded/jre
+
+exec chpst -P -U <%= node['graylog2']['user']['username'] %> -u <%= node['graylog2']['user']['username'] %> $ES_HOME/bin/elasticsearch -f
