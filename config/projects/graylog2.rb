@@ -3,8 +3,8 @@ maintainer 'Marius Sturm'
 homepage 'https://graylog2.org'
 
 install_dir     '/opt/graylog2'
-build_version   Omnibus::BuildVersion.semver
-build_iteration 1
+build_version   '0.90.0'
+build_iteration  1
 
 dependency "prepare"
 dependency "chef-gem"
