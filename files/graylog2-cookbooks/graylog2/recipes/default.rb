@@ -19,12 +19,6 @@ end
 include_recipe "graylog2::users"
 include_recipe "runit"
 
-template "/opt/graylog2/embedded/bin/runsvdir-docker" do
-  owner node['graylog2']['user']['username']
-  group node['graylog2']['user']['group']
-  mode "0755"
-end
-
 directory "/var/opt/graylog2" do
   owner node['graylog2']['user']['username']
   group node['graylog2']['user']['group']

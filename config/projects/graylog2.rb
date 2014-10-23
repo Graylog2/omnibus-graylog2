@@ -16,6 +16,7 @@ dependency "graylog2-server"
 dependency "graylog2-web"
 dependency "graylog2-ctl"
 dependency "graylog2-cookbooks"
+dependency "post-install"
 
 exclude '\.git*'
 exclude 'bundler\/git'
