@@ -41,16 +41,6 @@ the package cache directory (`/var/cache/omnibus/pkg`):
 $ sudo bin/omnibus clean graylog2 --purge
 ```
 
-### Publish
-
-Omnibus has a built-in mechanism for releasing to a variety of "backends", such
-as Amazon S3. You must set the proper credentials in your `omnibus.rb` config
-file or specify them via the command line.
-
-```shell
-$ bin/omnibus publish pkg/*.deb --backend s3
-```
-
 ### Help
 
 Full help for the Omnibus command line interface can be accessed with the
@@ -58,18 +48,6 @@ Full help for the Omnibus command line interface can be accessed with the
 
 ```shell
 $ bin/omnibus help
-```
-
-Create machine images with `packer`
--------------------------------
-### Requirements
-You need a recent `packer` version plus a configured packerrc.sh file. You can copy the packerrc.sh.example
-file. Before you run `packer` source the packerrc.sh in your terminal.
-
-```shell
-$ cd packer
-$ . packerrc.sh
-$ packer build <hypervisor>
 ```
 
 Usage
