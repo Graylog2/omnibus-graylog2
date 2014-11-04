@@ -3,7 +3,7 @@ maintainer 'Marius Sturm'
 homepage 'https://graylog2.org'
 
 install_dir     '/opt/graylog2'
-build_version   '0.91.1'
+build_version   '0.91.3'
 build_iteration  1
 
 dependency "prepare"
