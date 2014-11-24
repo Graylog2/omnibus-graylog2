@@ -11,7 +11,7 @@ node_id_file = <%= node['graylog2']['graylog2-server']['node_id'] %>
 password_secret = <%= Graylog2['graylog2_server']['secret_token'] %>
 
 # the default root user is named 'admin'
-# root_username = admin
+root_username = "<%= Graylog2['graylog2_server']['admin_username'] %>"
 
 # You MUST specify a hash password for the root user (which you only need to initially set up the
 # system and in case you lose connectivity to your authentication backend)

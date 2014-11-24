@@ -35,9 +35,10 @@ module Graylog2
         end
       end
 
-      Graylog2['graylog2_web']['secret_token'] ||= generate_hex(64)
-      Graylog2['graylog2_server']['secret_token'] ||= generate_hex(64)
+      Graylog2['graylog2_web']['secret_token']      ||= generate_hex(64)
+      Graylog2['graylog2_server']['secret_token']   ||= generate_hex(64)
       Graylog2['graylog2_server']['admin_password'] ||= Digest::SHA2.new << "admin"
+      Graylog2['graylog2_server']['admin_username'] ||= "admin"
 
       if File.directory?("/etc/graylog2")
         File.open("/etc/graylog2/graylog2-secrets.json", "w") do |f|
@@ -46,6 +47,7 @@ module Graylog2
               'graylog2_server' => {
                 'secret_token' => Graylog2['graylog2_server']['secret_token'],
                 'admin_password' => Graylog2['graylog2_server']['admin_password'],
+                'admin_username' => Graylog2['graylog2_server']['admin_username'],
               },
               'graylog2_web' => {
                 'secret_token' => Graylog2['graylog2_web']['secret_token'],
