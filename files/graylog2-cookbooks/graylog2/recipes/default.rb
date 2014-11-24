@@ -17,6 +17,7 @@ if File.exists?("/var/opt/graylog2/bootstrapped")
 end
 
 include_recipe "graylog2::users"
+include_recipe "graylog2::authbind"
 include_recipe "runit"
 
 directory "/var/opt/graylog2" do
