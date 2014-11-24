@@ -1,6 +1,7 @@
 default['graylog2']['bootstrap']['enable'] = true
 default['graylog2']['install_directory'] = "/opt/graylog2"
 default['graylog2']['var_directory'] = "/var/opt/graylog2"
+default['graylog2']['authorized_ports'] = [514]
 
 default['graylog2']['user']['username'] = "graylog2"
 default['graylog2']['user']['group'] = "graylog2"
@@ -23,6 +24,7 @@ default['graylog2']['graylog2-server']['enable'] = true
 default['graylog2']['graylog2-server']['log_directory'] = "/var/log/graylog2/server"
 default['graylog2']['graylog2-server']['data_directory'] = "/var/opt/graylog2/data/spool"
 default['graylog2']['graylog2-server']['node_id'] = "/var/opt/graylog2/graylog2-server-node-id"
+default['graylog2']['graylog2-server']['wrapper'] = "/opt/graylog2/embedded/bin/authbind"
 
 default['graylog2']['graylog2-web']['enable'] = true
 default['graylog2']['graylog2-web']['log_directory'] = "/var/log/graylog2/web"
