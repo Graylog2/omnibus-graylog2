@@ -17,6 +17,9 @@ dependency "graylog2-web"
 dependency "graylog2-ctl"
 dependency "graylog2-cookbooks"
 dependency "post-install"
+if linux?
+  dependency "authbind"
+end
 
 exclude '\.git*'
 exclude 'bundler\/git'

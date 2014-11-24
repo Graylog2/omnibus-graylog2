@@ -4,4 +4,4 @@ exec 2>&1
 umask 077
 export JAVA_HOME=<%= @options[:install_directory] %>/embedded/jre
 
-exec chpst -P -U <%= node['graylog2']['user']['username'] %> -u <%= node['graylog2']['user']['username'] %> $JAVA_HOME/bin/java -jar <%= @options[:install_directory] %>/server/graylog2-server.jar -f <%= @options[:install_directory] %>/conf/graylog2.conf
+exec chpst -P -U <%= node['graylog2']['user']['username'] %> -u <%= node['graylog2']['user']['username'] %> <%= node['graylog2']['graylog2-server']['wrapper'] %> $JAVA_HOME/bin/java -jar <%= @options[:install_directory] %>/server/graylog2-server.jar -f <%= @options[:install_directory] %>/conf/graylog2.conf
