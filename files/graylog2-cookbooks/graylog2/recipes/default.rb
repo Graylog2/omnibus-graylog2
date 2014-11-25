@@ -19,6 +19,7 @@ end
 include_recipe "graylog2::users"
 include_recipe "graylog2::authbind"
 include_recipe "runit"
+include_recipe "timezone-ii"
 
 directory "/var/opt/graylog2" do
   owner node['graylog2']['user']['username']

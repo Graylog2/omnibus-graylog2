@@ -16,6 +16,7 @@ module Graylog2
   nginx Mash.new
   graylog2_server Mash.new
   graylog2_web Mash.new
+  timezone String.new
   node nil
 
   class << self
@@ -115,6 +116,29 @@ module Graylog2
       Graylog2[service.gsub('-', '_')]['enabled']
     end
 
+    def generate_settings
+      existing_settings ||= Hash.new
+      if File.exists?("/etc/graylog2/graylog2-settings.json")
+        existing_settings = Chef::JSONCompat.from_json(File.read("/etc/graylog2/graylog2-settings.json"))
+      end
+      existing_settings.each do |k, v|
+        Graylog2[k] = v
+      end
+
+      Graylog2['timezone'] = Graylog2[:node]['graylog2']['timezone'] if Graylog2['timezone'].empty?
+
+      if File.directory?("/etc/graylog2")
+        File.open("/etc/graylog2/graylog2-settings.json", "w") do |f|
+          f.puts(
+            Chef::JSONCompat.to_json_pretty({
+              'timezone' => Graylog2['timezone']
+            })
+          )
+          system("chmod 0644 /etc/graylog2/graylog2-settings.json")
+        end
+      end
+    end
+
     def generate_hash
       results = { "graylog2" => {} }
       [
@@ -136,6 +160,7 @@ module Graylog2
       generate_secrets(node_name)
       generate_bootstrap
       generate_services
+      generate_settings
       generate_hash
     end
   end

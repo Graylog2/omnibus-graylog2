@@ -14,7 +14,7 @@ application.secret = "<%= Graylog2['graylog2_web']['secret_token'] %>"
 # Web interface timezone
 # Graylog2 stores all timestamps in UTC. To properly display times, set the default timezone of the interface.
 # If you leave this out, Graylog2 will pick your system default as the timezone. Usually you will want to configure it explicitly.
-timezone = Etc/UTC
+timezone = <%= Graylog2['timezone'] %>
 
 # Message field limit
 # Your web interface can cause high load in your browser when you have a lot of different message fields. The default
