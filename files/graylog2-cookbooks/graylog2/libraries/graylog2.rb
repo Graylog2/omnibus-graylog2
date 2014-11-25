@@ -13,6 +13,7 @@ module Graylog2
   user Mash.new
   elasticsearch Mash.new
   mongodb Mash.new
+  nginx Mash.new
   graylog2_server Mash.new
   graylog2_web Mash.new
   node nil
@@ -78,6 +79,7 @@ module Graylog2
         end
       end
 
+      Graylog2['nginx']['enabled'] = Graylog2[:node]['graylog2']['nginx']['enable'] if Graylog2['nginx']['enabled'].nil?
       Graylog2['mongodb']['enabled'] = Graylog2[:node]['graylog2']['mongodb']['enable'] if Graylog2['mongodb']['enabled'].nil?
       Graylog2['elasticsearch']['enabled'] = Graylog2[:node]['graylog2']['elasticsearch']['enable'] if Graylog2['elasticsearch']['enabled'].nil?
       Graylog2['graylog2_server']['enabled'] = Graylog2[:node]['graylog2']['graylog2-server']['enable'] if Graylog2['graylog2_server']['enabled'].nil?
@@ -87,6 +89,9 @@ module Graylog2
         File.open("/etc/graylog2/graylog2-services.json", "w") do |f|
           f.puts(
             Chef::JSONCompat.to_json_pretty({
+              'nginx' => {
+                'enabled' => Graylog2['nginx']['enabled'],
+              },
               'mongodb' => {
                 'enabled' => Graylog2['mongodb']['enabled'],
               },
@@ -114,6 +119,7 @@ module Graylog2
       results = { "graylog2" => {} }
       [
         "bootstrap",
+        "nginx",
         "mongodb",
         "elasticsearch",
         "graylog2-server",

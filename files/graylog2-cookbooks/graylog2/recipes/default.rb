@@ -35,6 +35,7 @@ end
   "graylog2-server",
   "graylog2-web",
   "mongodb",
+  "nginx",
 ].each do |service|
   if Graylog2.enabled?(service)
     include_recipe "graylog2::#{service}"

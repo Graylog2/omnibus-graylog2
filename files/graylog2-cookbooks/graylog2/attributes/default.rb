@@ -20,6 +20,9 @@ default['graylog2']['mongodb']['enable'] = true
 default['graylog2']['mongodb']['log_directory'] = "/var/log/graylog2/mongodb"
 default['graylog2']['mongodb']['data_directory'] = "/var/opt/graylog2/data/mongodb"
 
+default['graylog2']['nginx']['enable'] = true
+default['graylog2']['nginx']['log_directory'] = "/var/log/graylog2/nginx"
+
 default['graylog2']['graylog2-server']['enable'] = true
 default['graylog2']['graylog2-server']['log_directory'] = "/var/log/graylog2/server"
 default['graylog2']['graylog2-server']['data_directory'] = "/var/opt/graylog2/data/spool"

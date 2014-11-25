@@ -8,12 +8,14 @@ add_command 'reconfigure-as-webinterface', 'Run Graylog2 web interface and Mongo
       existing_services = JSON.parse(File.read("/etc/graylog2/graylog2-services.json"))
     else
       FileUtils.mkdir("/etc/graylog2")
+      existing_services['nginx']           = Hash.new
       existing_services['mongodb']         = Hash.new
       existing_services['elasticsearch']   = Hash.new
       existing_services['graylog2_server'] = Hash.new
       existing_services['graylog2_web']    = Hash.new
     end
 
+    existing_services['nginx']['enabled']           = true
     existing_services['mongodb']['enabled']         = true
     existing_services['elasticsearch']['enabled']   = false
     existing_services['graylog2_server']['enabled'] = false
