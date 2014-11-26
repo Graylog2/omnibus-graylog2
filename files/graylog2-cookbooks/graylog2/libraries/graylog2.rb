@@ -17,6 +17,10 @@ module Graylog2
   graylog2_server Mash.new
   graylog2_web Mash.new
   timezone String.new
+  smtp_server String.new
+  smtp_port nil
+  smtp_user String.new
+  smtp_password String.new
   node nil
 
   class << self
@@ -80,11 +84,11 @@ module Graylog2
         end
       end
 
-      Graylog2['nginx']['enabled'] = Graylog2[:node]['graylog2']['nginx']['enable'] if Graylog2['nginx']['enabled'].nil?
-      Graylog2['mongodb']['enabled'] = Graylog2[:node]['graylog2']['mongodb']['enable'] if Graylog2['mongodb']['enabled'].nil?
-      Graylog2['elasticsearch']['enabled'] = Graylog2[:node]['graylog2']['elasticsearch']['enable'] if Graylog2['elasticsearch']['enabled'].nil?
+      Graylog2['nginx']['enabled']           = Graylog2[:node]['graylog2']['nginx']['enable'] if Graylog2['nginx']['enabled'].nil?
+      Graylog2['mongodb']['enabled']         = Graylog2[:node]['graylog2']['mongodb']['enable'] if Graylog2['mongodb']['enabled'].nil?
+      Graylog2['elasticsearch']['enabled']   = Graylog2[:node]['graylog2']['elasticsearch']['enable'] if Graylog2['elasticsearch']['enabled'].nil?
       Graylog2['graylog2_server']['enabled'] = Graylog2[:node]['graylog2']['graylog2-server']['enable'] if Graylog2['graylog2_server']['enabled'].nil?
-      Graylog2['graylog2_web']['enabled'] = Graylog2[:node]['graylog2']['graylog2-web']['enable'] if Graylog2['graylog2_web']['enabled'].nil?
+      Graylog2['graylog2_web']['enabled']    = Graylog2[:node]['graylog2']['graylog2-web']['enable'] if Graylog2['graylog2_web']['enabled'].nil?
 
       if File.directory?("/etc/graylog2")
         File.open("/etc/graylog2/graylog2-services.json", "w") do |f|
@@ -125,13 +129,21 @@ module Graylog2
         Graylog2[k] = v
       end
 
-      Graylog2['timezone'] = Graylog2[:node]['graylog2']['timezone'] if Graylog2['timezone'].empty?
+      Graylog2['timezone']      = Graylog2[:node]['graylog2']['timezone'] if Graylog2['timezone'].empty?
+      Graylog2['smtp_server']   = Graylog2[:node]['graylog2']['smtp_server'] if Graylog2['smtp_server'].nil?
+      Graylog2['smtp_port']     = Graylog2[:node]['graylog2']['smtp_port'] if Graylog2['smtp_port'].nil?
+      Graylog2['smtp_user']     = Graylog2[:node]['graylog2']['smtp_user'] if Graylog2['smtp_user'].nil?
+      Graylog2['smtp_password'] = Graylog2[:node]['graylog2']['smtp_password'] if Graylog2['smtp_password'].nil?
 
       if File.directory?("/etc/graylog2")
         File.open("/etc/graylog2/graylog2-settings.json", "w") do |f|
           f.puts(
             Chef::JSONCompat.to_json_pretty({
-              'timezone' => Graylog2['timezone']
+              'timezone' => Graylog2['timezone'],
+              'smtp_server' => Graylog2['smtp_server'],
+              'smtp_port' => Graylog2['smtp_port'],
+              'smtp_user' => Graylog2['smtp_user'],
+              'smtp_password' => Graylog2['smtp_password']
             })
           )
           system("chmod 0644 /etc/graylog2/graylog2-settings.json")

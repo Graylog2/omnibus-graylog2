@@ -19,10 +19,26 @@ file node['graylog2']['graylog2-server']['node_id'] do
   owner server_user
 end
 
+if not Graylog2['smtp_server'].empty?
+  email_enabled = true
+else
+  email_enabled = false
+end
+
+if not Graylog2['smtp_user'].empty? and not Graylog2['smtp_password'].empty?
+  email_auth = true
+else
+  email_auth = false
+end
+
 template "#{node['graylog2']['install_directory']}/conf/graylog2.conf" do
   owner server_user
   group node['graylog2']['user']['group']
   mode "0644"
+  variables(
+    :email_enabled => email_enabled,
+    :email_auth    => email_auth
+  )
 end
 
 runit_service "graylog2-server" do

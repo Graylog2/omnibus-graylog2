@@ -220,16 +220,16 @@ mongodb_threads_allowed_to_block_multiplier = 5
 #rules_file = /etc/graylog2.drl
 
 # Email transport
-transport_email_enabled = false
-transport_email_hostname = mail.example.com
-transport_email_port = 587
-transport_email_use_auth = true
+transport_email_enabled = <%= @email_enabled %>
+transport_email_hostname = <%= Graylog2['smtp_server'] %>
+transport_email_port = <%= Graylog2['smtp_port'] %>
+transport_email_use_auth = <%= @email_auth %>
 transport_email_use_tls = true
 transport_email_use_ssl = true
-transport_email_auth_username = you@example.com
-transport_email_auth_password = secret
+transport_email_auth_username = <%= Graylog2['smtp_user'] %>
+transport_email_auth_password = <%= Graylog2['smtp_password'] %>
 transport_email_subject_prefix = [graylog2]
-transport_email_from_email = graylog2@example.com
+transport_email_from_email = graylog2@<%= node['fqdn'] %>
 
 # Specify and uncomment this if you want to include links to the stream in your stream alert mails.
 # This should define the fully qualified base url to your web interface exactly the same way as it is accessed by your users.

@@ -3,6 +3,10 @@ default['graylog2']['install_directory'] = "/opt/graylog2"
 default['graylog2']['var_directory'] = "/var/opt/graylog2"
 default['graylog2']['authorized_ports'] = [514]
 default['graylog2']['timezone'] = "Etc/UTC"
+default['graylog2']['smtp_server'] = false
+default['graylog2']['smtp_port'] = 587
+default['graylog2']['smtp_user'] = false
+default['graylog2']['smtp_password'] = false
 
 default['graylog2']['user']['username'] = "graylog2"
 default['graylog2']['user']['group'] = "graylog2"

@@ -21,14 +21,6 @@ include_recipe "graylog2::authbind"
 include_recipe "runit"
 include_recipe "timezone-ii"
 
-directory "/var/opt/graylog2" do
-  owner node['graylog2']['user']['username']
-  group node['graylog2']['user']['group']
-  mode "0755"
-  recursive true
-  action :create
-end
-
 # Configure Services
 [
   "bootstrap",
