@@ -21,6 +21,7 @@ module Graylog2
   smtp_port nil
   smtp_user String.new
   smtp_password String.new
+  etcd Mash.new
   node nil
 
   class << self
@@ -84,6 +85,7 @@ module Graylog2
         end
       end
 
+      Graylog2['etcd']['enabled']            = Graylog2[:node]['graylog2']['etcd']['enable'] if Graylog2['etcd']['enabled'].nil?
       Graylog2['nginx']['enabled']           = Graylog2[:node]['graylog2']['nginx']['enable'] if Graylog2['nginx']['enabled'].nil?
       Graylog2['mongodb']['enabled']         = Graylog2[:node]['graylog2']['mongodb']['enable'] if Graylog2['mongodb']['enabled'].nil?
       Graylog2['elasticsearch']['enabled']   = Graylog2[:node]['graylog2']['elasticsearch']['enable'] if Graylog2['elasticsearch']['enabled'].nil?
@@ -94,6 +96,9 @@ module Graylog2
         File.open("/etc/graylog2/graylog2-services.json", "w") do |f|
           f.puts(
             Chef::JSONCompat.to_json_pretty({
+              'etcd' => {
+                'enabled' => Graylog2['etcd']['enabled'],
+              },
               'nginx' => {
                 'enabled' => Graylog2['nginx']['enabled'],
               },
@@ -155,6 +160,7 @@ module Graylog2
       results = { "graylog2" => {} }
       [
         "bootstrap",
+        "etcd",
         "nginx",
         "mongodb",
         "elasticsearch",

@@ -8,6 +8,7 @@ add_command 'reconfigure-as-datanode', 'Run Elasticsearch on this node only', 1 
       existing_services = JSON.parse(File.read("/etc/graylog2/graylog2-services.json"))
     else
       FileUtils.mkdir("/etc/graylog2")
+      existing_services['etcd']            = Hash.new
       existing_services['nginx']           = Hash.new
       existing_services['mongodb']         = Hash.new
       existing_services['elasticsearch']   = Hash.new
@@ -15,6 +16,7 @@ add_command 'reconfigure-as-datanode', 'Run Elasticsearch on this node only', 1 
       existing_services['graylog2_web']    = Hash.new
     end
 
+    existing_services['etcd']['enabled']            = false
     existing_services['nginx']['enabled']           = false
     existing_services['mongodb']['enabled']         = false
     existing_services['elasticsearch']['enabled']   = true

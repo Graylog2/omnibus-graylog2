@@ -29,6 +29,7 @@ include_recipe "timezone-ii"
   "graylog2-web",
   "mongodb",
   "nginx",
+  "etcd",
 ].each do |service|
   if Graylog2.enabled?(service)
     include_recipe "graylog2::#{service}"
