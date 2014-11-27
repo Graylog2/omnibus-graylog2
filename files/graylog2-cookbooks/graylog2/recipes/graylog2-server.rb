@@ -54,3 +54,6 @@ if node['graylog2']['bootstrap']['enable']
     retries 20
   end
 end
+
+registry = Graylog2Registry.new(node)
+registry.set_master

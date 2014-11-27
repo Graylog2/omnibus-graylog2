@@ -25,7 +25,7 @@ root_password_sha2 = <%= Graylog2['graylog2_server']['admin_password'] %>
 plugin_dir = /opt/graylog2/plugin
 
 # REST API listen URI. Must be reachable by other graylog2-server nodes if you run a cluster.
-rest_listen_uri = http://127.0.0.1:12900/
+rest_listen_uri = http://0.0.0.0:12900/
 
 # REST API transport address. Defaults to the value of rest_listen_uri. Exception: If rest_listen_uri
 # is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.

@@ -7,10 +7,14 @@ directory web_log_dir do
   recursive true
 end
 
+registry = Graylog2Registry.new(node)
 template "#{node['graylog2']['install_directory']}/conf/graylog2-web-interface.conf" do
   owner web_user
   group node['graylog2']['user']['group']
   mode "0644"
+  variables ({
+    :server_uri => registry.get_servers
+  })
 end
 
 runit_service "graylog2-web" do
