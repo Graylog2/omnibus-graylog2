@@ -16,13 +16,19 @@ class Graylog2Registry
     end
   end
 
-  def get_servers
-    @client.get('/nodes/master').value
+  def get_gl2_server_list
+    begin
+      return @client.get('/nodes/master').value
+    rescue Exception => e
+      Chef::Log.debug("Can not fetch server list from etcd #{e.message}")
+      return '127.0.0.1'
+    end
   end
 
   private
   def get_connection
-    Etcd.client(host: get_master, port: 4001)
+    master = get_master
+    Etcd.client(host: master, port: 4001)
   end
 
   def get_master
@@ -30,12 +36,14 @@ class Graylog2Registry
       existing_settings = JSON.parse(File.read("/etc/graylog2/graylog2-settings.json"))
     end
 
-    if not existing_settings['master_node'].nil? and existing_settings['master_node'] != @node['ipaddress']
+    if existing_settings['master_node'].nil? or
+        existing_settings['master_node'] == @node['ipaddress'] or
+        existing_settings['master_node'] == "127.0.0.1"
+      master = '127.0.0.1'
+      @is_master = true
+    else
       master = existing_settings['master_node']
       @is_master = false
-    else
-      master = 'localhost'
-      @is_master = true
     end
 
     return master

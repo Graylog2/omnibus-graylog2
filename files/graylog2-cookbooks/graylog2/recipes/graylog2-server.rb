@@ -55,5 +55,8 @@ if node['graylog2']['bootstrap']['enable']
   end
 end
 
-registry = Graylog2Registry.new(node)
-registry.set_master
+ruby_block "add node to server list" do
+  block do
+    $registry.set_master
+  end
+end

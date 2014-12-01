@@ -3,6 +3,8 @@ graylog2_group    = node['graylog2']['user']['group']
 graylog2_home     = node['graylog2']['user']['home']
 
 directory graylog2_home do
+  owner graylog2_username
+  group graylog2_group
   recursive true
 end
 

@@ -11,6 +11,7 @@ end.run_action(:create)
 
 Graylog2[:node] = node
 node.consume_attributes(Graylog2.generate_config(node['fqdn']))
+$registry = Graylog2Registry.new(node)
 
 if File.exists?("/var/opt/graylog2/bootstrapped")
 	node.set['graylog2']['bootstrap']['enable'] = false
@@ -24,12 +25,12 @@ include_recipe "timezone-ii"
 # Configure Services
 [
   "bootstrap",
+  "etcd",
   "elasticsearch",
+  "mongodb",
   "graylog2-server",
   "graylog2-web",
-  "mongodb",
   "nginx",
-  "etcd",
 ].each do |service|
   if Graylog2.enabled?(service)
     include_recipe "graylog2::#{service}"
