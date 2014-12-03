@@ -19,6 +19,9 @@ template "#{node['graylog2']['install_directory']}/conf/elasticsearch.yml" do
   owner es_user
   group node['graylog2']['user']['group']
   mode "0644"
+  variables(
+    :es_nodes => $registry.get_es_nodes.map{|x| "#{x}:9300"}.to_s
+  )
 end
 
 runit_service "elasticsearch" do
@@ -33,5 +36,11 @@ end
 if node['graylog2']['bootstrap']['enable']
   execute "/opt/graylog2/embedded/bin/graylog2-ctl start elasticsearch" do
     retries 20
+  end
+end
+
+ruby_block "add node to cluster list" do
+  block do
+    $registry.add_es_node(node['ipaddress'])
   end
 end

@@ -12,7 +12,7 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2-web-interface.c
   group node['graylog2']['user']['group']
   mode "0644"
   variables ( lazy {{
-    :server_uri => $registry.get_gl2_server_list
+    :server_uri => $registry.get_gl2_servers.map{|x| "http://#{x}:12900/"}.join(",")
   }})
 end
 

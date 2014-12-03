@@ -6,6 +6,8 @@ install_dir     '/opt/graylog2'
 build_version   '0.91.3'
 build_iteration  1
 
+override :'chef-gem', version: "11.16.4"
+
 dependency "prepare"
 dependency "chef-gem"
 dependency "runit"

@@ -37,7 +37,8 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2.conf" do
   mode "0644"
   variables(
     :email_enabled => email_enabled,
-    :email_auth    => email_auth
+    :email_auth    => email_auth,
+    :es_nodes      => $registry.get_es_nodes.map{|x| "#{x}:9300"}.join(",")
   )
 end
 
@@ -58,5 +59,6 @@ end
 ruby_block "add node to server list" do
   block do
     $registry.set_master
+    $registry.add_gl2_server(node['ipaddress'])
   end
 end

@@ -96,7 +96,7 @@ allow_highlighting = false
 #elasticsearch_http_enabled = false
 
 #elasticsearch_discovery_zen_ping_multicast_enabled = false
-elasticsearch_discovery_zen_ping_unicast_hosts = <%= node['ipaddress'] %>:9300
+elasticsearch_discovery_zen_ping_unicast_hosts = <%= @es_nodes %>
 
 # Change the following setting if you are running into problems with timeouts during Elasticsearch cluster discovery.
 # The setting is specified in milliseconds, the default is 5000ms (5 seconds).

@@ -12,17 +12,33 @@ class Graylog2Registry
 
   def set_master    
     if @is_master
-      @client.set('/nodes/master', value: node['ipaddress'])
+      @client.set('/master', value: node['ipaddress'])
     end
   end
 
-  def get_gl2_server_list
+  def get_master
     begin
-      return @client.get('/nodes/master').value
+      return @client.get('/master').value
     rescue Exception => e
       Chef::Log.debug("Can not fetch server list from etcd #{e.message}")
       return '127.0.0.1'
     end
+  end
+
+  def add_gl2_server(ip)
+    add_node(ip, 'servers')
+  end
+  
+  def get_gl2_servers
+    return get_node_list('servers')
+  end
+
+  def add_es_node(ip)
+    add_node(ip, 'elasticsearch')
+  end
+  
+  def get_es_nodes
+    return get_node_list('elasticsearch')
   end
 
   private
@@ -47,5 +63,25 @@ class Graylog2Registry
     end
 
     return master
+  end
+  
+  def add_node(ip, context)
+    begin
+      @client.set("/#{context}/#{ip}", value: "{\"ip\":\"#{ip}\"}")
+    rescue Exception => e
+      Chef::Log.debug("Can not add node #{name} to directory #{context}")
+    end
+  end
+  
+  def get_node_list(context)
+    begin
+      nodes = []
+      @client.get("/#{context}").children.each do |child|
+        nodes << JSON.parse(child.value)['ip']
+      end
+      return nodes
+    rescue Exception => e
+      Chef::Log.debug("Can not fetch node list from etcd #{e.message}")
+    end
   end
 end
