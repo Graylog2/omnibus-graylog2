@@ -11,6 +11,6 @@ relative_path "authbind-#{version}"
 env = with_standard_compiler_flags()
 
 build do
-  command "make -j #{workers}", :env => env
+  command "make -j #{workers} prefix=#{install_dir}/embedded", :env => env
   command "make install prefix=#{install_dir}/embedded", :env => env
 end
