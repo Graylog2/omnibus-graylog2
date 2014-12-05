@@ -7,7 +7,7 @@ add_command 'reconfigure-as-server', 'Run Graylog2 server on this node only', 1 
     if File.exists?("/etc/graylog2/graylog2-services.json")
       existing_services = JSON.parse(File.read("/etc/graylog2/graylog2-services.json"))
     else
-      FileUtils.mkdir("/etc/graylog2")
+      FileUtils.mkdir_p("/etc/graylog2")
       existing_services['etcd']            = Hash.new
       existing_services['nginx']           = Hash.new
       existing_services['mongodb']         = Hash.new
@@ -18,7 +18,7 @@ add_command 'reconfigure-as-server', 'Run Graylog2 server on this node only', 1 
 
     existing_services['etcd']['enabled']            = true
     existing_services['nginx']['enabled']           = false
-    existing_services['mongodb']['enabled']         = false
+    existing_services['mongodb']['enabled']         = true
     existing_services['elasticsearch']['enabled']   = false
     existing_services['graylog2_server']['enabled'] = true
     existing_services['graylog2_web']['enabled']    = false
