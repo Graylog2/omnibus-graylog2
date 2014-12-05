@@ -60,5 +60,6 @@ ruby_block "add node to server list" do
   block do
     $registry.set_master
     $registry.add_gl2_server(node['ipaddress'])
+    $registry.add_es_node(node['ipaddress'])
   end
 end

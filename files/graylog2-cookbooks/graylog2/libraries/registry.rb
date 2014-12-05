@@ -30,7 +30,12 @@ class Graylog2Registry
   end
   
   def get_gl2_servers
-    return get_node_list('servers')
+    servers = get_node_list('servers')
+    if servers.empty?
+      return [@node['ipaddress']]
+    else
+      return servers
+    end
   end
 
   def add_es_node(ip)
@@ -38,7 +43,12 @@ class Graylog2Registry
   end
   
   def get_es_nodes
-    return get_node_list('elasticsearch')
+    es_nodes = get_node_list('elasticsearch')
+    if es_nodes.empty?
+      return [@node['ipaddress']]
+    else
+      return es_nodes
+    end
   end
 
   private
@@ -83,5 +93,6 @@ class Graylog2Registry
     rescue Exception => e
       Chef::Log.debug("Can not fetch node list from etcd #{e.message}")
     end
+    return []
   end
 end
