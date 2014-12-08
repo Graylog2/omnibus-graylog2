@@ -16,6 +16,12 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2-web-interface.c
   }})
 end
 
+template "#{node['graylog2']['install_directory']}/conf/web-logger.xml" do
+  owner web_user
+  group node['graylog2']['user']['group']
+  mode "0644"
+end
+
 runit_service "graylog2-web" do
   options({
     :log_directory => web_log_dir,
