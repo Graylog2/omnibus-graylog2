@@ -1,13 +1,13 @@
 name "graylog2-server"
-default_version "0.91.3"
+default_version "0.92.0"
 
 dependency "server-jre"
 dependency "runit"
 
-source url: "http://packages.graylog2.org/releases/graylog2-server/graylog2-server-0.91.3.tgz",
-       md5: "0456ea149ea69a3c2b455889cced8400"
+source url: "http://packages.graylog2.org/releases/graylog2-server/graylog2-server-0.92.0.tgz",
+       md5: "fd6f8e6287c275460a3eb910e8f6ad18"
 
-relative_path "graylog2-server-0.91.3"
+relative_path "graylog2-server-0.92.0"
 
 build do
   mkdir "#{install_dir}/server"
