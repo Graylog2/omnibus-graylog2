@@ -40,6 +40,7 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2.conf" do
     :email_auth    => email_auth,
     :es_nodes      => $registry.get_es_nodes.map{|x| "#{x}:9300"}.join(",")
   )
+  notifies :restart, 'service[graylog2-server]'
 end
 
 runit_service "graylog2-server" do

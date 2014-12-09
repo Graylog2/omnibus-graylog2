@@ -14,12 +14,14 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2-web-interface.c
   variables ( lazy {{
     :server_uri => $registry.get_gl2_servers.map{|x| "http://#{x}:12900/"}.join(",")
   }})
+  notifies :restart, 'service[graylog2-web]'
 end
 
 template "#{node['graylog2']['install_directory']}/conf/web-logger.xml" do
   owner web_user
   group node['graylog2']['user']['group']
   mode "0644"
+  notifies :restart, 'service[graylog2-web]'
 end
 
 runit_service "graylog2-web" do

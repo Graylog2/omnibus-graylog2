@@ -2,6 +2,7 @@ template "#{node['graylog2']['install_directory']}/conf/nginx/nginx.conf" do
   owner node['graylog2']['user']['username']
   group node['graylog2']['user']['group']
   mode "0644"
+  notifies :restart, 'service[nginx]'
 end
 
 nginx_log_dir  = node['graylog2']['nginx']['log_directory']

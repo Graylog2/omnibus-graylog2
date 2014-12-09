@@ -22,6 +22,7 @@ template "#{node['graylog2']['install_directory']}/conf/elasticsearch.yml" do
   variables(
     :es_nodes => $registry.get_es_nodes.map{|x| "#{x}:9300"}.to_s
   )
+  notifies :restart, 'service[elasticsearch]'
 end
 
 runit_service "elasticsearch" do
