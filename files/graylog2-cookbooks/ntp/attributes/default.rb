@@ -49,7 +49,7 @@ default['ntp']['monitor'] = false
 case node['platform_family']
 when 'debian'
   default['ntp']['service'] = 'ntp'
-  default['ntp']['apparmor_enabled'] = true if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 8.04
+  default['ntp']['apparmor_enabled'] = true if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 8.04 && File.exists?('/etc/init.d/apparmor')
 when 'rhel'
   default['ntp']['packages'] = %w(ntp) if node['platform_version'].to_i < 6
 when 'windows'
