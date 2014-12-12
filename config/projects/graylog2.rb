@@ -7,7 +7,7 @@ build_version   '0.92.1'
 build_iteration  1
 
 override :ruby,       version: "2.1.4"
-override :'chef-gem', version: "12.0.0"
+override :'chef-gem', version: "12.0.1"
 
 dependency "prepare"
 dependency "chef-gem"
