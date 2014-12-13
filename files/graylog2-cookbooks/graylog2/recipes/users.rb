@@ -10,10 +10,15 @@ end
 # Create the Graylog2 user
 user graylog2_username do
   shell node['graylog2']['user']['shell']
-  supports :manage_home => true
   home graylog2_home
   uid node['graylog2']['user']['uid']
   gid graylog2_group
+end
+
+# create home directory
+directory graylog2_home do
+  owner graylog2_username
+  group graylog2_group
 end
 
 # Configure Git settings for the Graylog2 user
