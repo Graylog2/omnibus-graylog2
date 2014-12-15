@@ -26,7 +26,8 @@ template "#{node['graylog2']['install_directory']}/conf/elasticsearch.yml" do
 end
 
 runit_service "elasticsearch" do
-  restart_command "-w 30 force-restart"
+  restart_command "-w 45 restart"
+  run_restart false
   options({
     :log_directory => es_log_dir,
     :install_directory => node['graylog2']['install_directory'],

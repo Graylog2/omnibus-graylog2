@@ -25,7 +25,8 @@ template "#{node['graylog2']['install_directory']}/conf/web-logger.xml" do
 end
 
 runit_service "graylog2-web" do
-  restart_command "-w 30 force-restart"
+  restart_command "-w 45 restart"
+  run_restart false
   options({
     :log_directory => web_log_dir,
     :install_directory => node['graylog2']['install_directory']
