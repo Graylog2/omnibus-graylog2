@@ -5,7 +5,7 @@ dependency "server-jre"
 dependency "runit"
 
 source url: "http://packages.graylog2.org/releases/graylog2-web-interface/graylog2-web-interface-#{version}.tgz",
-       md5: "371a170243a5cb2a1e18c6a192c18a73"
+       md5: "c3897da732e7421bef35df96e1d96e44"
 
 relative_path "graylog2-web-interface-#{version}"
 
