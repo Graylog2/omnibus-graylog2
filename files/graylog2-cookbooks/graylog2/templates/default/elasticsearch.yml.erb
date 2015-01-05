@@ -207,7 +207,7 @@ path.data: <%= node['graylog2']['elasticsearch']['data_directory'] %>
 
 # Set both 'bind_host' and 'publish_host':
 #
-network.host: <%= node['ipaddress'] %>
+network.host: <%= @es_host %>
 
 # Set a custom port for the node to node communication (9300 by default):
 #

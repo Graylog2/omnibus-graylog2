@@ -140,6 +140,7 @@ module Graylog2
       Graylog2['smtp_user']     = Graylog2[:node]['graylog2']['smtp_user'] if Graylog2['smtp_user'].nil?
       Graylog2['smtp_password'] = Graylog2[:node]['graylog2']['smtp_password'] if Graylog2['smtp_password'].nil?
       Graylog2['master_node']   ||= '127.0.0.1'
+      Graylog2['local_connect'] = false if Graylog2['local_connect'].nil?
 
       if File.directory?("/etc/graylog2")
         File.open("/etc/graylog2/graylog2-settings.json", "w") do |f|
@@ -150,7 +151,8 @@ module Graylog2
               'smtp_port' => Graylog2['smtp_port'],
               'smtp_user' => Graylog2['smtp_user'],
               'smtp_password' => Graylog2['smtp_password'],
-              'master_node' => Graylog2['master_node']
+              'master_node' => Graylog2['master_node'],
+              'local_connect' => Graylog2['local_connect']
             })
           )
           system("chmod 0644 /etc/graylog2/graylog2-settings.json")

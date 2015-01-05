@@ -31,7 +31,9 @@ class Graylog2Registry
   
   def get_gl2_servers
     servers = get_node_list('servers')
-    if servers.empty?
+    if Graylog2['local_connect']
+      return ['127.0.0.1']
+    elsif servers.empty?
       return [@node['ipaddress']]
     else
       return servers
@@ -44,10 +46,20 @@ class Graylog2Registry
   
   def get_es_nodes
     es_nodes = get_node_list('elasticsearch')
-    if es_nodes.empty?
+    if Graylog2['local_connect']
+      return ['127.0.0.1']
+    elsif es_nodes.empty?
       return [@node['ipaddress']]
     else
       return es_nodes
+    end
+  end
+
+  def get_es_host
+    if Graylog2['local_connect']
+      return '127.0.0.1'
+    else
+      return @node['ipaddress']
     end
   end
 

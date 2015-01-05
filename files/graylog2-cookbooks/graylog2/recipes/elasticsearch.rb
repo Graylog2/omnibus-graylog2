@@ -20,6 +20,7 @@ template "#{node['graylog2']['install_directory']}/conf/elasticsearch.yml" do
   group node['graylog2']['user']['group']
   mode "0644"
   variables(
+    :es_host  => $registry.get_es_host,
     :es_nodes => $registry.get_es_nodes.map{|x| "#{x}:9300"}.to_s
   )
   notifies :restart, 'service[elasticsearch]'
