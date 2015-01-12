@@ -40,11 +40,11 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2.conf" do
     :email_auth    => email_auth,
     :es_nodes      => $registry.get_es_nodes.map{|x| "#{x}:9300"}.join(",")
   )
-  notifies :restart, 'service[graylog2-server]'
+  notifies :restart, 'service[graylog2-server]', :delayed
 end
 
 runit_service "graylog2-server" do
-  restart_command "-w 45 restart"
+  restart_command "-w 50 restart"
   run_restart false
   # send TERM before KILL to ensure process restart
   control ['t']

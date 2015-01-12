@@ -21,7 +21,7 @@ template "#{node['graylog2']['install_directory']}/conf/web-logger.xml" do
   owner web_user
   group node['graylog2']['user']['group']
   mode "0644"
-  notifies :restart, 'service[graylog2-web]'
+  notifies :restart, 'service[graylog2-web]', :delayed
 end
 
 runit_service "graylog2-web" do
