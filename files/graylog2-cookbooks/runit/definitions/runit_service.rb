@@ -196,7 +196,7 @@ define :runit_service, :directory => nil, :only_if => false, :finish_script => f
       supports :restart => true, :status => true
       start_command "#{control_cmd} #{params[:start_command]} #{service_dir_name}"
       stop_command "#{control_cmd} #{params[:stop_command]} #{service_dir_name}"
-      restart_command "#{control_cmd} #{params[:restart_command]} #{service_dir_name}"
+      restart_command "#{control_cmd} #{params[:restart_command]} #{service_dir_name} || true"
       status_command "#{control_cmd} #{params[:status_command]} #{service_dir_name}"
       if params[:run_restart] && OmnibusHelper.should_notify?(params[:name])
         subscribes :restart, resources(:template => "#{sv_dir_name}/run"), :delayed
