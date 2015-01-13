@@ -44,10 +44,8 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2.conf" do
 end
 
 runit_service "graylog2-server" do
-  restart_command "-w 50 restart"
+  restart_command "-w 60 restart"
   run_restart false
-  # send TERM before KILL to ensure process restart
-  control ['t']
   options({
     :log_directory => server_log_dir,
     :install_directory => node['graylog2']['install_directory']
