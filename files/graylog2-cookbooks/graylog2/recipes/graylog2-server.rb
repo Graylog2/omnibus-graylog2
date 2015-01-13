@@ -44,13 +44,14 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2.conf" do
 end
 
 runit_service "graylog2-server" do
-  restart_command "-w 60 force-restart"
+  restart_command "-w 20 force-restart"
   run_restart false
   options({
     :log_directory => server_log_dir,
     :install_directory => node['graylog2']['install_directory']
   }.merge(params))
   log_options node['graylog2']['logging'].to_hash.merge(node['graylog2']['graylog2-server'].to_hash)
+  ignore_failure true
 end
 
 if node['graylog2']['bootstrap']['enable']
