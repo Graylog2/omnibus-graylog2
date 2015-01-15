@@ -43,12 +43,18 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2.conf" do
   notifies :restart, 'service[graylog2-server]', :delayed
 end
 
+server_jar = "graylog2-server.jar"
+if File.exists? "#{node['graylog2']['install_directory']}/server/graylog2.jar"
+  server_jar = "graylog2.jar server"
+end
+
 runit_service "graylog2-server" do
   restart_command "-w 20 force-restart"
   run_restart false
   options({
     :log_directory => server_log_dir,
-    :install_directory => node['graylog2']['install_directory']
+    :install_directory => node['graylog2']['install_directory'],
+    :server_jar => server_jar
   }.merge(params))
   log_options node['graylog2']['logging'].to_hash.merge(node['graylog2']['graylog2-server'].to_hash)
   ignore_failure true
