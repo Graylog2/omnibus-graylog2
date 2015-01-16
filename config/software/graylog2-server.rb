@@ -9,7 +9,7 @@ if version.include? '-beta' or version.include? '-rc'
          md5: "0cc65bbe42b95002f2c279b6c665e7ec"
 
   whitelist_file "/opt/graylog2/server/lib/sigar/*"  
-  relative_path "graylog2-#{version}"
+  relative_path "graylog-#{version}"
 else
   source url: "http://packages.graylog2.org/releases/graylog2-server/graylog2-server-#{version}.tgz",
          md5: "777d53f5f4f12e9e6ce8374d99fe0176"
