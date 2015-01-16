@@ -44,8 +44,8 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2.conf" do
 end
 
 server_jar = "graylog2-server.jar"
-if File.exists? "#{node['graylog2']['install_directory']}/server/graylog2.jar"
-  server_jar = "graylog2.jar server"
+if File.exists? "#{node['graylog2']['install_directory']}/server/graylog.jar"
+  server_jar = "graylog.jar server"
 end
 
 runit_service "graylog2-server" do

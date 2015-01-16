@@ -24,12 +24,18 @@ template "#{node['graylog2']['install_directory']}/conf/web-logger.xml" do
   notifies :restart, 'service[graylog2-web]', :delayed
 end
 
+web_jar = "graylog2-web-interface"
+if File.exists? "#{node['graylog2']['install_directory']}/web/bin/graylog-web-interface"
+  web_jar = "graylog-web-interface"
+end
+
 runit_service "graylog2-web" do
   restart_command "-w 45 restart"
   run_restart false
   options({
     :log_directory => web_log_dir,
-    :install_directory => node['graylog2']['install_directory']
+    :install_directory => node['graylog2']['install_directory'],
+    :web_jar => web_jar
   }.merge(params))
   log_options node['graylog2']['logging'].to_hash.merge(node['graylog2']['graylog2-web'].to_hash)
 end
