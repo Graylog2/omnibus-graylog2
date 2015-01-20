@@ -1,6 +1,0 @@
-#!/bin/sh
-exec 2>&1
-
-export LC_ALL=C
-umask 077
-exec chpst -P -U <%= node['graylog2']['user']['username'] %> -u <%= node['graylog2']['user']['username'] %> <%= @options[:install_directory] %>/mongodb/bin/mongod --dbpath <%= node['graylog2']['mongodb']['data_directory'] %>

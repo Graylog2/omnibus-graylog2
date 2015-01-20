@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Perform necessary graylog setup steps
+# after package is installed.
+#
+
+PROGNAME=$(basename $0)
+
+function error_exit
+{
+  echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
+  exit 1
+}
+
+ln -sf /opt/graylog/embedded/bin/graylog-ctl /usr/bin || error_exit "Cannot link graylog-ctl in /usr/bin"
+
+echo "Thank you for installing Graylog!"
+echo "The next step in the install process is to run:"
+echo
+echo -e "\033[1msudo graylog-ctl reconfigure\033[0m"
+
+exit 0

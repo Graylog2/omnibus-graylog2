@@ -1,5 +1,5 @@
 #
-# This file is used to configure the graylog2 project. It contains
+# This file is used to configure the Graylog project. It contains
 # some minimal configuration examples for working with Omnibus. For a full list
 # of configurable options, please see the documentation for +omnibus/config.rb+.
 #
@@ -9,7 +9,7 @@
 # By default, Omnibus uses system folders (like +/var+ and +/opt+) to build and
 # cache components. If you would to build everything internally, you can
 # uncomment the following options. This will prevent the need for root
-# permissions in most cases. You will also need to update the graylog2
+# permissions in most cases. You will also need to update the Graylog
 # project configuration to build at +./local/omnibus/build+ instead of
 # ++
 #

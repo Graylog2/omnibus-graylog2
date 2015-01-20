@@ -1,7 +1,7 @@
-Graylog2 Omnibus Project
+Graylog Omnibus Project
 ========================
 This project creates full-stack platform-specific packages for
-`Graylog2`!
+`Graylog`!
 
 Installation
 ------------
@@ -19,7 +19,7 @@ Usage
 You create a platform-specific package using the `build project` command:
 
 ```shell
-$ sudo bin/omnibus build graylog2
+$ sudo bin/omnibus build graylog
 ```
 
 Currently we support only Ubuntu 14.04
@@ -30,15 +30,15 @@ You can clean up all temporary files generated during the build process with
 the `clean` command:
 
 ```shell
-$ sudo bin/omnibus clean graylog2
+$ sudo bin/omnibus clean graylog
 ```
 
 Adding the `--purge` purge option removes __ALL__ files generated during the
-build including the project install directory (`/opt/graylog2`) and
+build including the project install directory (`/opt/graylog`) and
 the package cache directory (`/var/cache/omnibus/pkg`):
 
 ```shell
-$ sudo bin/omnibus clean graylog2 --purge
+$ sudo bin/omnibus clean graylog --purge
 ```
 
 ### Help
@@ -56,43 +56,43 @@ After installing the omnibus package on your server you have to _reconfigure_ th
 to setup all configuration files and start all services.
 
 ```shell
-$ sudo graylog2-ctl reconfigure
+$ sudo graylog-ctl reconfigure
 ```
 
-You can access Graylog2 through the web interface `http://<yourServerIp/hostName>` now.
+You can access Graylog through the web interface `http://<yourServerIp/hostName>` now.
 
-In order to set another admin password you can also use `graylog2-ctl`
+In order to set another admin password you can also use `graylog-ctl`
 
 ```shell
-$ sudo graylog2-ctl set-admin-password sEcrEtPaSsword!
-$ sudo graylog2-ctl reconfigure
+$ sudo graylog-ctl set-admin-password sEcrEtPaSsword!
+$ sudo graylog-ctl reconfigure
 ```
 
 At this point all services run on one box which is fine for very small setups or evaluation purpose. However to scale out from this _all-in-one_ box you can create more VMs with only single
 services running. A good start is to let the web-interface run on a separate machine.
 
 ```shell
-vm2> sudo graylog2-ctl set-cluster-master <ip-of-first-box>
-vm2> sudo graylog2-ctl reconfigure-as-webinterface
+vm2> sudo graylog-ctl set-cluster-master <ip-of-first-box>
+vm2> sudo graylog-ctl reconfigure-as-webinterface
 ```
 
 In the same way you can decouple Elasticsearch from the first _all-in-one_ box. You should have
 two Elasticsearch nodes at least. More nodes provide higher message rates for bigger setups.
 
 ```shell
-vm3> sudo graylog2-ctl set-cluster-master <ip-of-first-box>
-vm3> sudo graylog2-ctl reconfigure-as-datanode
+vm3> sudo graylog-ctl set-cluster-master <ip-of-first-box>
+vm3> sudo graylog-ctl reconfigure-as-datanode
 ```
 
 and the second Elasticsearch node
  
 ```shell
-vm4> sudo graylog2-ctl set-cluster-master <ip-of-first-box>
-vm4> sudo graylog2-ctl reconfigure-as-datanode
+vm4> sudo graylog-ctl set-cluster-master <ip-of-first-box>
+vm4> sudo graylog-ctl reconfigure-as-datanode
 ```
 
 Now you can go back to first box and disable the web interface and the local Elasticsearch
 
 ```shell
-$ sudo graylog2-ctl reconfigure-as-server
+$ sudo graylog-ctl reconfigure-as-server
 ```

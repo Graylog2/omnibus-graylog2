@@ -1,6 +1,0 @@
-#!/bin/sh
-exec 2>&1
-
-export LC_ALL=C
-umask 077
-exec chpst -P -U <%= node['graylog2']['user']['username'] %> -u <%= node['graylog2']['user']['username'] %> <%= @options[:install_directory] %>/embedded/sbin/etcd -listen-client-urls=http://0.0.0.0:2379,http://0.0.0.0:4001 -data-dir=<%= node['graylog2']['etcd']['data_directory'] %>

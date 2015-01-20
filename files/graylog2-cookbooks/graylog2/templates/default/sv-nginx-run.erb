@@ -1,6 +1,0 @@
-#!/bin/sh
-exec 2>&1
-
-export LC_ALL=C
-umask 077
-exec /opt/graylog2/embedded/sbin/nginx -c /opt/graylog2/conf/nginx/nginx.conf

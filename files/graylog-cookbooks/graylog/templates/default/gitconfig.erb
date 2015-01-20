@@ -1,0 +1,9 @@
+# This file is managed by graylog-ctl. Manual changes will be
+# erased! To change the contents below, edit /etc/graylog/graylog.rb
+# and run `sudo graylog-ctl reconfigure`.
+
+[user]
+        name = <%= node['graylog']['user']['git_user_name'] %>
+        email = <%= node['graylog']['user']['git_user_email'] %>
+[core]
+        autocrlf = input

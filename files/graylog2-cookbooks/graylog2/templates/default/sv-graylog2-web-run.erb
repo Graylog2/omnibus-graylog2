@@ -1,8 +1,0 @@
-#!/bin/sh
-exec 2>&1
-
-umask 077
-export JAVA_HOME=<%= @options[:install_directory] %>/embedded/jre
-
-rm -f <%= node['graylog2']['var_directory'] %>/web.pid
-exec chpst -P -U <%= node['graylog2']['user']['username'] %> -u <%= node['graylog2']['user']['username'] %> <%= @options[:install_directory] %>/web/bin/<%= @options[:web_jar] %> -Dconfig.file=<%= @options[:install_directory] %>/conf/graylog2-web-interface.conf -Dhttp.port=<%= node['graylog2']['graylog2-web']['port'] %> -Dhttp.address=<%= node['graylog2']['graylog2-web']['bind'] %> -Dpidfile.path=<%= node['graylog2']['var_directory'] %>/web.pid -Dlogger.file=/opt/graylog2/conf/web-logger.xml

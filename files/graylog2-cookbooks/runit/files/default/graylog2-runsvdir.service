@@ -1,6 +1,0 @@
-[Unit]
-Description=Graylog2 Runit supervision process
-
-[Service]
-ExecStart=/opt/graylog2/embedded/bin/runsvdir-start
-Restart=always
