@@ -6,7 +6,7 @@ dependency "runit"
 
 if version.include? '-beta' or version.include? '-rc'
   source url: "http://packages.graylog2.org/releases/graylog2-server/graylog-#{version}.tgz",
-         md5: "0cc65bbe42b95002f2c279b6c665e7ec"
+         md5: "75044cbd3f68bebe5d0ed996efaefed5"
 
   whitelist_file "/opt/graylog/server/lib/sigar/*"  
   relative_path "graylog-#{version}"
