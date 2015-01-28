@@ -3,6 +3,10 @@ Graylog Omnibus Project
 This project creates full-stack platform-specific packages for
 `Graylog`!
 
+Download
+--------
+You can download the latest package build [here](https://packages.graylog2.org/releases/graylog2-omnibus/ubuntu/graylog2_latest.deb)
+
 Installation
 ------------
 You must have a sane Ruby 1.9+ environment with Bundler installed. Ensure all
