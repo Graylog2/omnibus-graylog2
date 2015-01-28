@@ -239,15 +239,19 @@ transport_email_from_email = graylog@<%= node['fqdn'] %>
 # HTTP proxy for outgoing HTTP calls
 #http_proxy_uri =
 
-# Switch to enable/disable the off-heap message cache. Stores cached messages in the spool directory if set to true.
-# Stores the messages in an in-memory data structure if set to false.
-message_cache_off_heap = true
+# Enable the disk based message journal.
+message_journal_enabled = true
+message_journal_dir = <%= node['graylog']['graylog-server']['journal_directory'] %>
 
-# Directory for the off-heap message cache data. (absolute or relative)
-message_cache_spool_dir = <%= node['graylog']['graylog-server']['data_directory'] %>
-
-# The commit interval for the message cache in milliseconds. Only affects message cache implementations that need to commit data.
-#message_cache_commit_interval = 1000
+# Journal hold messages before they could be written to Elasticsearch.
+# For a maximum of 12 hours or 5 GB whichever happens first.
+# During normal operation the journal will be smaller.
+#message_journal_max_age = 12h
+#message_journal_max_size = 5gb
+#message_journal_flush_age = 1m
+#message_journal_flush_interval = 1000000
+#message_journal_segment_age = 1h
+#message_journal_segment_size = 100mb
 
 # When more messages are coming in as we can process, incoming messages will be cached in memory until
 # they are ready to be processed. Per default this data structure is unbounded, so in situations of

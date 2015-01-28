@@ -1,6 +1,6 @@
-server_log_dir  = node['graylog']['graylog-server']['log_directory']
-server_data_dir = node['graylog']['graylog-server']['data_directory']
-server_user     = node['graylog']['user']['username']
+server_log_dir     = node['graylog']['graylog-server']['log_directory']
+server_journal_dir = node['graylog']['graylog-server']['journal_directory']
+server_user        = node['graylog']['user']['username']
 
 directory server_log_dir do
   owner server_user
@@ -8,7 +8,7 @@ directory server_log_dir do
   recursive true
 end
 
-directory server_data_dir do
+directory server_journal_dir do
   owner server_user
   group node['graylog']['user']['group']
   mode "0750"
