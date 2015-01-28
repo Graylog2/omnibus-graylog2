@@ -5,7 +5,9 @@ This project creates full-stack platform-specific packages for
 
 Download
 --------
-You can download the latest package build [here](https://packages.graylog2.org/releases/graylog2-omnibus/ubuntu/graylog2_latest.deb)
+You can download the latest stable Graylog version [here](https://packages.graylog2.org/releases/graylog2-omnibus/ubuntu/graylog2_latest.deb)
+
+And latest beta/rc build can be downloaded [here](https://packages.graylog2.org/releases/graylog2-omnibus/ubuntu/graylog_beta.deb)
 
 Installation
 ------------
