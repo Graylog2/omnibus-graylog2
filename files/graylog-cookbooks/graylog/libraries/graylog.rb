@@ -5,6 +5,7 @@ require 'chef/mixin/deep_merge'
 require 'securerandom'
 require 'uri'
 require 'digest/sha2'
+require 'etcd'
 
 module Graylog
   extend(Mixlib::Config)
@@ -141,6 +142,16 @@ module Graylog
       Graylog['smtp_password'] = Graylog[:node]['graylog']['smtp_password'] if Graylog['smtp_password'].nil?
       Graylog['master_node']   ||= '127.0.0.1'
       Graylog['local_connect'] = false if Graylog['local_connect'].nil?
+      Graylog['current_address'] = Graylog[:node][:ipaddress]
+      Graylog['last_address']  ||= Graylog['current_address']
+
+      if Graylog['current_address'] != Graylog['last_address']
+        Chef::Log.warn("IP change detected!")
+        client = Etcd.client(host: Graylog['master_node'], port: 4001)
+        client.delete("/servers/#{Graylog['last_address']}")
+        client.delete("/elasticsearch/#{Graylog['last_address']}")
+        Graylog['last_address'] = Graylog['current_address']
+      end
 
       if File.directory?("/etc/graylog")
         File.open("/etc/graylog/graylog-settings.json", "w") do |f|
@@ -152,7 +163,9 @@ module Graylog
               'smtp_user' => Graylog['smtp_user'],
               'smtp_password' => Graylog['smtp_password'],
               'master_node' => Graylog['master_node'],
-              'local_connect' => Graylog['local_connect']
+              'local_connect' => Graylog['local_connect'],
+              'current_address' => Graylog['current_address'],
+              'last_address' => Graylog['last_address']
             })
           )
           system("chmod 0644 /etc/graylog/graylog-settings.json")
