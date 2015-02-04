@@ -66,7 +66,13 @@ class GraylogRegistry
   private
   def get_connection
     master = get_master
-    Etcd.client(host: master, port: 4001)
+    client = Etcd.client(host: master, port: 4001)
+    begin
+      client.machines
+    rescue
+      Chef::Application.fatal!("Can not connect to master server, make sure #{master} is reachable")
+    end
+    return client
   end
 
   def get_master
@@ -91,7 +97,7 @@ class GraylogRegistry
     begin
       @client.set("/#{context}/#{ip}", value: "{\"ip\":\"#{ip}\"}")
     rescue Exception => e
-      Chef::Log.debug("Can not add node #{name} to directory #{context}")
+      Chef::Log.debug("Can not add node #{ip} to directory #{context}")
     end
   end
   

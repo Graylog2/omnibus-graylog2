@@ -147,9 +147,13 @@ module Graylog
 
       if Graylog['current_address'] != Graylog['last_address']
         Chef::Log.warn("IP change detected!")
-        client = Etcd.client(host: Graylog['master_node'], port: 4001)
-        client.delete("/servers/#{Graylog['last_address']}")
-        client.delete("/elasticsearch/#{Graylog['last_address']}")
+        begin
+          client = Etcd.client(host: Graylog['master_node'], port: 4001)
+          client.delete("/servers/#{Graylog['last_address']}") if client.exists?("/servers/#{Graylog['last_address']}")
+          client.delete("/elasticsearch/#{Graylog['last_address']}") if client.exists?("/elasticsearch/#{Graylog['last_address']}")
+        rescue Exception => e
+	        Chef::Application.fatal!("Can not reach master server, make sure #{Graylog['master_node']} is reachable and 'etcd' service is running properly.")
+	      end
         Graylog['last_address'] = Graylog['current_address']
       end
 
