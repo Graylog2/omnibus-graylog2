@@ -66,13 +66,7 @@ class GraylogRegistry
   private
   def get_connection
     master = get_master
-    client = Etcd.client(host: master, port: 4001)
-    begin
-      client.machines
-    rescue
-      Chef::Application.fatal!("Can not connect to master server, make sure #{master} is reachable")
-    end
-    return client
+    Etcd.client(host: master, port: 4001)
   end
 
   def get_master
