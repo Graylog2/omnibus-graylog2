@@ -145,6 +145,10 @@ module Graylog
       Graylog['current_address'] = Graylog[:node][:ipaddress]
       Graylog['last_address']  ||= Graylog['current_address']
 
+      if Graylog['current_address'] == '127.0.0.1'
+        Chef::Application.fatal!("eth0 is down! Can not reconfigure Graylog.")
+      end
+
       if Graylog['current_address'] != Graylog['last_address']
         Chef::Log.warn("IP change detected!")
         begin
