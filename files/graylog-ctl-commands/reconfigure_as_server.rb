@@ -12,16 +12,16 @@ add_command 'reconfigure-as-server', 'Run Graylog server on this node only', 1 d
       existing_services['nginx']           = Hash.new
       existing_services['mongodb']         = Hash.new
       existing_services['elasticsearch']   = Hash.new
-      existing_services['graylog_server'] = Hash.new
-      existing_services['graylog_web']    = Hash.new
+      existing_services['graylog_server']  = Hash.new
+      existing_services['graylog_web']     = Hash.new
     end
 
     existing_services['etcd']['enabled']            = true
     existing_services['nginx']['enabled']           = false
     existing_services['mongodb']['enabled']         = true
     existing_services['elasticsearch']['enabled']   = false
-    existing_services['graylog_server']['enabled'] = true
-    existing_services['graylog_web']['enabled']    = false
+    existing_services['graylog_server']['enabled']  = true
+    existing_services['graylog_web']['enabled']     = false
 
     File.open("/etc/graylog/graylog-services.json","w") do |services|
       services.write(JSON.pretty_generate(existing_services))
