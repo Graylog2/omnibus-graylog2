@@ -36,9 +36,11 @@ template "#{node['graylog2']['install_directory']}/conf/graylog2.conf" do
   group node['graylog2']['user']['group']
   mode "0644"
   variables(
+    :is_master     => $registry.is_master.to_s,
     :email_enabled => email_enabled,
     :email_auth    => email_auth,
-    :es_nodes      => $registry.get_es_nodes.map{|x| "#{x}:9300"}.join(",")
+    :es_nodes      => $registry.get_es_nodes.map{|x| "#{x}:9300"}.join(","),
+    :mongo_server  => Graylog2['master_node']
   )
   notifies :restart, 'service[graylog2-server]', :delayed
 end
