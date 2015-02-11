@@ -91,7 +91,7 @@ class Graylog2Registry
     begin
       @client.set("/#{context}/#{ip}", value: "{\"ip\":\"#{ip}\"}")
     rescue Exception => e
-      Chef::Log.debug("Can not add node #{name} to directory #{context}")
+      Chef::Log.error("Can not add node #{ip} to directory #{context} #{e.message}")
     end
   end
   
@@ -103,7 +103,7 @@ class Graylog2Registry
       end
       return nodes
     rescue Exception => e
-      Chef::Log.debug("Can not fetch node list from etcd #{e.message}")
+      Chef::Log.error("Can not fetch node list from etcd #{e.message}")
     end
     return []
   end
