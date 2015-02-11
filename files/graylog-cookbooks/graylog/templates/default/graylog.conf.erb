@@ -1,6 +1,6 @@
 # If you are running more than one instances of graylog-server you have to select one of these
 # instances as master. The master will perform some periodical tasks that non-masters won't perform.
-is_master = true
+is_master = <%= @is_master %>
 
 # The auto-generated node ID will be stored in this file and read after restarts. It is a good idea
 # to use an absolute file path here if you are starting graylog-server from init scripts or similar.
@@ -202,7 +202,7 @@ lb_recognition_period_seconds = 3
 mongodb_useauth = false
 #mongodb_user = grayloguser
 #mongodb_password = 123
-mongodb_host = 127.0.0.1
+mongodb_host = <%= @mongo_server %>
 #mongodb_replica_set = localhost:27017,localhost:27018,localhost:27019
 mongodb_database = graylog
 mongodb_port = 27017
