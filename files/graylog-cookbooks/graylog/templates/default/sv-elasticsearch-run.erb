@@ -14,9 +14,6 @@ export ES_JAVA_OPTS="
   -Dcom.sun.management.jmxremote.ssl=false
   -Dcom.sun.management.jmxremote.authenticate=false
   -Dcom.sun.management.jmxremote.port=3333
-  -Xms128m
-  -Xmx<%= @options[:max_memory] %>
-  -Xss256k
   -XX:+UseParNewGC
   -XX:+UseConcMarkSweepGC
   -XX:+CMSParallelRemarkEnabled
@@ -25,6 +22,7 @@ export ES_JAVA_OPTS="
   -XX:CMSInitiatingOccupancyFraction=75
   -XX:+UseCMSInitiatingOccupancyOnly
   -XX:+HeapDumpOnOutOfMemoryError"
+export ES_HEAP_SIZE=<%= @options[:max_memory] %>
 export JAVA_HOME=<%= @options[:install_directory] %>/embedded/jre
 
-exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> $ES_HOME/bin/elasticsearch -f
+exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> $ES_HOME/bin/elasticsearch
