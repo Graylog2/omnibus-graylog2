@@ -4,10 +4,39 @@
 # after package is uninstalled.
 #
 
-rm -f /usr/bin/graylog-ctl
-rm -rf /etc/graylog
-rm -rf /var/opt/graylog
-rm -rf /opt/graylog
+cleanup_symlinks() {
+  binaries="graylog-ctl"
+  for binary in $binaries; do
+    rm -f /usr/bin/$binary
+  done
+}
+
+cleanup_data() {
+  directories="/etc/graylog /var/opt/graylog /opt/graylog"
+  for directory in $directories; do
+    rm -rf $directory
+  done
+}
+
+case "$1" in
+    # Remove data files on purge
+    purge)
+        cleanup_symlinks
+        cleanup_data
+    ;;
+
+    remove)
+        cleanup_symlinks
+    ;;
+
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    ;;
+
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
 
 echo "Graylog has been uninstalled!"
 
