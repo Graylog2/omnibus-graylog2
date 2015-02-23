@@ -3,6 +3,11 @@ add_command 'set-timezone', 'Set timezone your server is in', 2 do |cmd_name, ti
   require 'json'
 
   if timezone
+    if not File.exists?(File.join("/usr/share/zoneinfo", timezone))
+      puts "Misspelled or invalid timezone, take a look here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+      exit 1
+    end
+ 
     existing_settings = Hash.new
     if File.exists?("/etc/graylog/graylog-settings.json")
       existing_settings = JSON.parse(File.read("/etc/graylog/graylog-settings.json"))
