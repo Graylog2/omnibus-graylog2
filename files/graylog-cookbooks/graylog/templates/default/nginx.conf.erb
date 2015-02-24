@@ -11,7 +11,7 @@ http {
 
     server {
       listen 80;
-      <%- if @enforce_ssl -%>
+      <%- if Graylog['enforce_ssl'] -%>
       return 301 https://$host:443$request_uri;
       <%- else -%>
       location / {

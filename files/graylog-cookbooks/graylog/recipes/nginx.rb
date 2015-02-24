@@ -73,8 +73,7 @@ end
 
 runit_service "nginx" do
   options({
-    :log_directory => nginx_log_dir,
-    :enforce_ssl   => Graylog['enforce_ssl']
+    :log_directory => nginx_log_dir
   }.merge(params))
   log_options node['graylog']['logging'].to_hash.merge(node['graylog']['nginx'].to_hash)
 end
