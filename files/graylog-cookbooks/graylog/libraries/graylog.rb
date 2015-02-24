@@ -144,6 +144,7 @@ module Graylog
       Graylog['local_connect'] = false if Graylog['local_connect'].nil?
       Graylog['current_address'] = Graylog[:node][:ipaddress]
       Graylog['last_address']  ||= Graylog['current_address']
+      Graylog['enforce_ssl']   ||= false
 
       if Graylog['current_address'] == '127.0.0.1'
         Chef::Application.fatal!("eth0 is down! Can not reconfigure Graylog.")
@@ -173,7 +174,8 @@ module Graylog
               'master_node' => Graylog['master_node'],
               'local_connect' => Graylog['local_connect'],
               'current_address' => Graylog['current_address'],
-              'last_address' => Graylog['last_address']
+              'last_address' => Graylog['last_address'],
+              'enforce_ssl' => Graylog['enforce_ssl']
             })
           )
           system("chmod 0644 /etc/graylog/graylog-settings.json")

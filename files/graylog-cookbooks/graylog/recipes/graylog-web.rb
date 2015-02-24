@@ -29,13 +29,19 @@ if File.exists? "#{node['graylog']['install_directory']}/web/bin/graylog-web-int
   web_jar = "graylog-web-interface"
 end
 
+bind_address = node['graylog']['graylog-web']['bind']
+if Graylog['enforce_ssl']
+  bind_address = "127.0.0.1"
+end
+
 runit_service "graylog-web" do
   restart_command "-w 45 restart"
   run_restart false
   options({
-    :log_directory => web_log_dir,
+    :log_directory     => web_log_dir,
     :install_directory => node['graylog']['install_directory'],
-    :web_jar => web_jar
+    :web_jar           => web_jar,
+    :bind_address      => bind_address
   }.merge(params))
   log_options node['graylog']['logging'].to_hash.merge(node['graylog']['graylog-web'].to_hash)
 end

@@ -26,7 +26,17 @@ default['graylog']['mongodb']['log_directory'] = "/var/log/graylog/mongodb"
 default['graylog']['mongodb']['data_directory'] = "/var/opt/graylog/data/mongodb"
 
 default['graylog']['nginx']['enable'] = true
+default['graylog']['nginx']['user'] = "root"
 default['graylog']['nginx']['log_directory'] = "/var/log/graylog/nginx"
+default['graylog']['nginx']['ssl_country_name'] = "DE"
+default['graylog']['nginx']['ssl_state_name'] = "Hamburg"
+default['graylog']['nginx']['ssl_locality_name'] = "Hamburg"
+default['graylog']['nginx']['ssl_company_name'] = "Graylog"
+default['graylog']['nginx']['ssl_organizational_unit_name'] = "Operations"
+default['graylog']['nginx']['server_name'] = node['fqdn']
+default['graylog']['nginx']['ssl_email_address'] = "graylog@#{node['fqdn']}"
+default['graylog']['nginx']['ssl_protocols'] = "TLSv1 TLSv1.1 TLSv1.2"
+default['graylog']['nginx']['ssl_ciphers'] = "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA"
 
 default['graylog']['etcd']['enable'] = true
 default['graylog']['etcd']['log_directory'] = "/var/log/graylog/etcd"

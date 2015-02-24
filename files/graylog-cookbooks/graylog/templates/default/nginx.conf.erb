@@ -6,16 +6,47 @@ events {
 }
 
 http {
-    include       mime.types;
+    include       /opt/graylog/conf/nginx/mime.types;
     default_type  application/octet-stream;
 
     server {
       listen 80;
+      <%- if @enforce_ssl -%>
+      return 301 https://$host:443$request_uri;
+      <%- else -%>
       location / {
         proxy_pass http://localhost:9000/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass_request_headers on;
+        proxy_connect_timeout 150;
+        proxy_send_timeout 100;
+        proxy_read_timeout 100;
+        proxy_buffers 4 32k;
+        client_max_body_size 8m;
+        client_body_buffer_size 128k;
+      }
+      <%- end -%>
+    }
+    
+    server {
+      listen 443;
+
+      ssl on;
+      ssl_certificate <%= node['graylog']['nginx']['ssl_certificate'] %>;
+      ssl_certificate_key <%= node['graylog']['nginx']['ssl_certificate_key'] %>;
+      ssl_session_timeout 5m;
+      ssl_protocols <%= node['graylog']['nginx']['ssl_protocols'] %>;
+      ssl_ciphers <%= node['graylog']['nginx']['ssl_ciphers'] %>;
+      ssl_prefer_server_ciphers on;
+
+      location / {
+        proxy_pass http://localhost:9000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass_request_headers on;
         proxy_connect_timeout 150;
         proxy_send_timeout 100;
         proxy_read_timeout 100;

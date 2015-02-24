@@ -5,4 +5,4 @@ umask 077
 export JAVA_HOME=<%= @options[:install_directory] %>/embedded/jre
 
 rm -f <%= node['graylog']['var_directory'] %>/web.pid
-exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> <%= @options[:install_directory] %>/web/bin/<%= @options[:web_jar] %> -Dconfig.file=<%= @options[:install_directory] %>/conf/graylog-web-interface.conf -Dhttp.port=<%= node['graylog']['graylog-web']['port'] %> -Dhttp.address=<%= node['graylog']['graylog-web']['bind'] %> -Dpidfile.path=<%= node['graylog']['var_directory'] %>/web.pid -Dlogger.file=/opt/graylog/conf/web-logger.xml
+exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> <%= @options[:install_directory] %>/web/bin/<%= @options[:web_jar] %> -Dconfig.file=<%= @options[:install_directory] %>/conf/graylog-web-interface.conf -Dhttp.port=<%= node['graylog']['graylog-web']['port'] %> -Dhttp.address=<%= @options[:bind_address] %> -Dpidfile.path=<%= node['graylog']['var_directory'] %>/web.pid -Dlogger.file=/opt/graylog/conf/web-logger.xml
