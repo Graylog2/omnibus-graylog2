@@ -32,7 +32,7 @@ runit_service "elasticsearch" do
   options({
     :log_directory => es_log_dir,
     :install_directory => node['graylog']['install_directory'],
-    :max_memory => "#{(node.memory.total.to_i * 0.7 ).floor / 1024}m"
+    :max_memory => "#{(node.memory.total.to_i * 0.6 ).floor / 1024}m"
   }.merge(params))
   log_options node['graylog']['logging'].to_hash.merge(node['graylog']['elasticsearch'].to_hash)
 end
