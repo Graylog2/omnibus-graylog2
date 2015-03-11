@@ -21,6 +21,10 @@ root_username = <%= Graylog['graylog_server']['admin_username'] %>
 # and put the resulting hash value into the following line
 root_password_sha2 = <%= Graylog['graylog_server']['admin_password'] %>
 
+# The email address of the root user.
+# Default is empty
+#root_email = ""
+
 # The time zone setting of the root user.
 # Default is UTC
 root_timezone = <%= Graylog['timezone'] %>
@@ -33,8 +37,10 @@ rest_listen_uri = http://0.0.0.0:12900/
 
 # REST API transport address. Defaults to the value of rest_listen_uri. Exception: If rest_listen_uri
 # is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
-# This will be promoted in the cluster discovery APIs and other nodes may try to connect on this
-# address. (see rest_listen_uri)
+# If set, his will be promoted in the cluster discovery APIs, so other nodes may try to connect on
+# this address and it is used to generate URLs addressing entities in the REST API. (see rest_listen_uri)
+# You will need to define this, if your Graylog server is running behind a HTTP proxy that is rewriting
+# the scheme, host name or URI.
 #rest_transport_uri = http://192.168.1.1:12900/
 
 # Enable CORS headers for REST api. This is necessary for JS-clients accessing the server directly.
@@ -46,19 +52,77 @@ rest_listen_uri = http://0.0.0.0:12900/
 # overall round trip times. This is disabled by default. Uncomment the next line to enable it.
 #rest_enable_gzip = true
 
+# Enable HTTPS support for the REST API. This secures the communication with the REST API with
+# TLS to prevent request forgery and eavesdropping. This is disabled by default. Uncomment the
+# next line to enable it.
+#rest_enable_tls = true
+
+# The X.509 certificate file to use for securing the REST API.
+#rest_tls_cert_file = /path/to/graylog2.crt
+
+# The private key to use for securing the REST API.
+#rest_tls_key_file = /path/to/graylog2.key
+
+# The password to unlock the private key used for securing the REST API.
+#rest_tls_key_password = secret
+
+# The maximum size of a single HTTP chunk in bytes.
+#rest_max_chunk_size = 8192
+
+# The maximum size of the HTTP request headers in bytes.
+#rest_max_header_size = 8192
+
+# The maximal length of the initial HTTP/1.1 line in bytes.
+#rest_max_initial_line_length = 4096
+
+# The size of the execution handler thread pool used exclusively for serving the REST API.
+#rest_thread_pool_size = 16
+
+# The size of the worker thread pool used exclusively for serving the REST API.
+#rest_worker_threads_max_pool_size = 16
+
 # Embedded Elasticsearch configuration file
 # pay attention to the working directory of the server, maybe use an absolute path here
 #elasticsearch_config_file = /etc/graylog-elasticsearch.yml
 
+# Graylog will use multiple indices to store documents in. You can configured the strategy it uses to determine
+# when to rotate the currently active write index.
+# It supports multiple rotation strategies:
+#   - "count" of messages per index, use elasticsearch_max_docs_per_index below to configure
+#   - "size" per index, use elasticsearch_max_size_per_index below to configure
+# valid values are "count", "size" and "time", default is "count"
+rotation_strategy = count
+
 # (Approximate) maximum number of documents in an Elasticsearch index before a new index
 # is being created, also see no_retention and elasticsearch_max_number_of_indices.
+# Configure this if you used 'rotation_strategy = count' above.
 elasticsearch_max_docs_per_index = 20000000
+
+# (Approximate) maximum size in bytes per Elasticsearch index on disk before a new index is being created, also see
+# no_retention and elasticsearch_max_number_of_indices. Default is 1GB.
+# Configure this if you used 'rotation_strategy = size' above.
+#elasticsearch_max_size_per_index = 1073741824
+
+# (Approximate) maximum time before a new Elasticsearch index is being created, also see
+# no_retention and elasticsearch_max_number_of_indices. Default is 1 day.
+# Configure this if you used 'rotation_strategy = time' above.
+# Please note that this rotation period does not look at the time specified in the received messages, but is
+# using the real clock value to decide when to rotate the index!
+# Specify the time using a duration and a suffix indicating which unit you want:
+#  1w  = 1 week
+#  1d  = 1 day
+#  12h = 12 hours
+# Permitted suffixes are: d for day, h for hour, m for minute, s for second.
+#elasticsearch_max_time_per_index = 1d
+
+# Disable checking the version of Elasticsearch for being compatible with this Graylog release.
+# WARNING: Using Graylog with unsupported and untested versions of Elasticsearch may lead to data loss!
+#elasticsearch_disable_version_check = true
 
 # Disable message retention on this node, i. e. disable Elasticsearch index rotation.
 #no_retention = false
 
 # How many indices do you want to keep?
-# elasticsearch_max_number_of_indices*elasticsearch_max_docs_per_index=total number of messages in your setup
 elasticsearch_max_number_of_indices = 20
 
 # Decide what happens with the oldest indices when the maximum number of indices is reached.
@@ -96,6 +160,7 @@ allow_highlighting = false
 
 # use a different port if you run multiple Elasticsearch nodes on one machine
 #elasticsearch_transport_tcp_port = 9350
+
 # we don't need to run the embedded HTTP server here
 #elasticsearch_http_enabled = false
 
@@ -130,12 +195,18 @@ elasticsearch_analyzer = standard
 # reached within output_flush_interval seconds, everything that is available will be flushed at once. Remember
 # that every outputbuffer processor manages its own batch and performs its own batch write calls.
 # ("outputbuffer_processors" variable)
-output_batch_size = 25
+output_batch_size = 500
 
 # Flush interval (in seconds) for the Elasticsearch output. This is the maximum amount of time between two
 # batches of messages written to Elasticsearch. It is only effective at all if your minimum number of messages
 # for this time period is less than output_batch_size * outputbuffer_processors.
 output_flush_interval = 1
+
+# As stream outputs are loaded only on demand, an output which is failing to initialize will be tried over and
+# over again. To prevent this, the following configuration options define after how many faults an output will
+# not be tried again for an also configurable amount of seconds.
+output_fault_count_threshold = 5
+output_fault_penalty_seconds = 30
 
 # The number of parallel running processors.
 # Raise this number if your buffers are filling up.
@@ -165,7 +236,31 @@ processor_wait_strategy = blocking
 # For optimum performance your LogMessage objects in the ring buffer should fit in your CPU L3 cache.
 # Start server with --statistics flag to see buffer utilization.
 # Must be a power of 2. (512, 1024, 2048, ...)
-ring_size = 1024
+ring_size = 65536
+
+inputbuffer_ring_size = 65536
+inputbuffer_processors = 2
+inputbuffer_wait_strategy = blocking
+
+# Enable the disk based message journal.
+message_journal_enabled = true
+
+# The directory which will be used to store the message journal. The directory must me exclusively used by Graylog and
+# must not contain any other files than the ones created by Graylog itself.
+message_journal_dir = <%= node['graylog']['graylog-server']['journal_directory'] %>
+
+# Journal hold messages before they could be written to Elasticsearch.
+# For a maximum of 12 hours or 5 GB whichever happens first.
+# During normal operation the journal will be smaller.
+#message_journal_max_age = 12h
+#message_journal_max_size = 5gb
+#message_journal_flush_age = 1m
+#message_journal_flush_interval = 1000000
+#message_journal_segment_age = 1h
+#message_journal_segment_size = 100mb
+
+# Number of threads used exclusively for dispatching internal events. Default is 2.
+#async_eventbus_processors = 2
 
 # EXPERIMENTAL: Dead Letters
 # Every failed indexing attempt is logged by default and made visible in the web-interface. You can enable
@@ -188,6 +283,10 @@ lb_recognition_period_seconds = 3
 # that stream is disabled and a notification is shown in the web interface.
 # stream_processing_timeout = 2000
 # stream_processing_max_faults = 3
+
+# Length of the interval in seconds in which the alert conditions for all streams should be checked
+# and alarms are being sent.
+#alert_check_interval = 60
 
 # Since 0.21 the graylog server supports pluggable output modules. This means a single message can be written to multiple
 # outputs. The next setting defines the timeout for a single output module, including the default output module where all
@@ -238,46 +337,32 @@ transport_email_from_email = graylog@<%= node['fqdn'] %>
 # Specify and uncomment this if you want to include links to the stream in your stream alert mails.
 # This should define the fully qualified base url to your web interface exactly the same way as it is accessed by your users.
 #
-#transport_email_web_interface_url = https://graylog.example.com
+transport_email_web_interface_url = http://<%= node['fqdn'] %>
 
 # HTTP proxy for outgoing HTTP calls
 #http_proxy_uri =
 
-# Enable the disk based message journal.
-message_journal_enabled = true
-message_journal_dir = <%= node['graylog']['graylog-server']['journal_directory'] %>
+# Disable the optimization of Elasticsearch indices after index cycling. This may take some load from Elasticsearch
+# on heavily used systems with large indices, but it will decrease search performance. The default is to optimize
+# cycled indices.
+#disable_index_optimization = true
 
-# Journal hold messages before they could be written to Elasticsearch.
-# For a maximum of 12 hours or 5 GB whichever happens first.
-# During normal operation the journal will be smaller.
-#message_journal_max_age = 12h
-#message_journal_max_size = 5gb
-#message_journal_flush_age = 1m
-#message_journal_flush_interval = 1000000
-#message_journal_segment_age = 1h
-#message_journal_segment_size = 100mb
+# Optimize the index down to <= index_optimization_max_num_segments. A higher number may take some load from Elasticsearch
+# on heavily used systems with large indices, but it will decrease search performance. The default is 1.
+#index_optimization_max_num_segments = 1
 
-# When more messages are coming in as we can process, incoming messages will be cached in memory until
-# they are ready to be processed. Per default this data structure is unbounded, so in situations of
-# constant high load, it will grow endlessly until all allocatable memory has been consumed and the
-# process dies.
-# To prevent this, the next setting allows you to define an upper bound for this memory cache, if the
-# number of messages in the cache has reached this limit, incoming messages will be dropped until it
-# has shrunk again.
-#
-# The default is 0, which means no upper bound.
-#
-#input_cache_max_size = 0
+# Disable the index range calculation on all open/available indices and only calculate the range for the latest
+# index. This may speed up index cycling on systems with large indices but it might lead to wrong search results
+# in regard to the time range of the messages (i. e. messages within a certain range may not be found). The default
+# is to calculate the time range on all open/available indices.
+#disable_index_range_calculation = true
+
+# The threshold of the garbage collection runs. If GC runs take longer than this threshold, a system notification
+# will be generated to warn the administrator about possible problems with the system. Default is 1 second.
+#gc_warning_threshold = 1s
 
 # Connection timeout for a configured LDAP server (e. g. ActiveDirectory) in milliseconds.
 #ldap_connection_timeout = 2000
-
-# Version checks settings. All timeouts are in milliseconds.
-#versionchecks = true
-#versionchecks_uri = http://versioncheck.torch.sh/check
-#versionchecks_connection_request_timeout = 10000
-#versionchecks_connect_timeout = 10000
-#versionchecks_socket_timeout = 10000
 
 # https://github.com/bazhenov/groovy-shell-server
 #groovy_shell_enable = false
@@ -285,3 +370,34 @@ message_journal_dir = <%= node['graylog']['graylog-server']['journal_directory']
 
 # Enable collection of Graylog-related metrics into MongoDB
 #enable_metrics_collection = false
+
+# Disable the use of SIGAR for collecting system stats
+#disable_sigar = false
+
+# TELEMETRY
+# Enable publishing Telemetry data
+#telemetry_enabled = false
+
+# Base URL of the Telemetry service
+#telemetry_url = https://telemetry-in.graylog.com/submit/
+
+# Authentication token for the Telemetry service
+#telemetry_token = 
+
+# How often the Telemetry data should be reported
+#telemetry_report_interval = 1m
+
+# Number of Telemetry data sets to store locally if the connection to the Telemetry service fails
+#telemetry_max_queue_size = 10
+
+# TTL for Telemetry data in local cache
+#telemetry_cache_timeout = 1m
+
+# Connect timeout for HTTP connections
+#telemetry_service_connect_timeout =  1s
+
+# Write timeout for HTTP connections
+#telemetry_service_write_timeout = 5s
+
+# Read timeout for HTTP connections
+#telemetry_service_read_timeout = 5s
