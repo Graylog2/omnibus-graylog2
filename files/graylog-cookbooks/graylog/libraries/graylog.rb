@@ -22,6 +22,10 @@ module Graylog
   smtp_port nil
   smtp_user String.new
   smtp_password String.new
+  rotation_size nil
+  rotation_time nil
+  indices nil
+  journal_size nil
   etcd Mash.new
   node nil
 
@@ -147,6 +151,10 @@ module Graylog
       Graylog['current_address'] = Graylog[:node][:ipaddress]
       Graylog['last_address']  ||= Graylog['current_address']
       Graylog['enforce_ssl']   ||= false
+      Graylog['rotation_size'] = Graylog[:node]['graylog']['rotation_size'] if Graylog['rotation_size'].nil?
+      Graylog['rotation_time'] = Graylog[:node]['graylog']['rotation_time'] if Graylog['rotation_time'].nil?
+      Graylog['indices']       = Graylog[:node]['graylog']['indices'] if Graylog['indices'].nil?
+      Graylog['journal_size']  = Graylog[:node]['graylog']['journal_size'] if Graylog['journal_size'].nil?
 
       if Graylog['current_address'] == '127.0.0.1'
         Chef::Application.fatal!("eth0 is down! Can not reconfigure Graylog.")
@@ -179,7 +187,11 @@ module Graylog
               'local_connect' => Graylog['local_connect'],
               'current_address' => Graylog['current_address'],
               'last_address' => Graylog['last_address'],
-              'enforce_ssl' => Graylog['enforce_ssl']
+              'enforce_ssl' => Graylog['enforce_ssl'],
+              'rotation_size' => Graylog['rotation_size'],
+              'rotation_time' => Graylog['rotation_time'],
+              'indices' => Graylog['indices'],
+              'journal_size' => Graylog['journal_size']
             })
           )
           system("chmod 0644 /etc/graylog/graylog-settings.json")

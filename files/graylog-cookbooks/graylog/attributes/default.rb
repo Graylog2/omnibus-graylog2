@@ -7,6 +7,10 @@ default['graylog']['smtp_server'] = false
 default['graylog']['smtp_port'] = 587
 default['graylog']['smtp_user'] = false
 default['graylog']['smtp_password'] = false
+default['graylog']['rotation_size'] = 1073741824
+default['graylog']['rotation_time'] = 0
+default['graylog']['indices'] = 10
+default['graylog']['journal_size'] = 1
 
 default['graylog']['user']['username'] = "graylog"
 default['graylog']['user']['group'] = "graylog"
