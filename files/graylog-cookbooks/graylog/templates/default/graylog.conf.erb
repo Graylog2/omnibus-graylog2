@@ -327,8 +327,8 @@ transport_email_enabled = <%= @email_enabled %>
 transport_email_hostname = <%= Graylog['smtp_server'] %>
 transport_email_port = <%= Graylog['smtp_port'] %>
 transport_email_use_auth = <%= @email_auth %>
-transport_email_use_tls = true
-transport_email_use_ssl = true
+transport_email_use_tls = <%= not Graylog['smtp_no_tls'] %>
+transport_email_use_ssl = <%= not Graylog['smtp_no_ssl'] %>
 transport_email_auth_username = <%= Graylog['smtp_user'] %>
 transport_email_auth_password = <%= Graylog['smtp_password'] %>
 transport_email_subject_prefix = [graylog]

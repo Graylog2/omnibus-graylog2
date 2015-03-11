@@ -14,6 +14,12 @@ add_command 'set-email-config', 'Setup email configuration', 2 do |cmd_name, ser
     opts.on("--password PASSWORD", String, "SMTP password") do |value|
       options[:password] = value
     end
+    opts.on("--no-tls", "Disable TLS") do |value|
+      options[:tls] = (not value)
+    end
+    opts.on("--no-ssl", "Disable SSL") do |value|
+      options[:ssl] = (not value)
+    end
   end.parse!
 
   if server
@@ -28,10 +34,12 @@ add_command 'set-email-config', 'Setup email configuration', 2 do |cmd_name, ser
     existing_settings['smtp_port']     = options[:port] || 587
     existing_settings['smtp_user']     = options[:user] || ""
     existing_settings['smtp_password'] = options[:password] || ""
+    existing_settings['smtp_no_tls']   = options[:tls] || false
+    existing_settings['smtp_no_ssl']   = options[:ssl] || false
     File.open("/etc/graylog/graylog-settings.json","w") do |settings|
       settings.write(JSON.pretty_generate(existing_settings))
     end
   else
-    puts "Usage: #{cmd_name} <smtp server> [--port=<smtp port> --user=<username> --password=<password>]"
+    puts "Usage: #{cmd_name} <smtp server> [--port=<smtp port> --user=<username> --password=<password> --no-tls --no-ssl]"
   end
 end

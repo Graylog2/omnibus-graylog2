@@ -140,6 +140,8 @@ module Graylog
       Graylog['smtp_port']     = Graylog[:node]['graylog']['smtp_port'] if Graylog['smtp_port'].nil?
       Graylog['smtp_user']     = Graylog[:node]['graylog']['smtp_user'] if Graylog['smtp_user'].nil?
       Graylog['smtp_password'] = Graylog[:node]['graylog']['smtp_password'] if Graylog['smtp_password'].nil?
+      Graylog['smtp_no_tls']   ||= false
+      Graylog['smtp_no_ssl']   ||= false
       Graylog['master_node']   ||= '127.0.0.1'
       Graylog['local_connect'] = false if Graylog['local_connect'].nil?
       Graylog['current_address'] = Graylog[:node][:ipaddress]
@@ -171,6 +173,8 @@ module Graylog
               'smtp_port' => Graylog['smtp_port'],
               'smtp_user' => Graylog['smtp_user'],
               'smtp_password' => Graylog['smtp_password'],
+              'smtp_no_tls' => Graylog['smtp_no_tls'],
+              'smtp_no_ssl' => Graylog['smtp_no_ssl'],
               'master_node' => Graylog['master_node'],
               'local_connect' => Graylog['local_connect'],
               'current_address' => Graylog['current_address'],
