@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# set ulimits
+
+ulimit -c 0
+ulimit -d unlimited
+ulimit -e 0
+ulimit -f unlimited
+ulimit -l 64
+ulimit -m unlimited
+# WARNING: increasing the global file descriptor limit increases RAM consumption on startup dramatically
+ulimit -n 64000
+ulimit -q 819200
+ulimit -r 0
+ulimit -s 10240
+ulimit -t unlimited
+ulimit -v unlimited
+ulimit -x unlimited
+
+umask 022

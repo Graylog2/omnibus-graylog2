@@ -5,5 +5,8 @@ always_build true
 source :path => File.expand_path("files/docker", Config.project_root)
 
 build do
- copy "#{project_dir}/runsvdir-docker", "#{install_dir}/embedded/bin"
+  mkdir "#{install_dir}/embedded/share/docker"
+  copy "#{project_dir}/docker-environment", "#{install_dir}/embedded/share/docker/"
+  copy "#{project_dir}/01_run_graylogctl.sh", "#{install_dir}/embedded/share/docker/"
+  copy "#{project_dir}/my_init", "#{install_dir}/embedded/share/docker/"
 end
