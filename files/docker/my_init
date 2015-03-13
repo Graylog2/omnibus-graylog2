@@ -255,14 +255,14 @@ def main(args):
   if args.enable_insecure_key:
     install_insecure_key()
   
-  if not args.skip_startup_files:
-    run_startup_files()
-
   runit_exited = False
   exit_code = None
 
   if not args.skip_runit:
     runit_pid = start_runit()
+  
+  if not args.skip_startup_files:
+    run_startup_files()
   try:
     exit_status = None
     if len(args.main_command) == 0:
