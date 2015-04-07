@@ -14,7 +14,7 @@ if [ ! -z "$GRAYLOG_RETENTION" ]; then
         graylog-ctl set-retention $GRAYLOG_RETENTION
 fi
 if [ ! -z "$GRAYLOG_MASTER" ]; then
-        graylog-ctl local-connect && graylog-ctl set-cluster-master $GRAYLOG_MASTER
+        graylog-ctl set-cluster-master $GRAYLOG_MASTER
 fi
 if [ ! -z "$GRAYLOG_WEB" ]; then
         graylog-ctl reconfigure-as-webinterface
