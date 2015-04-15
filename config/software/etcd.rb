@@ -1,13 +1,13 @@
 name "etcd"
-default_version "v2.0.0"
-gem_version = "0.2.4"
+default_version "v2.0.9"
+gem_version = "0.3.0"
 
 dependency "openssl"
 dependency "ruby"
 dependency "rubygems"
 
 source :url => "https://github.com/coreos/etcd/releases/download/#{version}/etcd-#{version}-linux-amd64.tar.gz",
-       :md5 => "055819ecde2d91640de39e404aad9f95"
+       :md5 => "f33ec3bc8845e93a51ce4044ddb8bc00"
 
 relative_path "etcd-#{version}-linux-amd64"
 
