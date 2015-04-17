@@ -2,6 +2,7 @@ add_command 'set-email-config', 'Setup email configuration', 2 do |cmd_name, ser
   require 'optparse'
   require 'fileutils'
   require 'json'
+  require 'socket'
 
   options = {}
   ::OptionParser.new do |opts|
@@ -20,6 +21,9 @@ add_command 'set-email-config', 'Setup email configuration', 2 do |cmd_name, ser
     opts.on("--no-ssl", "Disable SSL") do |value|
       options[:ssl] = (not value)
     end
+    opts.on("--from-email", "Email sender address") do |value|
+      options[:from] = value
+    end
   end.parse!
 
   if server
@@ -30,12 +34,13 @@ add_command 'set-email-config', 'Setup email configuration', 2 do |cmd_name, ser
       FileUtils.mkdir_p("/etc/graylog")
     end
 
-    existing_settings['smtp_server']   = server
-    existing_settings['smtp_port']     = options[:port] || 587
-    existing_settings['smtp_user']     = options[:user] || ""
-    existing_settings['smtp_password'] = options[:password] || ""
-    existing_settings['smtp_no_tls']   = options[:tls] || false
-    existing_settings['smtp_no_ssl']   = options[:ssl] || false
+    existing_settings['smtp_server']     = server
+    existing_settings['smtp_port']       = options[:port] || 587
+    existing_settings['smtp_user']       = options[:user] || ""
+    existing_settings['smtp_password']   = options[:password] || ""
+    existing_settings['smtp_no_tls']     = options[:tls] || false
+    existing_settings['smtp_no_ssl']     = options[:ssl] || false
+    existing_settings['smtp_from_email'] = options[:from] || "graylog@#{Socket.gethostname}"
     File.open("/etc/graylog/graylog-settings.json","w") do |settings|
       settings.write(JSON.pretty_generate(existing_settings))
     end

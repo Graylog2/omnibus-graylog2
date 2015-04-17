@@ -332,7 +332,7 @@ transport_email_use_ssl = <%= not Graylog['smtp_no_ssl'] %>
 transport_email_auth_username = <%= Graylog['smtp_user'] %>
 transport_email_auth_password = <%= Graylog['smtp_password'] %>
 transport_email_subject_prefix = [graylog]
-transport_email_from_email = graylog@<%= node['fqdn'] %>
+transport_email_from_email = <%= Graylog['smtp_from_email'] %>
 
 # Specify and uncomment this if you want to include links to the stream in your stream alert mails.
 # This should define the fully qualified base url to your web interface exactly the same way as it is accessed by your users.

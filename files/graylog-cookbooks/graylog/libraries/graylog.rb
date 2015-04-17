@@ -139,22 +139,23 @@ module Graylog
         Graylog[k] = v
       end
 
-      Graylog['timezone']      = Graylog[:node]['graylog']['timezone'] if Graylog['timezone'].empty?
-      Graylog['smtp_server']   = Graylog[:node]['graylog']['smtp_server'] if Graylog['smtp_server'].nil?
-      Graylog['smtp_port']     = Graylog[:node]['graylog']['smtp_port'] if Graylog['smtp_port'].nil?
-      Graylog['smtp_user']     = Graylog[:node]['graylog']['smtp_user'] if Graylog['smtp_user'].nil?
-      Graylog['smtp_password'] = Graylog[:node]['graylog']['smtp_password'] if Graylog['smtp_password'].nil?
-      Graylog['smtp_no_tls']   ||= false
-      Graylog['smtp_no_ssl']   ||= false
-      Graylog['master_node']   ||= '127.0.0.1'
-      Graylog['local_connect'] = false if Graylog['local_connect'].nil?
+      Graylog['timezone']        = Graylog[:node]['graylog']['timezone'] if Graylog['timezone'].empty?
+      Graylog['smtp_server']     = Graylog[:node]['graylog']['smtp_server'] if Graylog['smtp_server'].nil?
+      Graylog['smtp_port']       = Graylog[:node]['graylog']['smtp_port'] if Graylog['smtp_port'].nil?
+      Graylog['smtp_user']       = Graylog[:node]['graylog']['smtp_user'] if Graylog['smtp_user'].nil?
+      Graylog['smtp_password']   = Graylog[:node]['graylog']['smtp_password'] if Graylog['smtp_password'].nil?
+      Graylog['smtp_from_email'] = Graylog[:node]['graylog']['smtp_from_email'] if Graylog['smtp_from_email'].nil?
+      Graylog['smtp_no_tls']     ||= false
+      Graylog['smtp_no_ssl']     ||= false
+      Graylog['master_node']     ||= '127.0.0.1'
+      Graylog['local_connect']   = false if Graylog['local_connect'].nil?
       Graylog['current_address'] = Graylog[:node][:ipaddress]
-      Graylog['last_address']  ||= Graylog['current_address']
-      Graylog['enforce_ssl']   ||= false
-      Graylog['rotation_size'] = Graylog[:node]['graylog']['rotation_size'] if Graylog['rotation_size'].nil?
-      Graylog['rotation_time'] = Graylog[:node]['graylog']['rotation_time'] if Graylog['rotation_time'].nil?
-      Graylog['indices']       = Graylog[:node]['graylog']['indices'] if Graylog['indices'].nil?
-      Graylog['journal_size']  = Graylog[:node]['graylog']['journal_size'] if Graylog['journal_size'].nil?
+      Graylog['last_address']    ||= Graylog['current_address']
+      Graylog['enforce_ssl']     ||= false
+      Graylog['rotation_size']   = Graylog[:node]['graylog']['rotation_size'] if Graylog['rotation_size'].nil?
+      Graylog['rotation_time']   = Graylog[:node]['graylog']['rotation_time'] if Graylog['rotation_time'].nil?
+      Graylog['indices']         = Graylog[:node]['graylog']['indices'] if Graylog['indices'].nil?
+      Graylog['journal_size']    = Graylog[:node]['graylog']['journal_size'] if Graylog['journal_size'].nil?
 
       if Graylog['current_address'] == '127.0.0.1'
         Chef::Application.fatal!("eth0 is down! Can not reconfigure Graylog.")
@@ -181,6 +182,7 @@ module Graylog
               'smtp_port' => Graylog['smtp_port'],
               'smtp_user' => Graylog['smtp_user'],
               'smtp_password' => Graylog['smtp_password'],
+              'smtp_from_email' => Graylog['smtp_from_email'],
               'smtp_no_tls' => Graylog['smtp_no_tls'],
               'smtp_no_ssl' => Graylog['smtp_no_ssl'],
               'master_node' => Graylog['master_node'],
