@@ -15,14 +15,14 @@ add_command 'set-email-config', 'Setup email configuration', 2 do |cmd_name, ser
     opts.on("--password PASSWORD", String, "SMTP password") do |value|
       options[:password] = value
     end
+    opts.on("--from-email ADDRESS", String, "Email sender address") do |value|
+      options[:from] = value
+    end
     opts.on("--no-tls", "Disable TLS") do |value|
       options[:tls] = (not value)
     end
     opts.on("--no-ssl", "Disable SSL") do |value|
       options[:ssl] = (not value)
-    end
-    opts.on("--from-email", "Email sender address") do |value|
-      options[:from] = value
     end
   end.parse!
 
@@ -45,6 +45,6 @@ add_command 'set-email-config', 'Setup email configuration', 2 do |cmd_name, ser
       settings.write(JSON.pretty_generate(existing_settings))
     end
   else
-    puts "Usage: #{cmd_name} <smtp server> [--port=<smtp port> --user=<username> --password=<password> --no-tls --no-ssl]"
+    puts "Usage: #{cmd_name} <smtp server> [--port=<smtp port> --user=<username> --password=<password> --from-email=<sender address> --no-tls --no-ssl]"
   end
 end
