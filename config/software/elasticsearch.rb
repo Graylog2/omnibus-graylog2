@@ -1,11 +1,11 @@
 name "elasticsearch"
-default_version "1.4.4"
+default_version "1.4.5"
 
 dependency "server-jre"
 dependency "runit"
 
-source url: "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.4.tar.gz",
-       md5: "1eb4a0098d4b3c63caf7946794660728"
+source url: "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.5.tar.gz",
+       md5: "01b6f3317c50a1b6964a56494363cc49"
 
 relative_path "elasticsearch-1.4.4"
 
