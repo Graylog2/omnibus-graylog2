@@ -6,7 +6,7 @@ install_dir     '/opt/graylog'
 build_version   '1.0.0-rc.4'
 build_iteration  1
 
-override :ruby,       version: "2.2.2"
+override :ruby,       version: "2.1.6"
 override :'chef-gem', version: "12.2.1"
 
 dependency "prepare"
