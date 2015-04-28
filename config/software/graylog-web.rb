@@ -9,7 +9,7 @@ if version.include? '-beta' or version.include? '-rc'
          md5: "017c9cf3dadd41dcd790dce85d217ccd"
 else
   source url: "http://packages.graylog2.org/releases/graylog2-web-interface/graylog-web-interface-#{version}.tgz",
-         md5: "d077236ebdc496cba2093be5bb32bfd5"
+         md5: "0f9efc572cd79079f909abccf397e345"
 end
 
 relative_path "graylog-web-interface-#{version}"
