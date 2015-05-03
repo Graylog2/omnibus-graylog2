@@ -156,6 +156,7 @@ module Graylog
       Graylog['rotation_time']   = Graylog[:node]['graylog']['rotation_time'] if Graylog['rotation_time'].nil?
       Graylog['indices']         = Graylog[:node]['graylog']['indices'] if Graylog['indices'].nil?
       Graylog['journal_size']    = Graylog[:node]['graylog']['journal_size'] if Graylog['journal_size'].nil?
+      Graylog['node_id']         ||= false
 
       if Graylog['current_address'] == '127.0.0.1'
         Chef::Application.fatal!("eth0 is down! Can not reconfigure Graylog.")
@@ -193,7 +194,8 @@ module Graylog
               'rotation_size' => Graylog['rotation_size'],
               'rotation_time' => Graylog['rotation_time'],
               'indices' => Graylog['indices'],
-              'journal_size' => Graylog['journal_size']
+              'journal_size' => Graylog['journal_size'],
+              'node_id' => Graylog['node_id']
             })
           )
           system("chmod 0644 /etc/graylog/graylog-settings.json")

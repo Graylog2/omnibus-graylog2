@@ -16,7 +16,9 @@ directory server_journal_dir do
 end
 
 file node['graylog']['graylog-server']['node_id'] do
+  content Graylog['node_id'] if Graylog['node_id']
   owner server_user
+  notifies :restart, 'service[graylog-server]', :delayed
 end
 
 if not Graylog['smtp_server'].empty?
