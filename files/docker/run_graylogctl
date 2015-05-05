@@ -4,6 +4,9 @@ set -e
 if [ ! -z "$GRAYLOG_PASSWORD" ]; then
         graylog-ctl set-admin-password $GRAYLOG_PASSWORD
 fi
+if [ ! -z "$GRAYLOG_USERNAME" ]; then
+        graylog-ctl set-admin-username $GRAYLOG_USERNAME
+fi
 if [ ! -z "$GRAYLOG_TIMEZONE" ]; then
         graylog-ctl set-timezone $GRAYLOG_TIMEZONE
 fi
