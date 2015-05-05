@@ -26,8 +26,6 @@ if [ ! -z "$GRAYLOG_WEB" ]; then
         graylog-ctl reconfigure-as-webinterface
 elif [ ! -z "$GRAYLOG_SERVER" ]; then
         graylog-ctl reconfigure-as-backend
-elif [ ! -z "$GRAYLOG_DATA" ]; then
-        graylog-ctl reconfigure-as-datanode
 else
         graylog-ctl local-connect && graylog-ctl reconfigure
 fi
