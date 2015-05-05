@@ -4,7 +4,7 @@ homepage 'https://graylog.org'
 
 install_dir     '/opt/graylog'
 build_version   '1.0.2'
-build_iteration  2
+build_iteration  3
 
 override :ruby,       version: "2.1.4"
 override :'chef-gem', version: "12.2.1"
