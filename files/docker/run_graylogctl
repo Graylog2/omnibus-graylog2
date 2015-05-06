@@ -29,3 +29,12 @@ elif [ ! -z "$GRAYLOG_SERVER" ]; then
 else
         graylog-ctl local-connect && graylog-ctl reconfigure
 fi
+if [ ! -z "$GRAYLOG_SSL_CERTIFICATE_URL"]; then
+        curl -o "/opt/graylog/conf/nginx/ca/graylog.crt" "$GRAYLOG_SSL_CERTIFICATE_URL"
+fi
+if [ ! -z "$GRAYLOG_SSL_PRIVATEKEY_URL"]; then
+        curl -o "/opt/graylog/conf/nginx/ca/graylog.key" "$GRAYLOG_SSL_PRIVATEKEY_URL"
+fi
+if [ -f "/opt/graylog/conf/nginx/ca/graylog.crt" ] && [ -f "/opt/graylog/conf/nginx/ca/graylog.key" ]; then
+        graylog-ctl restart nginx
+fi
