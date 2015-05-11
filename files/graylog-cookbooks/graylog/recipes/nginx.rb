@@ -71,6 +71,12 @@ template "#{node['graylog']['install_directory']}/conf/nginx/nginx.conf" do
   notifies :restart, 'service[nginx]'
 end
 
+template "#{node['graylog']['install_directory']}/embedded/html/502.html" do
+  owner node['graylog']['user']['username']
+  group node['graylog']['user']['group']
+  mode "0644"
+end
+
 runit_service "nginx" do
   options({
     :log_directory => nginx_log_dir
