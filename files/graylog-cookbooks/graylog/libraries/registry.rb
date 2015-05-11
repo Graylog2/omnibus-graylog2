@@ -1,4 +1,6 @@
 require 'etcd'
+require 'socket'
+require 'timeout'
 
 class GraylogRegistry
   attr_reader :node
@@ -89,6 +91,7 @@ class GraylogRegistry
   
   def add_node(ip, context)
     begin
+			check_connection
       @client.set("/#{context}/#{ip}", value: "{\"ip\":\"#{ip}\"}")
     rescue Exception => e
       Chef::Log.debug("Can not add node #{ip} to directory #{context}")
@@ -106,5 +109,31 @@ class GraylogRegistry
       Chef::Log.debug("Can not fetch node list from etcd #{e.message}")
     end
     return []
+  end
+
+  def check_connection
+    if not is_port_open?(get_master, 4001)
+      Chef::Application.fatal!("Can not reach etcd, please check that service is running!")
+    end
+  end
+
+  def is_port_open?(ip, port)
+    begin
+      Timeout::timeout(30) do
+        loop {
+          begin
+            s = TCPSocket.new(ip, port)
+            s.close
+            return true
+          rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH
+          end
+          Chef::Log.info("Etcd is not running, reconnecting...")
+          sleep 1
+        }
+      end
+    rescue Timeout::Error
+    end
+
+    return false
   end
 end
