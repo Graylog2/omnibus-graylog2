@@ -2,7 +2,7 @@ add_command 'set-server-secret', 'Override server secret token', 2 do |cmd_name,
   require 'fileutils'
   require 'json'
 
-  if pwd
+  if token
     existing_secrets ||= Hash.new
     if File.exists?("/etc/graylog/graylog-secrets.json")
       existing_secrets = JSON.parse(File.read("/etc/graylog/graylog-secrets.json"))
