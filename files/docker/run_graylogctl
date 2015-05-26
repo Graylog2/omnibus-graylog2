@@ -19,6 +19,9 @@ fi
 if [ ! -z "$GRAYLOG_NODE_ID" ]; then
         graylog-ctl set-node-id $GRAYLOG_NODE_ID
 fi
+if [ ! -z "$GRAYLOG_SERVER_SECRET" ]; then
+        graylog-ctl set-server-secret $GRAYLOG_SERVER_SECRET
+fi
 if [ ! -z "$GRAYLOG_MASTER" ]; then
         graylog-ctl set-cluster-master $GRAYLOG_MASTER
 fi
