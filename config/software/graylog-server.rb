@@ -20,4 +20,5 @@ build do
   mkdir "#{install_dir}/server"
   mkdir "#{install_dir}/plugin"
   sync  "#{project_dir}/", "#{install_dir}/server"
+	sync  "#{project_dir}/plugin/", "#{install_dir}/plugin/"
 end
