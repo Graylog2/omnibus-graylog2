@@ -23,6 +23,8 @@ build do
   delete "#{project_dir}/lib/sigar/libsigar-*hpux*"
   delete "#{project_dir}/lib/sigar/libsigar-*ppc*"
   delete "#{project_dir}/lib/sigar/libsigar-*macosx*"
+  delete "#{project_dir}/lib/sigar/libsigar-*s390x*"
+  delete "#{project_dir}/lib/sigar/libsigar-*ia64*"
 
   mkdir "#{install_dir}/server"
   mkdir "#{install_dir}/plugin"
