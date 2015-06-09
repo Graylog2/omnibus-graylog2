@@ -17,6 +17,13 @@ relative_path "graylog-#{version}"
 
 
 build do
+  delete "#{project_dir}/lib/sigar/sigar-*winnt*"
+  delete "#{project_dir}/lib/sigar/libsigar-*freebsd*"
+  delete "#{project_dir}/lib/sigar/libsigar-*solaris*"
+  delete "#{project_dir}/lib/sigar/libsigar-*hpux*"
+  delete "#{project_dir}/lib/sigar/libsigar-*ppc*"
+  delete "#{project_dir}/lib/sigar/libsigar-*macosx*"
+
   mkdir "#{install_dir}/server"
   mkdir "#{install_dir}/plugin"
   sync  "#{project_dir}/", "#{install_dir}/server"
