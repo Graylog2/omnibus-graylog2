@@ -145,6 +145,7 @@ module Graylog
       Graylog['smtp_user']       = Graylog[:node]['graylog']['smtp_user'] if Graylog['smtp_user'].nil?
       Graylog['smtp_password']   = Graylog[:node]['graylog']['smtp_password'] if Graylog['smtp_password'].nil?
       Graylog['smtp_from_email'] = Graylog[:node]['graylog']['smtp_from_email'] if Graylog['smtp_from_email'].nil?
+      Graylog['smtp_web_url']    = Graylog[:node]['graylog']['smtp_web_url'] if Graylog['smtp_web_url'].nil?
       Graylog['smtp_no_tls']     ||= false
       Graylog['smtp_no_ssl']     ||= false
       Graylog['master_node']     ||= '127.0.0.1'
@@ -184,6 +185,7 @@ module Graylog
               'smtp_user' => Graylog['smtp_user'],
               'smtp_password' => Graylog['smtp_password'],
               'smtp_from_email' => Graylog['smtp_from_email'],
+              'smtp_web_url' => Graylog['smtp_web_url'],
               'smtp_no_tls' => Graylog['smtp_no_tls'],
               'smtp_no_ssl' => Graylog['smtp_no_ssl'],
               'master_node' => Graylog['master_node'],

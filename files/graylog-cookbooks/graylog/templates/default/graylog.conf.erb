@@ -331,7 +331,7 @@ transport_email_from_email = <%= Graylog['smtp_from_email'] %>
 # Specify and uncomment this if you want to include links to the stream in your stream alert mails.
 # This should define the fully qualified base url to your web interface exactly the same way as it is accessed by your users.
 #
-transport_email_web_interface_url = http://<%= node['fqdn'] %>
+transport_email_web_interface_url = <%= Graylog['smtp_web_url'] %>
 
 # HTTP proxy for outgoing HTTP calls
 #http_proxy_uri =
