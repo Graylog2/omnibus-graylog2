@@ -4,14 +4,14 @@ homepage 'https://graylog.org'
 
 install_dir     '/opt/graylog'
 build_version   '1.1.5'
-build_iteration  4
+build_iteration  5
 
 override :ruby,       version: "2.1.4"
 override :'chef-gem', version: "12.2.1"
 override :'openssl',  version: "1.0.1o",
                       source: {
-                        url: "https://www.openssl.org/source/openssl-1.0.1o.tar.gz",
-                        md5: "af1096f500a612e2e2adacb958d7eab1" }
+                        url: "https://www.openssl.org/source/openssl-1.0.2d.tar.gz",
+                        md5: "38dd619b2e77cbac69b99f52a053d25a" }
 override :'cacerts',  version: "2015.04.22",
                       source: { md5: "380df856e8f789c1af97d0da9a243769" }
 
