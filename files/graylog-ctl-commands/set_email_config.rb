@@ -19,7 +19,7 @@ add_command 'set-email-config', 'Setup email configuration', 2 do |cmd_name, ser
     opts.on("--from-email ADDRESS", String, "Email sender address") do |value|
       options[:from] = value
     end
-    opts.on("--web-url URL", String, "Web interface URL, used by backlinks") do |value|
+    opts.on("--web-url URL", String, "Web interface URL, used for backlinks") do |value|
       options[:web_url] = value
     end
     opts.on("--no-tls", "Disable TLS") do |value|
@@ -50,7 +50,7 @@ add_command 'set-email-config', 'Setup email configuration', 2 do |cmd_name, ser
     existing_settings['smtp_no_tls']     = options[:tls] || false
     existing_settings['smtp_no_ssl']     = options[:ssl] || false
     existing_settings['smtp_from_email'] = options[:from] || "graylog@#{Socket.gethostname}"
-    existing_settings['smtp_web_url']    = URI(options[:web_url]).to_s || URI::HTTP.build(:host => Socket.gethostname).to_s
+    existing_settings['smtp_web_url']    = (URI(options[:web_url] || URI::HTTP.build(:host => Socket.gethostname))).to_s
     File.open("/etc/graylog/graylog-settings.json","w") do |settings|
       settings.write(JSON.pretty_generate(existing_settings))
     end
