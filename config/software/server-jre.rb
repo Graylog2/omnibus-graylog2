@@ -15,7 +15,7 @@
 #
 
 name "server-jre"
-default_version "8u51"
+default_version "8u60"
 
 whitelist_file "jre/bin/javaws"
 whitelist_file "jre/bin/policytool"
@@ -25,15 +25,15 @@ whitelist_file "jre/bin/appletviewer"
 
 if _64_bit?
   # TODO: download x86 version on x86 machines
-  source url:     "http://download.oracle.com/otn-pub/java/jdk/8u51-b16/server-jre-8u51-linux-x64.tar.gz",
-         md5:     "4061b5f840db248086f3fbef829ae279",
+  source url:     "http://download.oracle.com/otn-pub/java/jdk/8u60-b27/server-jre-8u60-linux-x64.tar.gz",
+         md5:     "7c3bd07fb925d89eaa85a7af1471ab72",
          cookie:  "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie",
          warning: "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html"
 else
   raise "Server-jre can only be installed on x86_64 systems."
 end
 
-relative_path "jdk1.8.0_51"
+relative_path "jdk1.8.0_60"
 
 build do
   mkdir "#{install_dir}/embedded/jre"

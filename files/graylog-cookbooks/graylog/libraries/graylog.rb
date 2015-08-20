@@ -28,6 +28,7 @@ module Graylog
   journal_size nil
   etcd Mash.new
   node nil
+  custom_attributes Mash.new
 
   class << self
 
@@ -197,7 +198,8 @@ module Graylog
               'rotation_time' => Graylog['rotation_time'],
               'indices' => Graylog['indices'],
               'journal_size' => Graylog['journal_size'],
-              'node_id' => Graylog['node_id']
+              'node_id' => Graylog['node_id'],
+              'custom_attributes' => Graylog['custom_attributes']
             })
           )
           system("chmod 0644 /etc/graylog/graylog-settings.json")

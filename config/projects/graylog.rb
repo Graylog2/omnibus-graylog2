@@ -7,7 +7,7 @@ build_version   '1.1.6'
 build_iteration  2
 
 override :ruby,       version: "2.1.4"
-override :'chef-gem', version: "12.2.1"
+override :'chef-gem', version: "12.4.1"
 override :'openssl',  version: "1.0.1p",
                       source: {
                         url: "https://www.openssl.org/source/openssl-1.0.1p.tar.gz",
