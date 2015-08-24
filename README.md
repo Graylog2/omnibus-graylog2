@@ -102,3 +102,41 @@ Now you can go back to first box and disable the web interface and the local Ela
 ```shell
 $ sudo graylog-ctl reconfigure-as-server
 ```
+
+Custom setting
+-----
+After install the graylog you may want to do some custom configuration,you could achive this by overwriting the settings file ```/etc/graylog/graylog-settings.json```.
+
+>**Note**
+>You need run ```graylog-ctl reconfigure``` first.
+
+For example if you want to change the Graylog user, you can edit graylog-settings.json to the following:
+```json
+"custom_attributes": {
+    "user": {
+      "username": "log-user"
+    }
+  }
+```
+Afterwards run ```sudo graylog-ctl reconfigure``` and```sudo chown -R log-user /var/opt/graylog/data/*```
+
+To change the data-path edit the file to this:
+```json
+"custom_attributes": {
+    "elasticsearch": {
+      "data_directory": "/data/elasticsearch"
+    },
+    "mongodb": {
+      "data_directory": "/data/mongodb"
+    },
+    "etcd": {
+      "data_directory": "/data/etcd"
+    },
+    "graylog-server": {
+      "journal_directory": "/data/journal"
+    }
+  }
+ ```
+Again, afterwards run ```sudo graylog-ctl reconfigure```
+
+You could find all the available attributes [here](https://github.com/Graylog2/omnibus-graylog2/blob/1.1/files/graylog-cookbooks/graylog/attributes/default.rb).
