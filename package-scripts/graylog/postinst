@@ -14,6 +14,7 @@ function error_exit
 
 ln -sf /opt/graylog/embedded/bin/graylog-ctl /usr/bin || error_exit "Cannot link graylog-ctl in /usr/bin"
 
+echo -e "By installing this package, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html\n"
 echo "Thank you for installing Graylog!"
 echo "The next step in the install process is to run:"
 echo

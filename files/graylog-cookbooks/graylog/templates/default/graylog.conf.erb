@@ -302,13 +302,7 @@ lb_recognition_period_seconds = 3
 # shutdown_timeout = 30000
 
 # MongoDB Configuration
-mongodb_useauth = false
-#mongodb_user = grayloguser
-#mongodb_password = 123
-mongodb_host = <%= @mongo_server %>
-#mongodb_replica_set = localhost:27017,localhost:27018,localhost:27019
-mongodb_database = graylog
-mongodb_port = 27017
+mongodb_uri = mongodb://<%= @mongo_server %>:27017/graylog
 
 # Raise this according to the maximum connections your MongoDB server can handle if you encounter MongoDB connection problems.
 mongodb_max_connections = 100
@@ -337,7 +331,7 @@ transport_email_from_email = <%= Graylog['smtp_from_email'] %>
 # Specify and uncomment this if you want to include links to the stream in your stream alert mails.
 # This should define the fully qualified base url to your web interface exactly the same way as it is accessed by your users.
 #
-transport_email_web_interface_url = http://<%= node['fqdn'] %>
+transport_email_web_interface_url = <%= Graylog['smtp_web_url'] %>
 
 # HTTP proxy for outgoing HTTP calls
 #http_proxy_uri =

@@ -12,6 +12,7 @@ end.run_action(:create)
 Graylog[:node] = node
 node.consume_attributes(Graylog.generate_config(node['fqdn']))
 $registry = GraylogRegistry.new(node)
+Chef::Mixin::DeepMerge.deep_merge!(Graylog[:custom_attributes], node.override[:graylog]) unless Graylog[:custom_attributes].nil?
 
 if File.exists?("/var/opt/graylog/bootstrapped")
 	node.set['graylog']['bootstrap']['enable'] = false
