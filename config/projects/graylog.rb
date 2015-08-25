@@ -3,8 +3,8 @@ maintainer 'Marius Sturm'
 homepage 'https://graylog.org'
 
 install_dir     '/opt/graylog'
-build_version   '1.1.6'
-build_iteration  3
+build_version   '1.2.0-rc.1'
+build_iteration  1
 
 override :ruby,       version: "2.1.4"
 override :'chef-gem', version: "12.4.1"
