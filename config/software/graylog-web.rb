@@ -6,7 +6,7 @@ dependency "runit"
 
 if version.include? '-beta' or version.include? '-rc'
   source url: "http://packages.graylog2.org/releases/graylog2-web-interface/graylog-web-interface-#{version}.tgz",
-         md5: "808372618d43fb7a463d0f355c9683b1"
+         md5: "8fd45fa2326ad5b0f83eb4dc0f2c1800"
 else
   source url: "http://packages.graylog2.org/releases/graylog2-web-interface/graylog-web-interface-#{version}.tgz",
          md5: "838d0ba05766bcb03338d2809b6b6278"
