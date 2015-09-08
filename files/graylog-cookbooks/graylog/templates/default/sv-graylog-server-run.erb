@@ -3,7 +3,7 @@ exec 2>&1
 
 umask 077
 export JAVA_HOME=<%= @options[:install_directory] %>/embedded/jre
-export GRAYLOG_SERVER_JAVA_OPTS="-Xms1g -Xmx1g -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow"
+export GRAYLOG_SERVER_JAVA_OPTS="-Xms1g -Xmx<%= @options[:max_memory] %> -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow"
 
 # check if mongodb is up
 timeout 600 bash -c "until curl -s http://127.0.0.1:27017; do sleep 1; done"

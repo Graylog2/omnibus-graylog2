@@ -26,7 +26,7 @@ template "#{node['graylog']['install_directory']}/conf/elasticsearch.yml" do
   notifies :restart, 'service[elasticsearch]'
 end
 
-es_memory = ENV['ES_MEMORY'] || "#{(node.memory.total.to_i * 0.6 ).floor / 1024}m"
+es_memory = ENV['ES_MEMORY'] || node['graylog']['elasticsearch']['memory'] || "#{(node.memory.total.to_i * 0.6 ).floor / 1024}m"
 runit_service "elasticsearch" do
   restart_command "-w 45 restart"
   run_restart false
