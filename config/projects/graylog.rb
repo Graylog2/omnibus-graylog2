@@ -12,8 +12,8 @@ override :'openssl',  version: "1.0.1p",
                       source: {
                         url: "https://www.openssl.org/source/openssl-1.0.1p.tar.gz",
                         md5: "7563e92327199e0067ccd0f79f436976" }
-override :'cacerts',  version: "2015.04.22",
-                      source: { md5: "380df856e8f789c1af97d0da9a243769" }
+override :'cacerts',  version: "2015.09.02",
+                      source: { md5: "3e0e6f302bd4f5b94040b8bcee0ffe15" }
 
 dependency "prepare"
 dependency "chef-gem"
