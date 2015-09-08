@@ -65,3 +65,6 @@ default['graylog']['logging']['svlogd_udp'] = nil # transmit log messages via UD
 default['graylog']['logging']['svlogd_prefix'] = nil # custom prefix for log messages
 default['graylog']['logging']['udp_log_shipping_host'] = nil # remote host to ship log messages to via UDP
 default['graylog']['logging']['udp_log_shipping_port'] = 514 # remote host to ship log messages to via UDP
+
+default['graylog']['nginx']['svlogd_size'] = 100 * 1024 * 1024 # rotate after 100 MB of log data
+default['graylog']['nginx']['svlogd_num'] = 5 # reduced backlog for nginx
