@@ -3,4 +3,4 @@ exec 2>&1
 
 export LC_ALL=C
 umask 077
-exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> <%= @options[:install_directory] %>/embedded/sbin/etcd -listen-client-urls=http://0.0.0.0:2379,http://0.0.0.0:4001 -data-dir=<%= node['graylog']['etcd']['data_directory'] %>
+exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> <%= @options[:install_directory] %>/embedded/sbin/etcd -advertise-client-urls=http://<%= node['ipaddress'] %>:4001 -listen-client-urls=http://0.0.0.0:2379,http://0.0.0.0:4001 -data-dir=<%= node['graylog']['etcd']['data_directory'] %>
