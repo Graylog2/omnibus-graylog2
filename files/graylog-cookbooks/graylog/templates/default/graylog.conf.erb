@@ -190,6 +190,11 @@ elasticsearch_discovery_zen_ping_unicast_hosts = <%= @es_nodes %>
 # Note that this setting only takes effect on newly created indices.
 elasticsearch_analyzer = standard
 
+# Global request timeout for Elasticsearch requests (e. g. during search, index creation, or index time-range
+# calculations) based on a best-effort to restrict the runtime of Elasticsearch operations.
+# Default: 1m
+#elasticsearch_request_timeout = 1m
+
 # Batch size for the Elasticsearch output. This is the maximum (!) number of messages the Elasticsearch output
 # module will get at once and write to Elasticsearch in a batch call. If the configured batch size has not been
 # reached within output_flush_interval seconds, everything that is available will be flushed at once. Remember
@@ -254,6 +259,7 @@ message_journal_dir = <%= node['graylog']['graylog-server']['journal_directory']
 # During normal operation the journal will be smaller.
 #message_journal_max_age = 12h
 message_journal_max_size = <%= Graylog['journal_size'] %>gb
+
 #message_journal_flush_age = 1m
 #message_journal_flush_interval = 1000000
 #message_journal_segment_age = 1h
@@ -333,6 +339,21 @@ transport_email_from_email = <%= Graylog['smtp_from_email'] %>
 #
 transport_email_web_interface_url = <%= Graylog['smtp_web_url'] %>
 
+# The default connect timeout for outgoing HTTP connections.
+# Values must be a positive duration (and between 1 and 2147483647 when converted to milliseconds).
+# Default: 5s
+#http_connect_timeout = 5s
+
+# The default read timeout for outgoing HTTP connections.
+# Values must be a positive duration (and between 1 and 2147483647 when converted to milliseconds).
+# Default: 10s
+#http_read_timeout = 10s
+
+# The default write timeout for outgoing HTTP connections.
+# Values must be a positive duration (and between 1 and 2147483647 when converted to milliseconds).
+# Default: 10s
+#http_write_timeout = 10s
+
 # HTTP proxy for outgoing HTTP calls
 #http_proxy_uri =
 
@@ -358,40 +379,17 @@ transport_email_web_interface_url = <%= Graylog['smtp_web_url'] %>
 # Connection timeout for a configured LDAP server (e. g. ActiveDirectory) in milliseconds.
 #ldap_connection_timeout = 2000
 
-# https://github.com/bazhenov/groovy-shell-server
-#groovy_shell_enable = false
-#groovy_shell_port = 6789
-
 # Enable collection of Graylog-related metrics into MongoDB
 #enable_metrics_collection = false
 
 # Disable the use of SIGAR for collecting system stats
 #disable_sigar = false
 
-# TELEMETRY
-# Enable publishing Telemetry data
-#telemetry_enabled = false
+# Amount of time of inactivity after which collectors are flagged as inactive (Default: 1 minute)
+#collector_inactive_threshold = 1m
 
-# Base URL of the Telemetry service
-#telemetry_url = https://telemetry-in.graylog.com/submit/
+# Amount of time after which inactive collectors are purged (Default: 14 days)
+#collector_expiration_threshold = 14d
 
-# Authentication token for the Telemetry service
-#telemetry_token = 
-
-# How often the Telemetry data should be reported
-#telemetry_report_interval = 1m
-
-# Number of Telemetry data sets to store locally if the connection to the Telemetry service fails
-#telemetry_max_queue_size = 10
-
-# TTL for Telemetry data in local cache
-#telemetry_cache_timeout = 1m
-
-# Connect timeout for HTTP connections
-#telemetry_service_connect_timeout =  1s
-
-# Write timeout for HTTP connections
-#telemetry_service_write_timeout = 5s
-
-# Read timeout for HTTP connections
-#telemetry_service_read_timeout = 5s
+# The default cache time for dashboard widgets. (Default: 10 seconds, minimum: 1 second)
+#dashboard_widget_default_cache_time = 10s
