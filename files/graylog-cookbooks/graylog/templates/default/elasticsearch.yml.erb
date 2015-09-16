@@ -29,7 +29,7 @@
 # Cluster name identifies your cluster for auto-discovery. If you're running
 # multiple clusters on the same network, make sure you're using unique names.
 #
-cluster.name: graylog2 
+cluster.name: <%= node['graylog']['elasticsearch']['cluster_name'] %>
 
 
 #################################### Node #####################################
@@ -305,7 +305,7 @@ network.host: <%= @es_host %>
 # Set this option to a higher value on a slow or congested network
 # to minimize discovery failures:
 #
-discovery.zen.ping.timeout: 10s
+discovery.zen.ping.timeout: <%= node['graylog']['elasticsearch']['discovery_zen_ping_timeout'] %>
 
 # For more information, see
 # <http://elasticsearch.org/guide/en/elasticsearch/reference/current/modules-discovery-zen.html>

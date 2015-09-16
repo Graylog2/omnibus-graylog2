@@ -30,10 +30,10 @@ root_password_sha2 = <%= Graylog['graylog_server']['admin_password'] %>
 root_timezone = <%= Graylog['timezone'] %>
 
 # Set plugin directory here (relative or absolute)
-plugin_dir = /opt/graylog/plugin
+plugin_dir = <%= node['graylog']['graylog-server']['plugin_dir'] %>
 
 # REST API listen URI. Must be reachable by other graylog-server nodes if you run a cluster.
-rest_listen_uri = http://0.0.0.0:12900/
+rest_listen_uri = <%= node['graylog']['graylog-server']['rest_listen_uri'] %>
 
 # REST API transport address. Defaults to the value of rest_listen_uri. Exception: If rest_listen_uri
 # is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
@@ -129,27 +129,27 @@ elasticsearch_max_number_of_indices = <%= Graylog['indices'] %>
 # The following strategies are availble:
 #   - delete # Deletes the index completely (Default)
 #   - close # Closes the index and hides it from the system. Can be re-opened later.
-retention_strategy = delete
+retention_strategy = <%= node['graylog']['graylog-server']['retention_strategy'] %>
 
 # How many Elasticsearch shards and replicas should be used per index? Note that this only applies to newly created indices.
-elasticsearch_shards = 4
-elasticsearch_replicas = 1
+elasticsearch_shards = <%= node['graylog']['graylog-server']['elasticsearch_shards'] %>
+elasticsearch_replicas = <%= node['graylog']['graylog-server']['elasticsearch_replicas'] %>
 
 # Prefix for all Elasticsearch indices and index aliases managed by Graylog.
-elasticsearch_index_prefix = graylog
+elasticsearch_index_prefix = <%= node['graylog']['graylog-server']['elasticsearch_index_prefix'] %>
 
 # Do you want to allow searches with leading wildcards? This can be extremely resource hungry and should only
 # be enabled with care. See also: http://graylog2.org/resources/documentation/general/queries
-allow_leading_wildcard_searches = true
+allow_leading_wildcard_searches = <%= node['graylog']['graylog-server']['allow_leading_wildcard_searches'] %>
 
 # Do you want to allow searches to be highlighted? Depending on the size of your messages this can be memory hungry and
 # should only be enabled after making sure your Elasticsearch cluster has enough memory.
-allow_highlighting = false
+allow_highlighting = <%= node['graylog']['graylog-server']['allow_highlighting'] %>
 
 # settings to be passed to elasticsearch's client (overriding those in the provided elasticsearch_config_file)
 # all these
 # this must be the same as for your Elasticsearch cluster
-#elasticsearch_cluster_name = graylog2
+elasticsearch_cluster_name = <%= node['graylog']['graylog-server']['elasticsearch_cluster_name'] %>
 
 # you could also leave this out, but makes it easier to identify the graylog client instance
 #elasticsearch_node_name = graylog-server
@@ -162,14 +162,14 @@ allow_highlighting = false
 #elasticsearch_transport_tcp_port = 9350
 
 # we don't need to run the embedded HTTP server here
-#elasticsearch_http_enabled = false
+elasticsearch_http_enabled = <%= node['graylog']['graylog-server']['elasticsearch_http_enabled'] %>
 
 #elasticsearch_discovery_zen_ping_multicast_enabled = false
 elasticsearch_discovery_zen_ping_unicast_hosts = <%= @es_nodes %>
 
 # Change the following setting if you are running into problems with timeouts during Elasticsearch cluster discovery.
 # The setting is specified in milliseconds, the default is 5000ms (5 seconds).
-# elasticsearch_cluster_discovery_timeout = 5000
+elasticsearch_cluster_discovery_timeout = <%= node['graylog']['graylog-server']['elasticsearch_cluster_discovery_timeout'] %>
 
 # the following settings allow to change the bind addresses for the Elasticsearch client in graylog
 # these settings are empty by default, letting Elasticsearch choose automatically,
@@ -182,13 +182,13 @@ elasticsearch_discovery_zen_ping_unicast_hosts = <%= @es_nodes %>
 
 # The total amount of time discovery will look for other Elasticsearch nodes in the cluster
 # before giving up and declaring the current node master.
-#elasticsearch_discovery_initial_state_timeout = 3s
+elasticsearch_discovery_initial_state_timeout = <%= node['graylog']['graylog-server']['elasticsearch_discovery_initial_state_timeout'] %>
 
 # Analyzer (tokenizer) to use for message and full_message field. The "standard" filter usually is a good idea.
 # All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom
 # Elasticsearch documentation: http://www.elasticsearch.org/guide/reference/index-modules/analysis/
 # Note that this setting only takes effect on newly created indices.
-elasticsearch_analyzer = standard
+elasticsearch_analyzer = <%= node['graylog']['graylog-server']['elasticsearch_analyzer'] %>
 
 # Global request timeout for Elasticsearch requests (e. g. during search, index creation, or index time-range
 # calculations) based on a best-effort to restrict the runtime of Elasticsearch operations.
@@ -200,23 +200,23 @@ elasticsearch_analyzer = standard
 # reached within output_flush_interval seconds, everything that is available will be flushed at once. Remember
 # that every outputbuffer processor manages its own batch and performs its own batch write calls.
 # ("outputbuffer_processors" variable)
-output_batch_size = 500
+output_batch_size = <%= node['graylog']['graylog-server']['output_batch_size'] %>
 
 # Flush interval (in seconds) for the Elasticsearch output. This is the maximum amount of time between two
 # batches of messages written to Elasticsearch. It is only effective at all if your minimum number of messages
 # for this time period is less than output_batch_size * outputbuffer_processors.
-output_flush_interval = 1
+output_flush_interval = <%= node['graylog']['graylog-server']['output_flush_interval'] %>
 
 # As stream outputs are loaded only on demand, an output which is failing to initialize will be tried over and
 # over again. To prevent this, the following configuration options define after how many faults an output will
 # not be tried again for an also configurable amount of seconds.
-output_fault_count_threshold = 5
-output_fault_penalty_seconds = 30
+output_fault_count_threshold = <%= node['graylog']['graylog-server']['output_fault_count_threshold'] %>
+output_fault_penalty_seconds = <%= node['graylog']['graylog-server']['output_fault_penalty_seconds'] %>
 
 # The number of parallel running processors.
 # Raise this number if your buffers are filling up.
-processbuffer_processors = 5
-outputbuffer_processors = 3
+processbuffer_processors = <%= node['graylog']['graylog-server']['processbuffer_processors'] %>
+outputbuffer_processors = <%= node['graylog']['graylog-server']['outputbuffer_processors'] %>
 
 #outputbuffer_processor_keep_alive_time = 5000
 #outputbuffer_processor_threads_core_pool_size = 3
@@ -235,20 +235,20 @@ outputbuffer_processors = 3
 #     High throughput, low latency, higher CPU usage.
 #  - busy_spinning
 #     Avoids syscalls which could introduce latency jitter. Best when threads can be bound to specific CPU cores.
-processor_wait_strategy = blocking
+processor_wait_strategy = <%= node['graylog']['graylog-server']['processor_wait_strategy'] %>
 
 # Size of internal ring buffers. Raise this if raising outputbuffer_processors does not help anymore.
 # For optimum performance your LogMessage objects in the ring buffer should fit in your CPU L3 cache.
 # Start server with --statistics flag to see buffer utilization.
 # Must be a power of 2. (512, 1024, 2048, ...)
-ring_size = 65536
+ring_size = <%= node['graylog']['graylog-server']['ring_size'] %>
 
-inputbuffer_ring_size = 65536
-inputbuffer_processors = 2
-inputbuffer_wait_strategy = blocking
+inputbuffer_ring_size = <%= node['graylog']['graylog-server']['inputbuffer_ring_size'] %>
+inputbuffer_processors = <%= node['graylog']['graylog-server']['inputbuffer_processors'] %>
+inputbuffer_wait_strategy = <%= node['graylog']['graylog-server']['inputbuffer_wait_strategy'] %>
 
 # Enable the disk based message journal.
-message_journal_enabled = true
+message_journal_enabled = <%= node['graylog']['graylog-server']['message_journal_enabled'] %>
 
 # The directory which will be used to store the message journal. The directory must me exclusively used by Graylog and
 # must not contain any other files than the ones created by Graylog itself.
@@ -266,7 +266,7 @@ message_journal_max_size = <%= Graylog['journal_size'] %>gb
 #message_journal_segment_size = 100mb
 
 # Number of threads used exclusively for dispatching internal events. Default is 2.
-#async_eventbus_processors = 2
+async_eventbus_processors = <%= node['graylog']['graylog-server']['async_eventbus_processors'] %>
 
 # EXPERIMENTAL: Dead Letters
 # Every failed indexing attempt is logged by default and made visible in the web-interface. You can enable
@@ -274,11 +274,11 @@ message_journal_max_size = <%= Graylog['journal_size'] %>gb
 # MongoDB "dead_letters" collection to make sure that you never lose a message. The actual writing of dead
 # letter should work fine already but it is not heavily tested yet and will get more features in future
 # releases.
-dead_letters_enabled = false
+dead_letters_enabled = <%= node['graylog']['graylog-server']['dead_letters_enabled'] %>
 
 # How many seconds to wait between marking node as DEAD for possible load balancers and starting the actual
 # shutdown process. Set to 0 if you have no status checking load balancers in front.
-lb_recognition_period_seconds = 3
+lb_recognition_period_seconds = <%= node['graylog']['graylog-server']['lb_recognition_period_seconds'] %>
 
 # Every message is matched against the configured streams and it can happen that a stream contains rules which
 # take an unusual amount of time to run, for example if its using regular expressions that perform excessive backtracking.
@@ -292,7 +292,7 @@ lb_recognition_period_seconds = 3
 
 # Length of the interval in seconds in which the alert conditions for all streams should be checked
 # and alarms are being sent.
-#alert_check_interval = 60
+alert_check_interval = <%= node['graylog']['graylog-server']['alert_check_interval'] %>
 
 # Since 0.21 the graylog server supports pluggable output modules. This means a single message can be written to multiple
 # outputs. The next setting defines the timeout for a single output module, including the default output module where all
@@ -320,7 +320,9 @@ mongodb_threads_allowed_to_block_multiplier = 5
 
 # Drools Rule File (Use to rewrite incoming log messages)
 # See: http://graylog2.org/resources/documentation/general/rewriting
-#rules_file = /etc/graylog.drl
+<%- if node['graylog']['graylog-server']['rules_file'] %>
+rules_file = <%= node['graylog']['graylog-server']['rules_file'] %>
+<%- end %>
 
 # Email transport
 transport_email_enabled = <%= @email_enabled %>
@@ -355,7 +357,9 @@ transport_email_web_interface_url = <%= Graylog['smtp_web_url'] %>
 #http_write_timeout = 10s
 
 # HTTP proxy for outgoing HTTP calls
-#http_proxy_uri =
+<%- if node['graylog']['graylog-server']['http_proxy_uri'] %>
+http_proxy_uri = <%= node['graylog']['graylog-server']['http_proxy_uri'] %>
+<%- end %>
 
 # Disable the optimization of Elasticsearch indices after index cycling. This may take some load from Elasticsearch
 # on heavily used systems with large indices, but it will decrease search performance. The default is to optimize
@@ -392,4 +396,4 @@ transport_email_web_interface_url = <%= Graylog['smtp_web_url'] %>
 #collector_expiration_threshold = 14d
 
 # The default cache time for dashboard widgets. (Default: 10 seconds, minimum: 1 second)
-#dashboard_widget_default_cache_time = 10s
+dashboard_widget_default_cache_time = <%= node['graylog']['graylog-server']['dashboard_widget_default_cache_time'] %>
