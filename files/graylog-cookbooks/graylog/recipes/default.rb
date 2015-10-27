@@ -21,6 +21,7 @@ end
 include_recipe "graylog::users"
 include_recipe "graylog::authbind"
 include_recipe "runit"
+include_recipe "runit::svloggelfd"
 include_recipe "timezone-ii"
 
 # Configure Services
