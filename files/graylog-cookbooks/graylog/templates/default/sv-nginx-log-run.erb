@@ -1,2 +1,2 @@
 #!/bin/sh
-exec svloggelfd -H 127.0.0.1:12201 -s mongodb -e | svlogd -tt <%= @options[:log_directory] %>
+exec svloggelfd -H 127.0.0.1:12201 -s nginx -e | svlogd -tt <%= @options[:log_directory] %>
