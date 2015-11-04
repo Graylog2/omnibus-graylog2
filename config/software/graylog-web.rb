@@ -13,7 +13,8 @@ else
          md5: "ffde989ec88cf41097a7083454d2d894"
 end
 
-relative_path "graylog-web-interface-#{version}"
+#relative_path "graylog-web-interface-#{version}"
+relative_path "graylog-web-interface-1.3.0-SNAPSHOT-20151103144707"
 
 build do
   mkdir "#{install_dir}/web"
