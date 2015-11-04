@@ -4,9 +4,10 @@ default_version project.build_version
 dependency "server-jre"
 dependency "runit"
 
-if version.include? '-beta' or version.include? '-rc'
-  source url: "http://packages.graylog2.org/releases/graylog2-server/graylog-#{version}.tgz",
-         md5: "15239dc13ce741395840dc37f4415bb4"
+if version.include? '-beta' or version.include? '-rc' or version.include? 'SNAPSHOT'
+  #source url: "http://packages.graylog2.org/releases/graylog2-server/graylog-#{version}.tgz",
+  source url: "https://packages.graylog2.org/nightly-builds/graylog-#{version}.tar.gz",
+         md5: "99ecf5bae143dd2a6ecb715238e3573a"
 else
   source url: "http://packages.graylog2.org/releases/graylog2-server/graylog-#{version}.tgz",
          md5: "cf5929269589cb1518d15b03b5b9ef2d"
@@ -28,6 +29,8 @@ build do
 
   mkdir "#{install_dir}/server"
   mkdir "#{install_dir}/plugin"
+  mkdir "#{install_dir}/contentpacks"
   sync  "#{project_dir}/", "#{install_dir}/server"
 	sync  "#{project_dir}/plugin/", "#{install_dir}/plugin/"
+	sync  "#{project_dir}/data/contentpacks/", "#{install_dir}/contentpacks/"
 end
