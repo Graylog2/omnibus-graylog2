@@ -9,5 +9,5 @@ build do
   copy "#{project_dir}/docker/docker_environment", "#{install_dir}/embedded/share/docker/"
   copy "#{project_dir}/docker/run_graylogctl", "#{install_dir}/embedded/share/docker/"
   copy "#{project_dir}/docker/my_init", "#{install_dir}/embedded/share/docker/"
-  sync "#{project_dir}/data/contentpacks/", "#{install_dir}/contentpacks/"
+  copy "#{project_dir}/data/contentpacks/content_pack_appliance.json", "#{install_dir}/contentpacks/"
 end

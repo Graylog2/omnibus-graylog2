@@ -4,7 +4,7 @@
   "description" : "This content pack will create two inputs for the appliance service logs and for general syslog messages. Example extractors are applied to effectively read the Nginx data into message fields.",
   "category" : "Appliance",
   "inputs" : [ {
-    "title" : "syslog-udp",
+    "title" : "appliance-syslog-udp",
     "configuration" : {
       "allow_override_date" : true,
       "recv_buffer_size" : 1048576,
