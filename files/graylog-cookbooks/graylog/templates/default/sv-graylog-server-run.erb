@@ -2,9 +2,14 @@
 exec 2>&1
 
 umask 077
+
+if [ -f "/opt/graylog/embedded/share/graylog/installation-source.sh" ]; then
+    . "/opt/graylog/embedded/share/graylog/installation-source.sh"
+fi
+
 export JAVA_HOME=<%= @options[:install_directory] %>/embedded/jre
 export GRAYLOG_SERVER_JAVA_OPTS="-Xms1g -Xmx<%= @options[:max_memory] %> -XX:NewRatio=1 -XX:PermSize=128m -XX:MaxPermSize=256m -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow"
 
 # check if mongodb is up
 timeout 600 bash -c "until curl -s http://127.0.0.1:27017; do sleep 1; done"
-exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> <%= node['graylog']['graylog-server']['wrapper'] %> $JAVA_HOME/bin/java $GRAYLOG_SERVER_JAVA_OPTS -jar -Dlog4j.configuration=file:///opt/graylog/conf/log4j.xml -Djava.library.path=/opt/graylog/server/lib/sigar/ <%= @options[:install_directory] %>/server/<%= @options[:server_jar] %> -f <%= @options[:install_directory] %>/conf/graylog.conf
+exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> <%= node['graylog']['graylog-server']['wrapper'] %> $JAVA_HOME/bin/java $GRAYLOG_SERVER_JAVA_OPTS -jar -Dlog4j.configuration=file:///opt/graylog/conf/log4j.xml -Djava.library.path=/opt/graylog/server/lib/sigar/ -Dgraylog2.installation_source=${GRAYLOG_INSTALLATION_SOURCE:=unknown} <%= @options[:install_directory] %>/server/<%= @options[:server_jar] %> -f <%= @options[:install_directory] %>/conf/graylog.conf
