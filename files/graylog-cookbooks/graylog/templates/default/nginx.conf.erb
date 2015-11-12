@@ -8,7 +8,7 @@ events {
 http {
     include       /opt/graylog/conf/nginx/mime.types;
     default_type  application/octet-stream;
-    log_format    graylog_format  '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for" <msec=$msec|connection=$connection|connection_requests=$connection_requests|millis=$request_time>';
+    log_format    graylog_format  'nginx: $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for" <msec=$msec|connection=$connection|connection_requests=$connection_requests|millis=$request_time>';
     access_log    /dev/stdout graylog_format;
 
     server {
