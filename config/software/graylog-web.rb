@@ -14,7 +14,7 @@ else
 end
 
 #relative_path "graylog-web-interface-#{version}"
-relative_path "graylog-web-interface-1.3.0-SNAPSHOT-20151103144707"
+relative_path "graylog-web-interface-1.3.0-SNAPSHOT-20151118142643"
 
 build do
   mkdir "#{install_dir}/web"
