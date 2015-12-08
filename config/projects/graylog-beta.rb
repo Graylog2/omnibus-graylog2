@@ -8,10 +8,10 @@ build_iteration  1
 
 override :ruby,       version: "2.1.4"
 override :'chef-gem', version: "12.4.1"
-override :'openssl',  version: "1.0.1p",
+override :'openssl',  version: "1.0.1q",
                       source: {
-                        url: "https://www.openssl.org/source/openssl-1.0.1p.tar.gz",
-                        md5: "7563e92327199e0067ccd0f79f436976" }
+                        url: "https://www.openssl.org/source/openssl-1.0.1q.tar.gz",
+                        md5: "54538d0cdcb912f9bc2b36268388205e" }
 override :'cacerts',  version: "2015.10.28",
                       source: { md5: "6f41fb0f0c4b4695c2a6296892278141" }
 
