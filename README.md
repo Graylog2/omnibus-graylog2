@@ -102,3 +102,75 @@ Now you can go back to first box and disable the web interface and the local Ela
 ```shell
 $ sudo graylog-ctl reconfigure-as-server
 ```
+
+Customize
+----
+Sometime we need override the default settings omnibus provides,eg. `data-directory`,`time-zone` etc.
+That time,we could make use of the `attributes` override mechanism omnibus provides.
+
+After a fresh install of omnibus,there is a `/etc/graylog` created which contains the `graylog-settings.json` file.
+By which we could do our customizing.
+
+1. How to change the default `data-directory` and  `journal_directory`?
+
+   Solution: Add attributes to the `custom_attributes` section,eg.
+   ```
+      "custom_attributes": {
+        "elasticsearch": {
+          "data_directory": "/data/elasticsearch"
+        },
+        "mongodb": {
+          "data_directory": "/data/mongodb"
+        },
+        "etcd": {
+          "data_directory": "/data/etcd"
+        },
+        "graylog-server": {
+          "journal_directory": "/data/journal"
+        }
+      }
+   ```
+2. How to change the default `timezone`?
+
+   Solution: Change the `timezone` value to what you like,eg.
+   ```
+   timezone = "Asia/Chongqing"
+   ```
+
+3. How to change the memory `graylog-server` will use?
+
+   Solution: Add attributes to the `custom_attributes` section,eg.
+   ```
+   "custom_attributes": {
+       "graylog-server": {
+         "memory": "1700m"
+       },
+       "elasticsearch": {
+         "memory": "2200m"
+       }
+     }
+   ```
+
+4. How to change the `retention_strategy` of `graylog-server` to `close`?
+
+   Solution: Add attributes to the `custom_attributes` section,eg.
+   ```
+   "custom_attributes": {
+       "graylog-server": {
+         "retention_strategy": "close"
+       }
+     }
+   ```
+
+**Note:**
+
+After change the `graylog-settings.json`,make sure to trigger the reconfiguration to make it take effect.
+```
+sudo graylog-ctl reconfigure
+```
+
+You can find all the currently available attributes here :
+ https://github.com/Graylog2/omnibus-graylog2/blob/1.2/files/graylog-cookbooks/graylog/attributes/default.rb
+
+And in fact you can configure every detail of Graylog by using our Chef or Puppet recipes: https://github.com/Graylog2/graylog2-cookbook
+https://github.com/Graylog2/graylog2-puppet
