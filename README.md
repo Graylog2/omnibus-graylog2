@@ -103,10 +103,14 @@ Now you can go back to first box and disable the web interface and the local Ela
 $ sudo graylog-ctl reconfigure-as-server
 ```
 
-Customize
+Customize/Advanced-settings
 ----
 Sometime we need override the default settings omnibus provides,eg. `data-directory`,`time-zone` etc.
 That time,we could make use of the `attributes` override mechanism omnibus provides.
+
+You could read this topic from the online document too:
+http://docs.graylog.org/en/1.2/pages/installation/graylog_ctl.html#advanced-settings
+
 
 After a fresh install of omnibus,there is a `/etc/graylog` created which contains the `graylog-settings.json` file.
 By which we could do our customizing.
