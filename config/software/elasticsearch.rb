@@ -11,6 +11,7 @@ relative_path "elasticsearch-1.7.3"
 
 build do
   mkdir  "#{install_dir}/elasticsearch"
+  mkdir  "#{install_dir}/elasticsearch/plugins"
   delete "#{project_dir}/lib/sigar/*solaris*"
   delete "#{project_dir}/lib/sigar/*sparc*"
   delete "#{project_dir}/lib/sigar/*freebsd*"
