@@ -1,10 +1,10 @@
 name "mongodb"
-default_version "3.0.6"
+default_version "3.2.1"
 
 dependency "runit"
 
 source url: "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-#{version}.tgz",
-       md5: "68f58028bb98ff7b97c4b37ebc20380c"
+       md5: "299bb9c72be5d856baee2c36dd9c776e"
 
 relative_path "mongodb-linux-x86_64-#{version}"
 

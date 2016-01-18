@@ -1,11 +1,11 @@
 name "nginx"
-default_version "1.8.0"
+default_version "1.9.9"
 
 dependency "pcre"
 dependency "openssl"
 
 source :url => "http://nginx.org/download/nginx-#{version}.tar.gz",
-       :md5 => "3ca4a37931e9fa301964b8ce889da8cb"
+       :md5 => "50fdfa08e93ead7a111cba5a5f5735af"
 
 relative_path "nginx-#{version}"
 
@@ -21,7 +21,7 @@ build do
            "--with-debug",
            "--with-ld-opt=-L#{install_dir}/embedded/lib",
            "--with-cc-opt=\"-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include\""].join(" ")
-  command "make -j #{max_build_jobs}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
+  command "make -j #{workers}", :env => {"LD_RUN_PATH" => "#{install_dir}/embedded/lib"}
   command "make install"
 
   command "mkdir -p /var/log/graylog/nginx"

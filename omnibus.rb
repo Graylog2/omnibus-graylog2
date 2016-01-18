@@ -46,3 +46,6 @@ build_retries 1
 # ------------------------------
 software_gems ['omnibus-software']
 # local_software_dirs ['/path/to/local/software']
+
+# Don't append timestamp to project version string
+append_timestamp false

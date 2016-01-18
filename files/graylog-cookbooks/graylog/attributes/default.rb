@@ -90,11 +90,6 @@ default['graylog']['graylog-server']['alert_check_interval'] = 60
 default['graylog']['graylog-server']['rules_file'] = nil
 default['graylog']['graylog-server']['dashboard_widget_default_cache_time'] = "10s"
 
-default['graylog']['graylog-web']['enable'] = true
-default['graylog']['graylog-web']['log_directory'] = "/var/log/graylog/web"
-default['graylog']['graylog-web']['port'] = 9000
-default['graylog']['graylog-web']['bind'] = "0.0.0.0"
-
 default['graylog']['logging']['svlogd_size'] = 200 * 1024 * 1024 # rotate after 200 MB of log data
 default['graylog']['logging']['svlogd_num'] = 30 # keep 30 rotated log files
 default['graylog']['logging']['svlogd_timeout'] = 24 * 60 * 60 # rotate after 24 hours

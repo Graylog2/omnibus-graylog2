@@ -16,7 +16,6 @@ module Graylog
   mongodb Mash.new
   nginx Mash.new
   graylog_server Mash.new
-  graylog_web Mash.new
   timezone String.new
   smtp_server String.new
   smtp_port nil
@@ -48,7 +47,6 @@ module Graylog
         end
       end
 
-      Graylog['graylog_web']['secret_token']      ||= generate_hex(64)
       Graylog['graylog_server']['secret_token']   ||= generate_hex(64)
       Graylog['graylog_server']['admin_password'] ||= Digest::SHA2.new << "admin"
       Graylog['graylog_server']['admin_username'] ||= "admin"
@@ -61,9 +59,6 @@ module Graylog
                 'secret_token' => Graylog['graylog_server']['secret_token'],
                 'admin_password' => Graylog['graylog_server']['admin_password'],
                 'admin_username' => Graylog['graylog_server']['admin_username'],
-              },
-              'graylog_web' => {
-                'secret_token' => Graylog['graylog_web']['secret_token'],
               }
             })
           )
@@ -96,7 +91,6 @@ module Graylog
       Graylog['mongodb']['enabled']         = Graylog[:node]['graylog']['mongodb']['enable'] if Graylog['mongodb']['enabled'].nil?
       Graylog['elasticsearch']['enabled']   = Graylog[:node]['graylog']['elasticsearch']['enable'] if Graylog['elasticsearch']['enabled'].nil?
       Graylog['graylog_server']['enabled']  = Graylog[:node]['graylog']['graylog-server']['enable'] if Graylog['graylog_server']['enabled'].nil?
-      Graylog['graylog_web']['enabled']     = Graylog[:node]['graylog']['graylog-web']['enable'] if Graylog['graylog_web']['enabled'].nil?
 
       if File.directory?("/etc/graylog")
         File.open("/etc/graylog/graylog-services.json", "w") do |f|
@@ -116,9 +110,6 @@ module Graylog
               },
               'graylog_server' => {
                 'enabled' => Graylog['graylog_server']['enabled'],
-              },
-              'graylog_web' => {
-                'enabled' => Graylog['graylog_web']['enabled'],
               },
             })
           )
@@ -216,7 +207,6 @@ module Graylog
         "mongodb",
         "elasticsearch",
         "graylog-server",
-        "graylog-web"
       ].each do |key|
         rkey = key.gsub('_', '-')
         results['graylog'][rkey] = Graylog[key]

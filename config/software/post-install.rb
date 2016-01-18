@@ -1,8 +1,6 @@
 name "post-install"
 
-always_build true
-
-source :path => File.expand_path("files", Config.project_root)
+source :path => File.expand_path("files", RbConfig::CONFIG['project_root'])
 
 build do
   mkdir "#{install_dir}/embedded/share/docker"

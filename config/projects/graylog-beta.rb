@@ -3,11 +3,12 @@ maintainer 'Marius Sturm'
 homepage 'https://graylog.org'
 
 install_dir     '/opt/graylog'
-build_version   '1.3.0-beta.2'
+build_version   '2.0.0-SNAPSHOT-20160115104621'
 build_iteration  1
 
-override :ruby,       version: "2.1.4"
-override :'chef-gem', version: "12.4.1"
+override :ruby,       version: "2.1.8",
+                      source: { md5: "091b62f0a9796a3c55de2a228a0e6ef3"}
+override :'chef-gem', version: "12.6.0"
 override :'openssl',  version: "1.0.1q",
                       source: {
                         url: "https://www.openssl.org/source/openssl-1.0.1q.tar.gz",
@@ -18,14 +19,13 @@ override :'cacerts',  version: "2015.10.28",
 dependency "prepare"
 dependency "chef-gem"
 dependency "runit"
-dependency "server-jre"
+dependency "jdk"
 dependency "elasticsearch"
 dependency "kopf"
 dependency "mongodb"
 dependency "nginx"
 dependency "etcd"
 dependency "graylog-server"
-dependency "graylog-web"
 dependency "graylog-ctl"
 dependency "graylog-cookbooks"
 dependency "post-install"

@@ -1,2 +1,0 @@
-#!/bin/sh
-exec /opt/graylog/embedded/bin/svloggelfd -H 127.0.0.1:12201 -s graylog-web -e | svlogd -tt <%= @options[:log_directory] %>

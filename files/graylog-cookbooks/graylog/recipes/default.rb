@@ -31,7 +31,6 @@ include_recipe "timezone-ii"
   "elasticsearch",
   "mongodb",
   "graylog-server",
-  "graylog-web",
   "nginx",
 ].each do |service|
   if Graylog.enabled?(service)

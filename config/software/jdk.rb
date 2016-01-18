@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-name "server-jre"
+name "jdk"
 default_version "8u66"
 
 whitelist_file "jre/bin/javaws"
@@ -25,8 +25,8 @@ whitelist_file "jre/bin/appletviewer"
 
 if _64_bit?
   # TODO: download x86 version on x86 machines
-  source url:     "http://download.oracle.com/otn-pub/java/jdk/8u66-b17/server-jre-8u66-linux-x64.tar.gz",
-         md5:     "76b938f79fcc9356d887b653f0a255d8",
+  source url:     "http://download.oracle.com/otn-pub/java/jdk/#{version}-b17/jdk-#{version}-linux-x64.tar.gz",
+         md5:     "88f31f3d642c3287134297b8c10e61bf",
          cookie:  "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie",
          warning: "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html"
 else
@@ -37,5 +37,6 @@ relative_path "jdk1.8.0_66"
 
 build do
   mkdir "#{install_dir}/embedded/jre"
+  delete "#{project_dir}/bin/ControlPanel"
   sync  "#{project_dir}/", "#{install_dir}/embedded/jre"
 end

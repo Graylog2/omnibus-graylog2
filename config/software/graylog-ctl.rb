@@ -3,7 +3,7 @@ name "graylog-ctl"
 dependency "rsync"
 dependency "omnibus-ctl"
 
-source :path => File.expand_path("files/graylog-ctl-commands", Config.project_root)
+source :path => File.expand_path("files/graylog-ctl-commands", RbConfig::CONFIG['project_root'])
 
 build do
   block do

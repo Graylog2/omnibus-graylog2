@@ -1,12 +1,12 @@
 name "graylog-server"
 default_version project.build_version
 
-dependency "server-jre"
+dependency "jdk"
 dependency "runit"
 
 if version.include? '-beta' or version.include? '-rc' or version.include? 'SNAPSHOT'
-  source url: "http://packages.graylog2.org/releases/graylog2-server/graylog-#{version}.tgz",
-         md5: "81076781ecb53ab7c49de9ba7afa935e"
+  source url: "http://packages.graylog2.org/nightly-builds/graylog-#{version}.tar.gz",
+         md5: "a2ec5e3324feb2186cc9cf7fb872d2f8"
 else
   source url: "http://packages.graylog2.org/releases/graylog2-server/graylog-#{version}.tgz",
          md5: "11780da48ac37f43b619558dab87fb1d"

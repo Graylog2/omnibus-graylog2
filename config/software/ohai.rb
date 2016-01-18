@@ -1,5 +1,5 @@
 name "ohai"
-default_version "8.5.1"
+default_version "8.8.1"
 
 dependency "ruby"
 dependency "rubygems"
