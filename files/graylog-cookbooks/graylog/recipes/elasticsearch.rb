@@ -15,7 +15,14 @@ directory es_data_dir do
   recursive true
 end
 
-template "#{node['graylog']['install_directory']}/conf/elasticsearch.yml" do
+directory "#{node['graylog']['install_directory']}/elasticsearch/config/scripts" do
+  owner es_user
+  group node['graylog']['user']['group']
+  mode "0750"
+  recursive true
+end
+
+template "#{node['graylog']['install_directory']}/elasticsearch/config/elasticsearch.yml" do
   owner es_user
   group node['graylog']['user']['group']
   mode "0644"
@@ -24,6 +31,10 @@ template "#{node['graylog']['install_directory']}/conf/elasticsearch.yml" do
     :es_nodes => $registry.get_es_nodes.map{|x| "#{x}:9300"}.to_s
   )
   notifies :restart, 'service[elasticsearch]'
+end
+
+link "#{node['graylog']['install_directory']}/conf/elasticsearch" do
+  to "#{node['graylog']['install_directory']}/elasticsearch/config"
 end
 
 es_memory = ENV['ES_MEMORY'] || node['graylog']['elasticsearch']['memory'] || "#{(node.memory.total.to_i * 0.6 ).floor / 1024}m"

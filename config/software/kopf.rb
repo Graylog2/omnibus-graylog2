@@ -1,10 +1,10 @@
 name "kopf"
-default_version "2.0"
+default_version "2.1.1"
 
 dependency "elasticsearch"
 
-source url: "https://github.com/lmenezes/elasticsearch-kopf/archive/#{version}.zip",
-       md5: "e1ead54ba635fc31c5475625a89df8ac"
+source url: "https://github.com/lmenezes/elasticsearch-kopf/archive/v#{version}.zip",
+       md5: "c7a3e1ebdd6c3ceb3ed7d1d1c014ecf7"
 
 relative_path "elasticsearch-kopf-#{version}"
 

@@ -7,10 +7,13 @@
     "title" : "appliance-syslog-udp",
     "configuration" : {
       "allow_override_date" : true,
-      "recv_buffer_size" : 1048576,
+      "recv_buffer_size" : 262144,
       "port" : 514,
-      "override_source" : "",
-      "bind_address" : "0.0.0.0"
+      "override_source" : null,
+      "bind_address" : "0.0.0.0",
+      "store_full_message": false,
+      "force_rdns": false,
+      "expand_structured_data": false
     },
     "type" : "org.graylog2.inputs.syslog.udp.SyslogUDPInput",
     "global" : false,
@@ -236,8 +239,7 @@
       "condition_value" : "^nginx:"
     } ],
     "static_fields" : {
-      "from_nginx" : "true",
-      "nginx_access" : "true"
+      "from_gelf" : "true"
     }
   } ],
   "streams" : [ {
@@ -245,11 +247,12 @@
     "title" : "nginx requests",
     "description" : "All requests that were logged into the nginx access_log",
     "disabled" : false,
+    "matching_type": "AND",
     "outputs" : [ ],
     "stream_rules" : [ {
       "type" : "EXACT",
-      "field" : "nginx_access",
-      "value" : "true",
+      "field" : "source",
+      "value" : "nginx",
       "inverted" : false
     } ]
   }, {
@@ -257,11 +260,12 @@
     "title" : "nginx HTTP 4XXs",
     "description" : "All requests that were answered with a HTTP code in the 400 range by nginx",
     "disabled" : false,
+    "matching_type": "AND",
     "outputs" : [ ],
     "stream_rules" : [ {
       "type" : "EXACT",
-      "field" : "from_nginx",
-      "value" : "true",
+      "field" : "source",
+      "value" : "nginx",
       "inverted" : false
     }, {
       "type" : "GREATER",
@@ -279,11 +283,12 @@
     "title" : "nginx HTTP 5XXs",
     "description" : "All requests that were answered with a HTTP code in the 500 range by nginx",
     "disabled" : false,
+    "matching_type": "AND",
     "outputs" : [ ],
     "stream_rules" : [ {
       "type" : "EXACT",
-      "field" : "from_nginx",
-      "value" : "true",
+      "field" : "source",
+      "value" : "nginx",
       "inverted" : false
     }, {
       "type" : "GREATER",
@@ -296,11 +301,12 @@
     "title" : "nginx HTTP 404s",
     "description" : "All requests that were answered with a HTTP 404 by nginx",
     "disabled" : false,
+    "matching_type": "AND",
     "outputs" : [ ],
     "stream_rules" : [ {
       "type" : "EXACT",
-      "field" : "from_nginx",
-      "value" : "true",
+      "field" : "source",
+      "value" : "nginx",
       "inverted" : false
     }, {
       "type" : "EXACT",

@@ -60,6 +60,7 @@ default['graylog']['graylog-server']['content_packs_loader_enabled'] = true
 default['graylog']['graylog-server']['content_packs_dir'] = "/opt/graylog/contentpacks"
 default['graylog']['graylog-server']['content_packs_auto_load'] = "grok-patterns.json,content_pack_appliance.json"
 default['graylog']['graylog-server']['rest_listen_uri'] = "http://0.0.0.0:12900/"
+default['graylog']['graylog-server']['web_listen_uri'] = "http://0.0.0.0:9000/"
 default['graylog']['graylog-server']['retention_strategy'] = "delete"
 default['graylog']['graylog-server']['elasticsearch_shards'] = 4
 default['graylog']['graylog-server']['elasticsearch_replicas'] = 1
