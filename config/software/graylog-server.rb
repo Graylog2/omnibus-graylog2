@@ -4,11 +4,11 @@ default_version project.build_version
 dependency "jdk"
 dependency "runit"
 
-if version.include? '-beta' or version.include? '-rc' or version.include? 'SNAPSHOT'
-  source url: "http://packages.graylog2.org/nightly-builds/graylog-#{version}.tar.gz",
-         md5: "5b4ca63cee84fec979b5a9f1631384dd"
+if version.include? '-alpha' or version.include? '-beta' or version.include? '-rc' or version.include? 'SNAPSHOT'
+  source url: "http://packages.graylog2.org/releases/graylog/graylog-#{version}.tgz",
+         md5: "c4acbe645d647b664c68a3497234a8a2"
 else
-  source url: "http://packages.graylog2.org/releases/graylog2-server/graylog-#{version}.tgz",
+  source url: "http://packages.graylog2.org/releases/graylog/graylog-#{version}.tgz",
          md5: "11780da48ac37f43b619558dab87fb1d"
 end
 
