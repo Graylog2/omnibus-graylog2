@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if dpkg-query -W -f='${Version}\n' graylog 2>&1 | egrep -q '^1\.[0-3]'; then
+if dpkg-query -W -f='${Version} ${Status}\n' graylog 2>&1 | egrep -q '^1\.[0-3].*installed'; then
   echo "This is not a drop-in replacement. Please consult the updating guide!"
   exit 1
 fi
