@@ -1,3 +1,8 @@
 #!/bin/bash
 
+if dpkg-query -W -f='${Version}\n' graylog 2>&1 | egrep -q '^1\.[0-3]'; then
+  echo "This is not a drop-in replacement. Please consult the updating guide!"
+  exit 1
+fi
+
 echo "You're about to install Graylog!"
