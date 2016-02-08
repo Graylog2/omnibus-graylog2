@@ -13,7 +13,6 @@ add_command 'reconfigure-as-datanode', 'Run Elasticsearch on this node only', 1 
       existing_services['mongodb']         = Hash.new
       existing_services['elasticsearch']   = Hash.new
       existing_services['graylog_server']  = Hash.new
-      existing_services['graylog_web']     = Hash.new
     end
 
     existing_services['etcd']['enabled']            = false
@@ -21,7 +20,6 @@ add_command 'reconfigure-as-datanode', 'Run Elasticsearch on this node only', 1 
     existing_services['mongodb']['enabled']         = false
     existing_services['elasticsearch']['enabled']   = true
     existing_services['graylog_server']['enabled']  = false
-    existing_services['graylog_web']['enabled']     = false
 
     File.open("/etc/graylog/graylog-services.json","w") do |services|
       services.write(JSON.pretty_generate(existing_services))

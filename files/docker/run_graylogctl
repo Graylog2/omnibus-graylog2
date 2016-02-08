@@ -24,9 +24,6 @@ if [ ! -z "$GRAYLOG_SERVER_SECRET" ]; then
 fi
 if [ ! -z "$GRAYLOG_MASTER" ]; then
         graylog-ctl set-cluster-master $GRAYLOG_MASTER
-fi
-if [ ! -z "$GRAYLOG_WEB" ]; then
-        graylog-ctl reconfigure-as-webinterface
 elif [ ! -z "$GRAYLOG_SERVER" ]; then
         graylog-ctl reconfigure-as-backend
 else

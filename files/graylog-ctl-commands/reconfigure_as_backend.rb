@@ -13,7 +13,6 @@ add_command 'reconfigure-as-backend', 'Run Graylog server and Elasticsearch on t
       existing_services['mongodb']         = Hash.new
       existing_services['elasticsearch']   = Hash.new
       existing_services['graylog_server']  = Hash.new
-      existing_services['graylog_web']     = Hash.new
     end
 
     existing_services['etcd']['enabled']            = true
@@ -21,7 +20,6 @@ add_command 'reconfigure-as-backend', 'Run Graylog server and Elasticsearch on t
     existing_services['mongodb']['enabled']         = true
     existing_services['elasticsearch']['enabled']   = true
     existing_services['graylog_server']['enabled']  = true
-    existing_services['graylog_web']['enabled']     = false
 
     File.open("/etc/graylog/graylog-services.json","w") do |services|
       services.write(JSON.pretty_generate(existing_services))
