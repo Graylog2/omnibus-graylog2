@@ -25,7 +25,7 @@ default['graylog']['elasticsearch']['enable'] = true
 default['graylog']['elasticsearch']['memory'] = nil # defaults to 60% of VM memory
 default['graylog']['elasticsearch']['log_directory'] = "/var/log/graylog/elasticsearch"
 default['graylog']['elasticsearch']['data_directory'] = "/var/opt/graylog/data/elasticsearch"
-default['graylog']['elasticsearch']['cluster_name'] = "graylog2"
+default['graylog']['elasticsearch']['cluster_name'] = "graylog"
 default['graylog']['elasticsearch']['discovery_zen_ping_timeout'] = "10s"
 
 default['graylog']['mongodb']['enable'] = true
@@ -67,7 +67,7 @@ default['graylog']['graylog-server']['elasticsearch_replicas'] = 1
 default['graylog']['graylog-server']['elasticsearch_index_prefix'] = "graylog"
 default['graylog']['graylog-server']['allow_leading_wildcard_searches'] = true
 default['graylog']['graylog-server']['allow_highlighting'] = false
-default['graylog']['graylog-server']['elasticsearch_cluster_name'] = "graylog2"
+default['graylog']['graylog-server']['elasticsearch_cluster_name'] = "graylog"
 default['graylog']['graylog-server']['elasticsearch_http_enabled'] = false
 default['graylog']['graylog-server']['elasticsearch_cluster_discovery_timeout'] = 5000
 default['graylog']['graylog-server']['elasticsearch_discovery_initial_state_timeout'] = "3s"
