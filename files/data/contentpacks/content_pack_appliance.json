@@ -19,7 +19,8 @@
     "global" : false,
     "extractors" : [ ],
     "static_fields" : {
-      "from_syslog" : "true"
+      "key": "from_syslog",
+      "value" : "true"
     }
   }, {
     "title" : "appliance-gelf-udp",
@@ -239,7 +240,8 @@
       "condition_value" : "^nginx:"
     } ],
     "static_fields" : {
-      "from_gelf" : "true"
+      "key": "from_gelf",
+      "value": "true"
     }
   } ],
   "streams" : [ {
