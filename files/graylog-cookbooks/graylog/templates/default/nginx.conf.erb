@@ -36,7 +36,8 @@ http {
         internal;
       }
     }
-    
+
+    <%- if Graylog['enforce_ssl'] -%>    
     server {
       listen 443;
 
@@ -67,4 +68,5 @@ http {
         internal;
       }
     }
+    <%- end -%>
 }
