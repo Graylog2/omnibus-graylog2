@@ -15,7 +15,9 @@ node.override.tz = Graylog['timezone']
 package value_for_platform_family(
   'gentoo'  => 'timezone-data',
   'default' => 'tzdata'
-)
+) do
+  ignore_failure true
+end
 
 case node.platform_family
 when 'debian', 'fedora', 'pld', 'rhel'
