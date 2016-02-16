@@ -47,7 +47,7 @@ template "#{node['graylog']['install_directory']}/conf/graylog.conf" do
   notifies :restart, 'service[graylog-server]', :delayed
 end
 
-template "#{node['graylog']['install_directory']}/conf/log4j.xml" do
+template "#{node['graylog']['install_directory']}/conf/log4j2.xml" do
   owner server_user
   group node['graylog']['user']['group']
   mode "0644"
