@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /opt/graylog/embedded/bin/svloggelfd -H 127.0.0.1:12201 -s mongodb -e | svlogd -tt <%= @options[:log_directory] %>
+exec <%- if Graylog['internal_logging'] -%>/opt/graylog/embedded/bin/svloggelfd -H 127.0.0.1:12201 -s mongodb -e | <%- end -%>svlogd -tt <%= @options[:log_directory] %>
