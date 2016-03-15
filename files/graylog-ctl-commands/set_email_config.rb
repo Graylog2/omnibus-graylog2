@@ -30,12 +30,12 @@ add_command 'set-email-config', 'Setup email configuration', 2 do |cmd_name, ser
     end
   end.parse!
 
-  if server.start_with?('-')
-    puts "Please provide a SMTP server before any options!"
-    exit 1
-  end
-
   if server
+    if server.start_with?('-')
+      puts "Please provide a SMTP server before any options!"
+      exit 1
+    end
+
     existing_settings = Hash.new
     if File.exists?("/etc/graylog/graylog-settings.json")
       existing_settings = JSON.parse(File.read("/etc/graylog/graylog-settings.json"))
