@@ -21,9 +21,6 @@ module Graylog
   smtp_port nil
   smtp_user String.new
   smtp_password String.new
-  rotation_size nil
-  rotation_time nil
-  indices nil
   journal_size nil
   etcd Mash.new
   node nil
@@ -145,9 +142,6 @@ module Graylog
       Graylog['current_address']  = Graylog[:node][:ipaddress]
       Graylog['last_address']     ||= Graylog['current_address']
       Graylog['enforce_ssl']      ||= false
-      Graylog['rotation_size']    = Graylog[:node]['graylog']['rotation_size'] if Graylog['rotation_size'].nil?
-      Graylog['rotation_time']    = Graylog[:node]['graylog']['rotation_time'] if Graylog['rotation_time'].nil?
-      Graylog['indices']          = Graylog[:node]['graylog']['indices'] if Graylog['indices'].nil?
       Graylog['journal_size']     = Graylog[:node]['graylog']['journal_size'] if Graylog['journal_size'].nil?
       Graylog['node_id']          ||= false
       Graylog['internal_logging'] ||= true if Graylog['internal_logging'].nil?
@@ -186,9 +180,6 @@ module Graylog
               'current_address' => Graylog['current_address'],
               'last_address' => Graylog['last_address'],
               'enforce_ssl' => Graylog['enforce_ssl'],
-              'rotation_size' => Graylog['rotation_size'],
-              'rotation_time' => Graylog['rotation_time'],
-              'indices' => Graylog['indices'],
               'journal_size' => Graylog['journal_size'],
               'node_id' => Graylog['node_id'],
               'internal_logging' => Graylog['internal_logging'],
