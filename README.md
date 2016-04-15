@@ -5,7 +5,7 @@ This project creates full-stack platform-specific packages for
 
 Download
 --------
-You can download pre-build omnibus packages of Graylog [here](https://packages.graylog2.org/appliances/ubuntu)
+You can download pre-build omnibus packages of Graylog [here](https://packages.graylog2.org/appliances/ubuntu).
 Those packages are build for _Ubuntu_ 14.04 LTS release.
 
 Installation
