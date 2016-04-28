@@ -17,6 +17,10 @@ the required gems are installed:
 $ sudo bundle install --binstubs
 ```
 
+### Upgrading
+
+*WARNING*: The Graylog omnibus package currently does *not* support upgrading from Graylog 1.x to Graylog 2.0.x!
+
 Usage
 -----
 ### Build
