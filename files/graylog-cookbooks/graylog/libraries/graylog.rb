@@ -148,6 +148,7 @@ module Graylog
       Graylog['web_listen_uri']     ||= false
       Graylog['rest_listen_uri']    ||= false
       Graylog['rest_transport_uri'] ||= false
+      Graylog['external_rest_uri']  ||= false
   
 
       if Graylog['current_address'] == '127.0.0.1'
@@ -189,7 +190,8 @@ module Graylog
               'internal_logging' => Graylog['internal_logging'],
               'web_listen_uri' => Graylog['web_listen_uri'],
               'rest_listen_uri' => Graylog['rest_listen_uri'],
-              'rest_transport_uri'=> Graylog['rest_transport_uri'],
+              'rest_transport_uri' => Graylog['rest_transport_uri'],
+              'external_rest_uri' => Graylog['external_rest_uri'],
               'custom_attributes' => Graylog['custom_attributes']
             })
           )

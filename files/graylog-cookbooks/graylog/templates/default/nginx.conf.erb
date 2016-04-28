@@ -22,6 +22,9 @@ http {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        <%- if Graylog['external_rest_uri'] -%>
+        proxy_set_header X-Graylog-Server-URL <%= Graylog['external_rest_uri'] %>;
+        <%- end -%>
         proxy_pass_request_headers on;
         proxy_connect_timeout 150;
         proxy_send_timeout 100;
@@ -55,6 +58,11 @@ http {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        <%- if Graylog['external_rest_uri'] -%>
+        proxy_set_header X-Graylog-Server-URL <%= Graylog['external_rest_uri'] %>;
+        <%- else -%>
+        proxy_set_header X-Graylog-Server-URL https://$host:443/api;
+        <%- end -%>
         proxy_pass_request_headers on;
         proxy_connect_timeout 150;
         proxy_send_timeout 100;
@@ -63,6 +71,13 @@ http {
         client_max_body_size 8m;
         client_body_buffer_size 128k;
       }
+
+      location /api/ {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_pass http://localhost:12900/;
+      }
+
       error_page 502 /502.html;
       location  /502.html {
         internal;
