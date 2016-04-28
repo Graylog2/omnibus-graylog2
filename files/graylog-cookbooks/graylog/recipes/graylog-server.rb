@@ -42,7 +42,9 @@ template "#{node['graylog']['install_directory']}/conf/graylog.conf" do
     :email_enabled => email_enabled,
     :email_auth    => email_auth,
     :es_nodes      => $registry.get_es_nodes.map{|x| "#{x}:9300"}.join(","),
-    :mongo_server  => Graylog['master_node']
+    :mongo_server  => Graylog['master_node'],
+    :web_listen_uri => Graylog['web_listen_uri'] || node['graylog']['graylog-server']['web_listen_uri'],
+    :rest_listen_uri => Graylog['rest_listen_uri'] || node['graylog']['graylog-server']['rest_listen_uri']
   )
   notifies :restart, 'service[graylog-server]', :delayed
 end
