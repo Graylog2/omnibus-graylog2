@@ -139,7 +139,7 @@ elasticsearch_cluster_discovery_timeout = <%= node['graylog']['graylog-server'][
 # override them here or in the 'elasticsearch_config_file' if you need to bind to a special address
 # refer to http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.3/modules-network.html
 # for special values here
-# elasticsearch_network_host =
+elasticsearch_network_host = <%= node['graylog']['graylog-server']['elasticsearch_network_host'] %>
 # elasticsearch_network_bind_host =
 # elasticsearch_network_publish_host =
 

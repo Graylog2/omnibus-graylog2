@@ -68,6 +68,7 @@ default['graylog']['graylog-server']['elasticsearch_index_prefix'] = "graylog"
 default['graylog']['graylog-server']['allow_leading_wildcard_searches'] = true
 default['graylog']['graylog-server']['allow_highlighting'] = false
 default['graylog']['graylog-server']['elasticsearch_cluster_name'] = "graylog"
+default['graylog']['graylog-server']['elasticsearch_network_host'] = "0.0.0.0"
 default['graylog']['graylog-server']['elasticsearch_http_enabled'] = false
 default['graylog']['graylog-server']['elasticsearch_cluster_discovery_timeout'] = 5000
 default['graylog']['graylog-server']['elasticsearch_discovery_initial_state_timeout'] = "3s"
