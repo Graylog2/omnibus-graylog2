@@ -16,7 +16,7 @@ add_command 'reconfigure-as-server', 'Run Graylog server on this node only', 1 d
     end
 
     existing_services['etcd']['enabled']            = true
-    existing_services['nginx']['enabled']           = false
+    existing_services['nginx']['enabled']           = true
     existing_services['mongodb']['enabled']         = true
     existing_services['elasticsearch']['enabled']   = false
     existing_services['graylog_server']['enabled']  = true
