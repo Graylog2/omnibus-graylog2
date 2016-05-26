@@ -3,8 +3,8 @@ maintainer 'Marius Sturm'
 homepage 'https://graylog.org'
 
 install_dir     '/opt/graylog'
-build_version   '2.0.1'
-build_iteration  2
+build_version   '2.0.2'
+build_iteration  1
 
 override :ruby,       version: "2.1.8",
                         source: { md5: "091b62f0a9796a3c55de2a228a0e6ef3" }
