@@ -32,4 +32,7 @@ build do
   sync  "#{project_dir}/", "#{install_dir}/server"
 	sync  "#{project_dir}/plugin/", "#{install_dir}/plugin/"
 	sync  "#{project_dir}/data/contentpacks/", "#{install_dir}/contentpacks/"
+
+  delete "#{project_dir}/plugin"
+  delete "#{project_dir}/data/contentpacks"
 end
