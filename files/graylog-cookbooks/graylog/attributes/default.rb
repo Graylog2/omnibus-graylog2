@@ -27,6 +27,8 @@ default['graylog']['elasticsearch']['log_directory'] = "/var/log/graylog/elastic
 default['graylog']['elasticsearch']['data_directory'] = "/var/opt/graylog/data/elasticsearch"
 default['graylog']['elasticsearch']['cluster_name'] = "graylog"
 default['graylog']['elasticsearch']['discovery_zen_ping_timeout'] = "10s"
+default['graylog']['elasticsearch']['log_filesize'] = 10000000
+default['graylog']['elasticsearch']['log_backup'] = 3
 
 default['graylog']['mongodb']['enable'] = true
 default['graylog']['mongodb']['log_directory'] = "/var/log/graylog/mongodb"
