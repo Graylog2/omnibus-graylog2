@@ -10,6 +10,21 @@ Those packages are build for _Ubuntu_ 14.04 LTS release.
 
 Installation
 ------------
+
+The Omnibus package will create all it needs on the host including users and system services. Install it either as
+root or a sudo'ed admin user:
+
+```shell
+$ sudo dpkg -i graylog_latest.deb
+```
+
+Upgrading
+---------
+
+*WARNING*: The Graylog omnibus package currently does *not* support upgrading from Graylog 1.x to Graylog 2.0.x!
+
+Usage
+-----
 You must have a sane Ruby 1.9+ environment with Bundler installed. Ensure all
 the required gems are installed:
 
@@ -17,12 +32,6 @@ the required gems are installed:
 $ sudo bundle install --binstubs
 ```
 
-### Upgrading
-
-*WARNING*: The Graylog omnibus package currently does *not* support upgrading from Graylog 1.x to Graylog 2.0.x!
-
-Usage
------
 ### Build
 
 You create a platform-specific package using the `build project` command:
