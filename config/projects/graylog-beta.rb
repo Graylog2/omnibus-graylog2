@@ -9,14 +9,11 @@ build_iteration  1
 override :ruby,       version: "2.1.8",
                         source: { md5: "091b62f0a9796a3c55de2a228a0e6ef3" }
 override :'chef-gem', version: "12.6.0"
-override :'openssl',  version: "1.0.1s",
+override :'openssl',  version: "1.0.1t",
                       source: {
-                        url: "https://www.openssl.org/source/openssl-1.0.1s.tar.gz",
-                        md5: "562986f6937aabc7c11a6d376d8a0d26" }
-override :'cacerts',  version: "2016.01.20",
-                      source: {
-                        url: "https://curl.haxx.se/ca/cacert.pem",
-                        md5: "06629db7f712ff3a75630eccaecc1fe4" }
+                        url: "https://www.openssl.org/source/openssl-1.0.1t.tar.gz",
+                        md5: "9837746fcf8a6727d46d22ca35953da1" }
+override :'cacerts',  version: "2016-04-20"
 
 dependency "prepare"
 dependency "chef-gem"
