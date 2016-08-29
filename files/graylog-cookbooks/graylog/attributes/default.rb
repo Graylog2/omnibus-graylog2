@@ -53,6 +53,7 @@ default['graylog']['etcd']['data_directory'] = "/var/opt/graylog/data/etcd"
 
 default['graylog']['graylog-server']['enable'] = true
 default['graylog']['graylog-server']['memory'] = "1500m"
+default['graylog']['graylog-server']['java_opts'] = nil
 default['graylog']['graylog-server']['log_directory'] = "/var/log/graylog/server"
 default['graylog']['graylog-server']['journal_directory'] = "/var/opt/graylog/data/journal"
 default['graylog']['graylog-server']['node_id'] = "/var/opt/graylog/graylog-server-node-id"

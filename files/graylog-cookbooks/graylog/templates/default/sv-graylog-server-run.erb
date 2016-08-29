@@ -8,7 +8,7 @@ if [ -f "/opt/graylog/embedded/share/graylog/installation-source.sh" ]; then
 fi
 
 export JAVA_HOME=<%= @options[:install_directory] %>/embedded/jre
-export GRAYLOG_SERVER_JAVA_OPTS="-Xms1g -Xmx<%= @options[:max_memory] %> -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow"
+export GRAYLOG_SERVER_JAVA_OPTS="-Xms1g -Xmx<%= @options[:max_memory] %> -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow <%= node['graylog']['graylog-server']['java_opts'] %>"
 
 # check if mongodb is up
 timeout 600 bash -c "until curl -s http://127.0.0.1:27017; do sleep 1; done"
