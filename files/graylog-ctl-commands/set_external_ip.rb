@@ -1,4 +1,4 @@
-add_command 'set-external-ip', 'Configure IP where the Graylog API is reachable from your browsers point of view', 2 do |cmd_name, address|
+add_command 'set-external-ip', 'Configure IP under which the Graylog API is reachable from your browsers point of view', 2 do |cmd_name, address|
   require 'fileutils'
   require 'json'
   require 'uri'
@@ -16,6 +16,6 @@ add_command 'set-external-ip', 'Configure IP where the Graylog API is reachable 
       settings.write(JSON.pretty_generate(existing_settings))
     end
   else
-    puts "Usage: #{cmd_name} http://<public address>:12900"
+    puts "Usage: #{cmd_name} http://<public address>:9000/api"
   end
 end
