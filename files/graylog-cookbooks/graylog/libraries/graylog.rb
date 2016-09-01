@@ -146,6 +146,7 @@ module Graylog
       Graylog['node_id']            ||= false
       Graylog['internal_logging']   ||= true if Graylog['internal_logging'].nil?
       Graylog['web_listen_uri']     ||= false
+      Graylog['web_endpoint_uri']   ||= false
       Graylog['rest_listen_uri']    ||= false
       Graylog['rest_transport_uri'] ||= false
       Graylog['external_rest_uri']  ||= false
@@ -189,6 +190,7 @@ module Graylog
               'node_id' => Graylog['node_id'],
               'internal_logging' => Graylog['internal_logging'],
               'web_listen_uri' => Graylog['web_listen_uri'],
+              'web_endpoint_uri' => Graylog['web_endpoint_uri'],
               'rest_listen_uri' => Graylog['rest_listen_uri'],
               'rest_transport_uri' => Graylog['rest_transport_uri'],
               'external_rest_uri' => Graylog['external_rest_uri'],

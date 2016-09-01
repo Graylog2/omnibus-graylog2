@@ -48,6 +48,12 @@ web_listen_uri = <%= @web_listen_uri %>
 rest_transport_uri = <%= Graylog['rest_transport_uri'] %>
 <% end -%>
 
+# Web interface endpoint URI. This setting can be overriden on a per-request basis with the X-Graylog-Server-URL header.
+# Default: $rest_transport_uri
+<% if Graylog['web_endpoint_uri'] -%>
+web_endpoint_uri = <%= Graylog['web_endpoint_uri'] %>
+<% end -%>
+
 # Enable CORS headers for REST api. This is necessary for JS-clients accessing the server directly.
 # If these are disabled, modern browsers will not be able to retrieve resources from the server.
 # This is disabled by default. Uncomment the next line to enable it.
