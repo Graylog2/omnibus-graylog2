@@ -84,6 +84,7 @@ end
 execute 'apt-get-update-periodic' do
   command 'apt-get update'
   ignore_failure true
+  timeout 90
   only_if { apt_installed? }
   not_if { apt_up_to_date? }
   notifies :touch, 'file[/var/lib/apt/periodic/update-success-stamp]', :immediately
