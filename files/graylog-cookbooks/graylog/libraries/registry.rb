@@ -91,7 +91,7 @@ class GraylogRegistry
   
   def add_node(ip, context)
     begin
-			check_connection
+      check_connection
       @client.set("/#{context}/#{ip}", value: "{\"ip\":\"#{ip}\"}")
     rescue Exception => e
       Chef::Log.debug("Can not add node #{ip} to directory #{context}")
