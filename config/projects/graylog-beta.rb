@@ -4,7 +4,7 @@ homepage 'https://graylog.org'
 
 install_dir     '/opt/graylog'
 build_version   '2.2.0-beta.4'
-build_iteration  2
+build_iteration  3
 
 override :ruby,       version: "2.1.8",
                         source: { md5: "091b62f0a9796a3c55de2a228a0e6ef3" }
