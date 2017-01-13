@@ -14,7 +14,7 @@ relative_path "mongodb-linux-x86_64-#{version}"
 build do
   mkdir "#{install_dir}/mongodb"
   sync  "#{project_dir}/", "#{install_dir}/mongodb"
-  delete "#{install_dir}/mongodb/bin/mongoreplay" // depends on libpcap
+  delete "#{install_dir}/mongodb/bin/mongoreplay"
 
   gem "install mongo -n #{install_dir}/embedded/bin --no-rdoc --no-ri -v #{gem_version}"
 end
