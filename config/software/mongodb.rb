@@ -7,7 +7,7 @@ dependency "ruby"
 dependency "rubygems"
 
 source url: "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-#{version}.tgz",
-       md5: "8f5ce8185e14ff54bde0984305e1833c"
+       md5: "10d823efd59d886ae28117617d423bc0"
 
 relative_path "mongodb-linux-x86_64-#{version}"
 
