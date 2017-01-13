@@ -1,6 +1,7 @@
 server_log_dir     = node['graylog']['graylog-server']['log_directory']
 server_journal_dir = node['graylog']['graylog-server']['journal_directory']
 server_user        = node['graylog']['user']['username']
+mongo_login        = Graylog.get_mongodb_user
 
 directory server_log_dir do
   owner server_user
@@ -43,6 +44,7 @@ template "#{node['graylog']['install_directory']}/conf/graylog.conf" do
     :email_auth    => email_auth,
     :es_nodes      => $registry.get_es_nodes.map{|x| "#{x}:9300"}.join(","),
     :mongo_server  => Graylog['master_node'],
+    :mongo_login   => mongo_login,
     :web_listen_uri => Graylog['web_listen_uri'] || node['graylog']['graylog-server']['web_listen_uri'],
     :rest_listen_uri => Graylog['rest_listen_uri'] || node['graylog']['graylog-server']['rest_listen_uri']
   )

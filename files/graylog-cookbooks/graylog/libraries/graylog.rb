@@ -16,6 +16,7 @@ module Graylog
   mongodb Mash.new
   nginx Mash.new
   graylog_server Mash.new
+  mongodb_server Mash.new
   timezone String.new
   smtp_server String.new
   smtp_port nil
@@ -47,6 +48,7 @@ module Graylog
       Graylog['graylog_server']['secret_token']   ||= generate_hex(64)
       Graylog['graylog_server']['admin_password'] ||= Digest::SHA2.new << "admin"
       Graylog['graylog_server']['admin_username'] ||= "admin"
+      Graylog['mongodb_server']                   ||= Hash.new
 
       if File.directory?("/etc/graylog")
         File.open("/etc/graylog/graylog-secrets.json", "w") do |f|
@@ -56,12 +58,21 @@ module Graylog
                 'secret_token' => Graylog['graylog_server']['secret_token'],
                 'admin_password' => Graylog['graylog_server']['admin_password'],
                 'admin_username' => Graylog['graylog_server']['admin_username'],
-              }
+              }, 'mongodb_server' => Graylog['mongodb_server']
             })
           )
           system("chmod 0600 /etc/graylog/graylog-secrets.json")
         end
       end
+    end
+
+    def get_mongodb_user
+      Graylog['mongodb_server'].each_key do |user|
+        if Graylog['mongodb_server'][user]['is_graylog_user']
+          return {:username => user, :password => Graylog['mongodb_server'][user]['password']}
+        end
+      end
+      return nil
     end
 
     def generate_bootstrap
