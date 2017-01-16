@@ -1,8 +1,8 @@
 name "zlib"
-default_version "1.2.10"
+default_version "1.2.11"
 
-version "1.2.10" do
-  source md5: "d9794246f853d15ce0fcbf79b9a3cf13"
+version "1.2.11" do
+  source md5: "1c9f62f0778697a09d36121ead88e08e"
 end
 
 source url: "http://zlib.net/zlib-#{version}.tar.gz"
