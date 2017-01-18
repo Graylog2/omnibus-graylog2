@@ -3,7 +3,7 @@ maintainer 'Marius Sturm'
 homepage 'https://graylog.org'
 
 install_dir     '/opt/graylog'
-build_version   '2.2.0-beta.5'
+build_version   '2.2.0-beta.6'
 build_iteration  1
 
 override :ruby,       version: "2.1.8",
