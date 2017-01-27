@@ -15,8 +15,8 @@ env = with_standard_compiler_flags()
 build do
   command "./configure" \
           " --prefix=#{install_dir}/embedded" \
-          " --disable-iconv", env: => env
+          " --disable-iconv", :env => env
 
 	command "make -j #{workers} ", :env => env
-  command "make install", env: => env
+  command "make install", :env => env
 end
