@@ -6,8 +6,8 @@ install_dir     '/opt/graylog'
 build_version   '2.2.0-beta.6'
 build_iteration  1
 
-override :ruby,       version: "2.4.0",
-                        source: { md5: "7e9485dcdb86ff52662728de2003e625" }
+override :ruby,       version: "2.3.3",
+                        source: { md5: "e485f3a55649eb24a1e2e1a40bc120df" }
 override :'chef-gem', version: "12.6.0"
 override :'openssl',  version: "1.0.2k",
                       source: {
