@@ -13,7 +13,7 @@ override :'openssl',  version: "1.0.2k",
                       source: {
                         url: "https://www.openssl.org/source/openssl-1.0.2k.tar.gz",
                         md5: "f965fc0bf01bf882b31314b61391ae65" }
-override :'cacerts',  version: "2016-09-14",
+override :'cacerts',  version: "2017-01-18",
                       source: {
                         url: "https://curl.haxx.se/ca/cacert-2017-01-18.pem",
                         md5: "38cd779c9429ab6e2e5ae3437b763238" }
