@@ -87,4 +87,5 @@ ruby_block "add node to server list" do
     $registry.add_gl_server(node['ipaddress'])
     $registry.add_es_node(node['ipaddress'])
   end
+  retries 15
 end
