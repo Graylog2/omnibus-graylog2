@@ -32,3 +32,18 @@ elif [ ! -z "$GRAYLOG_SERVER" ]; then
 else
         graylog-ctl local-connect && graylog-ctl reconfigure
 fi
+if [ ! -z "$GRAYLOG_SSL_CERTIFICATE_URL"]; then
+        curl -o "/tmp/graylog.crt" "$GRAYLOG_SSL_CERTIFICATE_URL" && \
+        mv -f "/opt/graylog/conf/nginx/ca/graylog.crt" "/opt/graylog/conf/nginx/ca/graylog.crt.old" && \
+        mv -f "/tmp/graylog.crt" "/opt/graylog/conf/nginx/ca/graylog.crt" && \
+        GRAYLOG_SSL_CERTIFICATE_UPDATED=true
+fi
+if [ ! -z "$GRAYLOG_SSL_PRIVATEKEY_URL"]; then
+        curl -o "/tmp/graylog.key" "$GRAYLOG_SSL_PRIVATEKEY_URL" && \
+        mv -f "/opt/graylog/conf/nginx/ca/graylog.key" "/opt/graylog/conf/nginx/ca/graylog.key.old" && \
+        mv -f "/tmp/graylog.key" "/opt/graylog/conf/nginx/ca/graylog.key" && \
+        GRAYLOG_SSL_PRIVATEKEY_UPDATED=true
+fi
+if [ -z "$GRAYLOG_SSL_CERTIFICATE_UPDATED" ] && [ -z "$GRAYLOG_SSL_PRIVATEKEY_UPDATED" ]; then
+        graylog-ctl restart nginx
+fi
