@@ -6,6 +6,8 @@ install_dir     '/opt/graylog'
 build_version   '2.2.0-rc.1'
 build_iteration  1
 
+conflict 'graylog-server'
+
 override :ruby,       version: "2.1.10",
                         source: { md5: "c212fdeed9534ec7cb9bf13c0bf4d1d5" }
 override :'chef-gem', version: "12.6.0"
