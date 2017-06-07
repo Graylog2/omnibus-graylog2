@@ -33,15 +33,11 @@ template "#{node['graylog']['install_directory']}/elasticsearch/config/elasticse
   notifies :restart, 'service[elasticsearch]'
 end
 
-template "#{node['graylog']['install_directory']}/elasticsearch/config/logging.yml" do
-  source "elasticsearch_logging.yml.erb"
+template "#{node['graylog']['install_directory']}/elasticsearch/config/log4j2.properties" do
+  source "elasticsearch_log4j2.properties.erb"
   owner es_user
   group node['graylog']['user']['group']
   mode "0644"
-  variables(
-    :es_log_filesize  => node['graylog']['elasticsearch']['log_filesize'],
-    :es_log_backup => node['graylog']['elasticsearch']['log_backup']
-  )
   notifies :restart, 'service[elasticsearch]'
 end
 

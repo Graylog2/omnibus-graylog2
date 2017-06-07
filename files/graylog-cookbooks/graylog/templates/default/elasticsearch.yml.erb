@@ -305,34 +305,21 @@ network.host: <%= @es_host %>
 # Set this option to a higher value on a slow or congested network
 # to minimize discovery failures:
 #
-discovery.zen.ping.timeout: <%= node['graylog']['elasticsearch']['discovery_zen_ping_timeout'] %>
+discovery.zen.ping_timeout: <%= node['graylog']['elasticsearch']['discovery_zen_ping_timeout'] %>
 
 # For more information, see
 # <http://elasticsearch.org/guide/en/elasticsearch/reference/current/modules-discovery-zen.html>
 
-# Unicast discovery allows to explicitly control which nodes will be used
-# to discover the cluster. It can be used when multicast is not present,
-# or to restrict the cluster communication-wise.
-#
-# 1. Disable multicast discovery (enabled by default):
-#
-discovery.zen.ping.multicast.enabled: false
-#
-# 2. Configure an initial list of master nodes in the cluster
-#    to perform discovery when new nodes (master or data) are started:
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is ["127.0.0.1", "[::1]"]
 #
 discovery.zen.ping.unicast.hosts: <%= @es_nodes %>
 
-# EC2 discovery allows to use AWS EC2 API in order to perform discovery.
+# Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1
 #
-# You have to install the cloud-aws plugin for enabling the EC2 discovery.
+#discovery.zen.minimum_master_nodes: 3
 #
-# For more information, see
-# <http://elasticsearch.org/guide/en/elasticsearch/reference/current/modules-discovery-ec2.html>
-#
-# See <http://elasticsearch.org/tutorials/elasticsearch-on-ec2/>
-# for a step-by-step tutorial.
-
+# For more information, consult the zen discovery module documentation.
 
 ################################## Slow Log ##################################
 

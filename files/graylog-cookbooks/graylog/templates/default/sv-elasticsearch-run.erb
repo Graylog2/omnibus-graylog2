@@ -2,16 +2,19 @@
 exec 2>&1
 
 umask 077
-ulimit -n 64000
+ulimit -n 65536
 ulimit -l unlimited
+sysctl -w vm.max_map_count=262144
 
 export ES_HOME=<%= @options[:install_directory] %>/elasticsearch
 export ES_JAVA_OPTS="
   -server
+  -Xms<%= @options[:max_memory] %> -Xmx<%= @options[:max_memory] %>
   -Djava.net.preferIPv4Stack=true
   -Dcom.sun.management.jmxremote.ssl=false
   -Dcom.sun.management.jmxremote.authenticate=false
   -Dcom.sun.management.jmxremote.port=3333
+  -Dlog4j2.disable.jmx=true
   -XX:+UseParNewGC
   -XX:+UseConcMarkSweepGC
   -XX:+CMSParallelRemarkEnabled
@@ -20,7 +23,6 @@ export ES_JAVA_OPTS="
   -XX:CMSInitiatingOccupancyFraction=75
   -XX:+UseCMSInitiatingOccupancyOnly
   -XX:+HeapDumpOnOutOfMemoryError"
-export ES_HEAP_SIZE=<%= @options[:max_memory] %>
 export JAVA_HOME=<%= @options[:install_directory] %>/embedded/jre
 
 exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> $ES_HOME/bin/elasticsearch

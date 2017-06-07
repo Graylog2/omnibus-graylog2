@@ -22,12 +22,11 @@ default['graylog']['user']['git_user_name'] = "Graylog"
 default['graylog']['user']['git_user_email'] = "graylog@#{node['fqdn']}"
 
 default['graylog']['elasticsearch']['enable'] = true
+default['graylog']['elasticsearch']['cluster_name'] = "graylog"
 default['graylog']['elasticsearch']['memory'] = nil # defaults to 60% of VM memory
 default['graylog']['elasticsearch']['log_directory'] = "/var/log/graylog/elasticsearch"
 default['graylog']['elasticsearch']['data_directory'] = "/var/opt/graylog/data/elasticsearch"
 default['graylog']['elasticsearch']['discovery_zen_ping_timeout'] = "10s"
-default['graylog']['elasticsearch']['log_filesize'] = 10000000
-default['graylog']['elasticsearch']['log_backup'] = 3
 
 default['graylog']['mongodb']['enable'] = true
 default['graylog']['mongodb']['log_directory'] = "/var/log/graylog/mongodb"
@@ -69,7 +68,7 @@ default['graylog']['graylog-server']['elasticsearch_replicas'] = 1
 default['graylog']['graylog-server']['elasticsearch_index_prefix'] = "graylog"
 default['graylog']['graylog-server']['allow_leading_wildcard_searches'] = true
 default['graylog']['graylog-server']['allow_highlighting'] = false
-default['graylog']['graylog-server']['elasticsearch_cluster_name'] = "graylog"
+default['graylog']['graylog-server']['elasticsearch_protocol'] = "http"
 default['graylog']['graylog-server']['elasticsearch_connect_timeout'] = "10s"
 default['graylog']['graylog-server']['elasticsearch_socket_timeout'] = "60s"
 default['graylog']['graylog-server']['elasticsearch_idle_timeout'] = "-1s"

@@ -121,14 +121,14 @@ allow_highlighting = <%= node['graylog']['graylog-server']['allow_highlighting']
 elasticsearch_hosts = <%= @es_nodes %>
 
 # Maximum amount of time to wait for successfull connection to Elasticsearch HTTP port.
-elasticsearch_connect_timeout = <%= node['graylog']['graylog-server']['elasticsearch_connect_timeout'] %>
+#elasticsearch_connect_timeout = <%= node['graylog']['graylog-server']['elasticsearch_connect_timeout'] %>
 
 # Maximum amount of time to wait for reading back a response from an Elasticsearch server.
-elasticsearch_socket_timeout = <%= node['graylog']['graylog-server']['elasticsearch_socket_timeout'] %>
+#elasticsearch_socket_timeout = <%= node['graylog']['graylog-server']['elasticsearch_socket_timeout'] %>
 
 # Maximum idle time for an Elasticsearch connection. If this is exceeded, this connection will
 # be tore down.
-elasticsearch_idle_timeout = <%= node['graylog']['graylog-server']['elasticsearch_idle_timeout'] %>
+#elasticsearch_idle_timeout = <%= node['graylog']['graylog-server']['elasticsearch_idle_timeout'] %>
 
 # Maximum number of total connections to Elasticsearch.
 elasticsearch_max_total_connections = <%= node['graylog']['graylog-server']['elasticsearch_max_total_connections'] %>
@@ -151,7 +151,7 @@ elasticsearch_discovery_enabled = <%= node['graylog']['graylog-server']['elastic
 #elasticsearch_discovery_filter = rack:42
 
 # Frequency of the Elasticsearch node discovery.
-elasticsearch_discovery_frequency = <%= node['graylog']['graylog-server']['elasticsearch_discovery_frequency'] %>
+#elasticsearch_discovery_frequency = <%= node['graylog']['graylog-server']['elasticsearch_discovery_frequency'] %>
 
 # Analyzer (tokenizer) to use for message and full_message field. The "standard" filter usually is a good idea.
 # All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom
