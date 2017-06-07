@@ -92,10 +92,6 @@ rest_enable_cors = true
 # The size of the worker thread pool used exclusively for serving the REST API.
 #rest_worker_threads_max_pool_size = 16
 
-# Embedded Elasticsearch configuration file
-# pay attention to the working directory of the server, maybe use an absolute path here
-#elasticsearch_config_file = /etc/graylog-elasticsearch.yml
-
 # Disable checking the version of Elasticsearch for being compatible with this Graylog release.
 # WARNING: Using Graylog with unsupported and untested versions of Elasticsearch may lead to data loss!
 #elasticsearch_disable_version_check = true
@@ -118,40 +114,44 @@ allow_leading_wildcard_searches = <%= node['graylog']['graylog-server']['allow_l
 # should only be enabled after making sure your Elasticsearch cluster has enough memory.
 allow_highlighting = <%= node['graylog']['graylog-server']['allow_highlighting'] %>
 
-# settings to be passed to elasticsearch's client (overriding those in the provided elasticsearch_config_file)
-# all these
-# this must be the same as for your Elasticsearch cluster
-elasticsearch_cluster_name = <%= node['graylog']['graylog-server']['elasticsearch_cluster_name'] %>
+# List of Elasticsearch hosts Graylog should connect to.
+# Need to be specified as a comma-separated list of valid URIs for the http ports of your elasticsearch nodes.
+# If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that
+# requires authentication.
+elasticsearch_hosts = <%= @es_nodes %>
 
-# we don't want the graylog server to store any data, or be master node
-#elasticsearch_node_master = false
-#elasticsearch_node_data = false
+# Maximum amount of time to wait for successfull connection to Elasticsearch HTTP port.
+elasticsearch_connect_timeout = <%= node['graylog']['graylog-server']['elasticsearch_connect_timeout'] %>
 
-# use a different port if you run multiple Elasticsearch nodes on one machine
-#elasticsearch_transport_tcp_port = 9350
+# Maximum amount of time to wait for reading back a response from an Elasticsearch server.
+elasticsearch_socket_timeout = <%= node['graylog']['graylog-server']['elasticsearch_socket_timeout'] %>
 
-# we don't need to run the embedded HTTP server here
-elasticsearch_http_enabled = <%= node['graylog']['graylog-server']['elasticsearch_http_enabled'] %>
+# Maximum idle time for an Elasticsearch connection. If this is exceeded, this connection will
+# be tore down.
+elasticsearch_idle_timeout = <%= node['graylog']['graylog-server']['elasticsearch_idle_timeout'] %>
 
-#elasticsearch_discovery_zen_ping_multicast_enabled = false
-elasticsearch_discovery_zen_ping_unicast_hosts = <%= @es_nodes %>
+# Maximum number of total connections to Elasticsearch.
+elasticsearch_max_total_connections = <%= node['graylog']['graylog-server']['elasticsearch_max_total_connections'] %>
 
-# Change the following setting if you are running into problems with timeouts during Elasticsearch cluster discovery.
-# The setting is specified in milliseconds, the default is 5000ms (5 seconds).
-elasticsearch_cluster_discovery_timeout = <%= node['graylog']['graylog-server']['elasticsearch_cluster_discovery_timeout'] %>
+# Maximum number of total connections per Elasticsearch route (normally this means per
+# elasticsearch server).
+elasticsearch_max_total_connections_per_route = <%= node['graylog']['graylog-server']['elasticsearch_max_total_connections_per_route'] %>
 
-# the following settings allow to change the bind addresses for the Elasticsearch client in graylog
-# these settings are empty by default, letting Elasticsearch choose automatically,
-# override them here or in the 'elasticsearch_config_file' if you need to bind to a special address
-# refer to http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.3/modules-network.html
-# for special values here
-elasticsearch_network_host = <%= node['graylog']['graylog-server']['elasticsearch_network_host'] %>
-# elasticsearch_network_bind_host =
-# elasticsearch_network_publish_host =
+# Enable automatic Elasticsearch node discovery through Nodes Info,
+# see https://www.elastic.co/guide/en/elasticsearch/reference/5.4/cluster-nodes-info.html
+#
+# WARNING: Automatic node discovery does not work if Elasticsearch requires authentication, e. g. with Shield.
+#
+elasticsearch_discovery_enabled = <%= node['graylog']['graylog-server']['elasticsearch_discovery_enabled'] %>
 
-# The total amount of time discovery will look for other Elasticsearch nodes in the cluster
-# before giving up and declaring the current node master.
-elasticsearch_discovery_initial_state_timeout = <%= node['graylog']['graylog-server']['elasticsearch_discovery_initial_state_timeout'] %>
+# Filter for including/excluding Elasticsearch nodes in discovery according to their custom attributes,
+# see https://www.elastic.co/guide/en/elasticsearch/reference/5.4/cluster.html#cluster-nodes
+#
+# Default: empty
+#elasticsearch_discovery_filter = rack:42
+
+# Frequency of the Elasticsearch node discovery.
+elasticsearch_discovery_frequency = <%= node['graylog']['graylog-server']['elasticsearch_discovery_frequency'] %>
 
 # Analyzer (tokenizer) to use for message and full_message field. The "standard" filter usually is a good idea.
 # All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom
