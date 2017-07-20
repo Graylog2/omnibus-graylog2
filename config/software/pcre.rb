@@ -14,13 +14,18 @@ configure_env = {
 }
 
 build do
-  command ["./configure",
-           "--prefix=#{install_dir}/embedded",
-           "--enable-pcretest-libedit"].join(" "), :env => configure_env
-  command("make -j #{max_build_jobs}",
-          :env => {
-            "PATH" => "#{install_dir}/embedded/bin:#{ENV["PATH"]}"
-          })
-  command "make install"
+  env = with_standard_compiler_flags(with_embedded_path)
+
+  update_config_guess
+
+  command "./configure" \
+          " --prefix=#{install_dir}/embedded" \
+          " --disable-cpp" \
+          " --enable-utf" \
+          " --enable-unicode-properties" \
+          " --enable-pcretest-libedit", env: env
+
+  make "-j #{workers}", env: env
+  make "install", env: env
 end
 
