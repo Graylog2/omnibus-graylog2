@@ -1,11 +1,11 @@
 name "elasticsearch"
-default_version "2.4.2"
+default_version "2.4.6"
 
 dependency "jdk"
 dependency "runit"
 
 source url: "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-#{version}.tar.gz",
-       md5: "e2ae0152109c9d78d7aa83b63ffcf2ab"
+       md5: "f527b5a50c188ad98acc37f6b4e97b90"
 
 relative_path "elasticsearch-#{version}"
 
