@@ -15,7 +15,7 @@
 #
 
 name "jdk"
-default_version "8u101"
+default_version "8u144"
 
 whitelist_file "jre/bin/javaws"
 whitelist_file "jre/bin/policytool"
@@ -25,15 +25,15 @@ whitelist_file "jre/bin/appletviewer"
 
 if _64_bit?
   # TODO: download x86 version on x86 machines
-  source url:     "http://download.oracle.com/otn-pub/java/jdk/#{version}-b13/jdk-#{version}-linux-x64.tar.gz",
-         md5:     "a7ab8014716b0dac3adcaf5342167699",
+  source url:     "http://download.oracle.com/otn-pub/java/jdk/#{version}-b01/090f390dda5b47b9b721c7dfaa008135/jdk-#{version}-linux-x64.tar.gz",
+         md5:     "2d59a3add1f213cd249a67684d4aeb83",
          cookie:  "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie",
          warning: "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html"
 else
   raise "Server-jre can only be installed on x86_64 systems."
 end
 
-relative_path "jdk1.8.0_101"
+relative_path "jdk1.8.0_144"
 
 build do
   mkdir "#{install_dir}/embedded/jre"
