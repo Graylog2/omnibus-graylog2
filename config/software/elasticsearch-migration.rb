@@ -3,8 +3,10 @@ default_version "2.0.4"
 
 dependency "elasticsearch"
 
-source url: "https://github.com/elastic/elasticsearch-migration/releases/download/v#{version}/elasticsearch-migration-#{version}.zip",
-       md5: "907c3b39b6511692c3e4c9a9f2c79507"
+source url: "https://github.com/elastic/elasticsearch-migration/archive/v#{version}.zip",
+       md5: "6158bb5053c374fb551423ebf7ba11ee"
+
+relative_path "elasticsearch-migration-#{version}"
 
 build do
   mkdir  "#{install_dir}/elasticsearch/plugins/migration"
