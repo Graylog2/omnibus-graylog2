@@ -24,6 +24,11 @@ runit_service "etcd" do
   log_options node['graylog']['logging'].to_hash.merge(node['graylog']['etcd'].to_hash)
 end
 
+execute "remove unneeded snapshot files" do
+  command "rm #{File.join(etcd_data_dir, 'member', 'snap', '*')}"
+  only_if { !Dir.glob(File.join(etcd_data_dir, 'member', 'snap', '*.snap')).empty? }
+end
+
 if node['graylog']['bootstrap']['enable']
   execute "/opt/graylog/embedded/bin/graylog-ctl start etcd" do
     retries 20
