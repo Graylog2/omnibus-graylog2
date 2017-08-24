@@ -2,7 +2,7 @@
 <Configuration packages="org.graylog2.log4j" shutdownHook="disable">
     <Appenders>
         <Console name="STDOUT" target="SYSTEM_OUT">
-            <PatternLayout pattern="%-5p [%c{1}] %m%"/>
+            <PatternLayout pattern="%-5p [%c{1}] %m%n"/>
         </Console>
 
         <!-- Internal Graylog log appender. Please do not disable. This makes internal log messages available via REST calls. -->
