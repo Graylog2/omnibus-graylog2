@@ -4,7 +4,7 @@ homepage 'https://graylog.org'
 
 install_dir     '/opt/graylog'
 build_version   '2.2.3'
-build_iteration  2
+build_iteration  3
 
 conflict 'graylog-server'
 
