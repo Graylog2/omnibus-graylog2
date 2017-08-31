@@ -11,6 +11,7 @@ export ES_JAVA_OPTS="
   -server
   -Xms<%= @options[:max_memory] %> -Xmx<%= @options[:max_memory] %>
   -Djava.net.preferIPv4Stack=true
+  -Dlog4j2.disable.jmx=true
   -XX:+UseParNewGC
   -XX:+UseConcMarkSweepGC
   -XX:+CMSParallelRemarkEnabled
