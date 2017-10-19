@@ -25,7 +25,7 @@ whitelist_file "jre/plugin"
 whitelist_file "jre/bin/appletviewer"
 
 if _64_bit?
-  source url:     "http://download.oracle.com/otn-pub/java/jdk/#{version}-b12/e758a0de34e24606bca991d704f6dcb/jdk-#{version}-linux-x64.tar.gz",
+  source url:     "http://download.oracle.com/otn-pub/java/jdk/#{version}-b12/e758a0de34e24606bca991d704f6dcbf/jdk-#{version}-linux-x64.tar.gz",
          md5:     "774d8cb584d9ebedef8eba9ee2dfe113",
          cookie:  "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie",
          warning: "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html"
