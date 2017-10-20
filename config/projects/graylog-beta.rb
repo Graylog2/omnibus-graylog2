@@ -3,8 +3,8 @@ maintainer 'Marius Sturm'
 homepage 'https://graylog.org'
 
 install_dir     '/opt/graylog'
-build_version   '2.3.0-rc.2'
-build_iteration  3
+build_version   '2.4.0-beta.1'
+build_iteration  1
 
 conflict 'graylog-server'
 
@@ -15,10 +15,10 @@ override :'openssl',  version: "1.0.2l",
                       source: {
                         url: "https://www.openssl.org/source/openssl-1.0.2l.tar.gz",
                         md5: "f85123cd390e864dfbe517e7616e6566" }
-override :'cacerts',  version: "2017-06-07",
+override :'cacerts',  version: "2017-09-20",
                       source: {
-                        url: "https://curl.haxx.se/ca/cacert-2017-06-07.pem",
-                        md5: "9d8c2e9a93881cdf1f2a7fc3d01a6318" }
+                        url: "https://curl.haxx.se/ca/cacert-2017-09-20.pem",
+                        md5: "2aeba46562a9b9117a9217520f67adc0" }
 
 dependency "prepare"
 dependency "chef-gem"

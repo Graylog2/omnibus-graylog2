@@ -1,5 +1,5 @@
 name "mongodb"
-default_version "3.4.6"
+default_version "3.4.9"
 gem_version = "2.4.1"
 
 dependency "runit"
@@ -7,7 +7,7 @@ dependency "ruby"
 dependency "rubygems"
 
 source url: "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-#{version}.tgz",
-       md5: "a49c20e50ab9d34d4700e1bc31a130b1"
+       md5: "001a6e1a65de8002f565ebb8d54eb9d5"
 
 relative_path "mongodb-linux-x86_64-#{version}"
 
