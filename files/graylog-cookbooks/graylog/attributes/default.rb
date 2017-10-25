@@ -68,6 +68,7 @@ default['graylog']['graylog-server']['retention_strategy'] = "delete"
 default['graylog']['graylog-server']['elasticsearch_shards'] = 4
 default['graylog']['graylog-server']['elasticsearch_replicas'] = 1
 default['graylog']['graylog-server']['elasticsearch_index_prefix'] = "graylog"
+default['graylog']['graylog-server']['elasticsearch_uri'] = nil
 default['graylog']['graylog-server']['allow_leading_wildcard_searches'] = true
 default['graylog']['graylog-server']['allow_highlighting'] = false
 default['graylog']['graylog-server']['elasticsearch_protocol'] = "http"

@@ -118,7 +118,11 @@ allow_highlighting = <%= node['graylog']['graylog-server']['allow_highlighting']
 # Need to be specified as a comma-separated list of valid URIs for the http ports of your elasticsearch nodes.
 # If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that
 # requires authentication.
+<%- if @es_uri.nil? %>
 elasticsearch_hosts = <%= @es_nodes %>
+<%- else %>
+elasticsearch_hosts = <%= @es_uri %>
+<%- end %>
 
 # Maximum amount of time to wait for successfull connection to Elasticsearch HTTP port.
 #elasticsearch_connect_timeout = <%= node['graylog']['graylog-server']['elasticsearch_connect_timeout'] %>
