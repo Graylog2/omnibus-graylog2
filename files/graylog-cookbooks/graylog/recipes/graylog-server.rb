@@ -45,6 +45,7 @@ template "#{node['graylog']['install_directory']}/conf/graylog.conf" do
     :es_nodes      => $registry.get_es_nodes.map{|x| "#{node['graylog']['graylog-server']['elasticsearch_protocol']}://#{x}:9200"}.join(","),
     :mongo_server  => Graylog['master_node'],
     :mongo_login   => mongo_login,
+    :mongo_uri     => node['graylog']['mongodb']['uri'],
     :web_listen_uri => Graylog['web_listen_uri'] || node['graylog']['graylog-server']['web_listen_uri'],
     :rest_listen_uri => Graylog['rest_listen_uri'] || node['graylog']['graylog-server']['rest_listen_uri']
   )

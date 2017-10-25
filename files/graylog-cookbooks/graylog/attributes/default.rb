@@ -31,6 +31,8 @@ default['graylog']['elasticsearch']['discovery_zen_ping_timeout'] = "10s"
 default['graylog']['mongodb']['enable'] = true
 default['graylog']['mongodb']['log_directory'] = "/var/log/graylog/mongodb"
 default['graylog']['mongodb']['data_directory'] = "/var/opt/graylog/data/mongodb"
+default['graylog']['mongodb']['additional_options'] = nil
+default['graylog']['mongodb']['uri'] = nil
 
 default['graylog']['nginx']['enable'] = true
 default['graylog']['nginx']['user'] = "root"

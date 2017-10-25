@@ -271,8 +271,10 @@ alert_check_interval = <%= node['graylog']['graylog-server']['alert_check_interv
 # MongoDB Configuration
 <%- if !@mongo_login.nil? %>
 mongodb_uri = mongodb://<%= @mongo_login[:username] %>:<%= @mongo_login[:password] %>@<%= @mongo_server %>:27017/graylog
-<%- else %>
+<%- elsif @mongo_uri.nil? %>
 mongodb_uri = mongodb://<%= @mongo_server %>:27017/graylog
+<%- else %>
+mongodb_uri = <%= @mongo_uri %>
 <%- end %>
 
 # Raise this according to the maximum connections your MongoDB server can handle if you encounter MongoDB connection problems.

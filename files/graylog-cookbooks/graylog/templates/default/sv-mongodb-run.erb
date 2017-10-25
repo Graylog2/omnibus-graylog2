@@ -3,4 +3,4 @@ exec 2>&1
 
 export LC_ALL=C
 umask 077
-exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> <%= @options[:install_directory] %>/mongodb/bin/mongod --dbpath <%= node['graylog']['mongodb']['data_directory'] %> --smallfiles  --bind_ip <%= @options[:listen_address] %><% if @options[:auth] %> --auth<% end %>
+exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> <%= @options[:install_directory] %>/mongodb/bin/mongod --dbpath <%= node['graylog']['mongodb']['data_directory'] %> --smallfiles  --bind_ip <%= @options[:listen_address] %><% if @options[:auth] %> --auth<% end %> <%= node['graylog']['mongodb']['additional_options'] %>
