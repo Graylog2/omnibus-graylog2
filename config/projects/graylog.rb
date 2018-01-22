@@ -17,8 +17,8 @@ override :'openssl',  version: "1.0.2l",
                         md5: "f85123cd390e864dfbe517e7616e6566" }
 override :'cacerts',  version: "2017-01-18",
                       source: {
-                        url: "https://curl.haxx.se/ca/cacert-2017-06-07.pem",
-                        md5: "9d8c2e9a93881cdf1f2a7fc3d01a6318" }
+                        url: "https://curl.haxx.se/ca/cacert-2018-01-17.pem",
+                        md5: "df0df092f7590ce0cc636986f1ae084b" }
 
 dependency "prepare"
 dependency "chef-gem"
