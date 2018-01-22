@@ -11,10 +11,10 @@ conflict 'graylog-server'
 override :ruby,       version: "2.1.10",
                         source: { md5: "c212fdeed9534ec7cb9bf13c0bf4d1d5" }
 override :'chef-gem', version: "12.6.0"
-override :'openssl',  version: "1.0.2l",
+override :'openssl',  version: "1.0.2n",
                       source: {
-                        url: "https://www.openssl.org/source/openssl-1.0.2l.tar.gz",
-                        md5: "f85123cd390e864dfbe517e7616e6566" }
+                        url: "https://www.openssl.org/source/openssl-1.0.2n.tar.gz",
+                        md5: "13bdc1b1d1ff39b6fd42a255e74676a4" }
 override :'cacerts',  version: "2017-01-18",
                       source: {
                         url: "https://curl.haxx.se/ca/cacert-2018-01-17.pem",
