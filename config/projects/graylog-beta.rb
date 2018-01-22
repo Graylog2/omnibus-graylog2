@@ -11,14 +11,14 @@ conflict 'graylog-server'
 override :ruby,       version: "2.1.10",
                         source: { md5: "c212fdeed9534ec7cb9bf13c0bf4d1d5" }
 override :'chef-gem', version: "12.6.0"
-override :'openssl',  version: "1.0.2l",
+override :'openssl',  version: "1.0.2n",
                       source: {
-                        url: "https://www.openssl.org/source/openssl-1.0.2l.tar.gz",
-                        md5: "f85123cd390e864dfbe517e7616e6566" }
-override :'cacerts',  version: "2017-09-20",
+                        url: "https://www.openssl.org/source/openssl-1.0.2n.tar.gz",
+                        md5: "13bdc1b1d1ff39b6fd42a255e74676a4" }
+override :'cacerts',  version: "2018-01-17",
                       source: {
-                        url: "https://curl.haxx.se/ca/cacert-2017-09-20.pem",
-                        md5: "2aeba46562a9b9117a9217520f67adc0" }
+                        url: "https://curl.haxx.se/ca/cacert-2018-01-17.pem",
+                        md5: "df0df092f7590ce0cc636986f1ae084b" }
 
 dependency "prepare"
 dependency "chef-gem"
