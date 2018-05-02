@@ -15,8 +15,8 @@
 #
 
 name "jdk"
-default_version "8u161"
-relative_path "jdk1.8.0_161"
+default_version "8u172"
+relative_path "jdk1.8.0_172"
 
 whitelist_file "jre/bin/javaws"
 whitelist_file "jre/bin/policytool"
@@ -25,7 +25,7 @@ whitelist_file "jre/plugin"
 whitelist_file "jre/bin/appletviewer"
 
 if _64_bit?
-  source url:     "http://download.oracle.com/otn-pub/java/jdk/#{version}-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-#{version}-linux-x64.tar.gz",
+  source url:     "http://download.oracle.com/otn-pub/java/jdk/#{version}-b11/a58eab1ec242421181065cdc37240b08/jdk-#{version}-linux-x64.tar.gz",
          md5:     "99051574a0d90871ed24a91a5d321ed2",
          cookie:  "gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie",
          warning: "By including the JRE, you accept the terms of the Oracle Binary Code License Agreement for the Java SE Platform Products and JavaFX, which can be found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html"
