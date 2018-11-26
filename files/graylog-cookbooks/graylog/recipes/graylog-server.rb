@@ -71,7 +71,8 @@ runit_service "graylog-server" do
     :log_directory => server_log_dir,
     :install_directory => node['graylog']['install_directory'],
     :server_jar => server_jar,
-    :max_memory => node['graylog']['graylog-server']['memory']
+    :max_memory => node['graylog']['graylog-server']['memory'],
+    :es_health_check  => $registry.get_es_nodes.first
   }.merge(params))
   log_options node['graylog']['logging'].to_hash.merge(node['graylog']['graylog-server'].to_hash)
   ignore_failure true

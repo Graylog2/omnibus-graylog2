@@ -12,4 +12,6 @@ export GRAYLOG_SERVER_JAVA_OPTS="-Xms1g -Xmx<%= @options[:max_memory] %> -XX:New
 
 # check if mongodb is up
 timeout 600 bash -c "until curl -s http://127.0.0.1:27017; do sleep 1; done"
+# check if ES is up
+timeout 600 bash -c "until curl -s -H \'Accept: application/json\' http://<%= @options[:es_health_check] %>:9200/; do sleep 1; done"
 exec chpst -P -U <%= node['graylog']['user']['username'] %> -u <%= node['graylog']['user']['username'] %> <%= node['graylog']['graylog-server']['wrapper'] %> $JAVA_HOME/bin/java $GRAYLOG_SERVER_JAVA_OPTS -jar -Dlog4j.configurationFile=file:///opt/graylog/conf/log4j2.xml -Djava.library.path=/opt/graylog/server/lib/sigar/ -Dgraylog2.installation_source=${GRAYLOG_INSTALLATION_SOURCE:=unknown} <%= @options[:install_directory] %>/server/<%= @options[:server_jar] %> -f <%= @options[:install_directory] %>/conf/graylog.conf
