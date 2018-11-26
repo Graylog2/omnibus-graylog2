@@ -1,11 +1,11 @@
 name "elasticsearch"
-default_version "5.6.3"
+default_version "5.6.13"
 
 dependency "jdk"
 dependency "runit"
 
 source url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{version}.tar.gz",
-       md5: "8dd1558d3535705d20a5129cac30ce5a"
+       md5: "4e9a958073b6031a128b517a7e8dbf4d"
 
 relative_path "elasticsearch-#{version}"
 
