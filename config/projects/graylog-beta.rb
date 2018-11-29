@@ -3,7 +3,7 @@ maintainer 'Marius Sturm'
 homepage 'https://graylog.org'
 
 install_dir     '/opt/graylog'
-build_version   '2.5.0-alpha.1'
+build_version   '2.5.0-beta.1'
 build_iteration  1
 
 conflict 'graylog-server'
