@@ -9,7 +9,7 @@ if version.include? '-alpha' or version.include? '-beta' or version.include? '-r
          md5: "091f5720902692976f0e7f1fd9194f2d"
 else
   source url: "http://packages.graylog2.org/releases/graylog/graylog-#{version}.tgz",
-         md5: "fe7e43f13146738e30c67407f7f59325"
+         md5: "0ecae3fdce3fcb3ddea5c3850df3258a"
 end
 
 whitelist_file "/opt/graylog/server/lib/sigar/*"
