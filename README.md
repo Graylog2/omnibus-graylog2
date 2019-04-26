@@ -1,3 +1,9 @@
+## WARNING
+
+**This one is deprecated and no longer maintained.**
+
+The Graylog appliances don't rely on the Omnibus package anymore since Graylog 3.0
+
 Graylog Omnibus Project
 ========================
 This project creates full-stack platform-specific packages for
